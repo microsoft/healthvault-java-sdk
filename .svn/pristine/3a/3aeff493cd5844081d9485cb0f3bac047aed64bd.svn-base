@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <title>Java Wildcat</title>
+    </head>
+    <body>
+        <h2>Welcome to JWildcat</h2>
+       	<br/>
+       	To use JWildcat: <a wicket:id="login">Login</a>
+       	<br/>
+    </body>
+</html>
+

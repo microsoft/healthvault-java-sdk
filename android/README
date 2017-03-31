@@ -1,0 +1,38 @@
+With Eclipse Android Development Tools, 
+	select File-->Import
+	select General-->Existing Projects Into Workspace
+	Select the top level "android" directory in this project
+	Select to import all of the projects 
+
+Leave the code in place an do not move the code into your workspace or the links will not work.
+
+Projects
+
+This codebase contains several projects:
+
+android-sdk
+android-sdk-simplexml
+android-sdk-simplexml-test-test
+examples\weighter
+examples\weighter-simplexml
+
+
+android-sdk 
+
+This is the base sdk layer responsible for securing the connection, authentication the application, and authorizing the user.
+
+android-sdk-simplexml
+
+This library adds xml marshalling for GetThings and PutThings as well as some selected HealthVault types.
+
+android-sdk-simplexml-test-test
+
+This is a test project for unit testing
+
+examples\weighter
+
+This is an example Android application build on top of the base android-sdk and uses raw xml parsing.
+
+examples\weighter-simplexml
+
+This is an example Android application built on top of the xml marshalling layer.
