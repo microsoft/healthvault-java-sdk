@@ -1,0 +1,203 @@
+[
+    {
+        "outputFile": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endLine": 11,
+                    "endColumn": 19,
+                    "endOffset": 358
+                },
+                "from": {
+                    "file": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 295,
+                        "endLine": 18,
+                        "endColumn": 19,
+                        "endOffset": 598
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 363,
+                    "endColumn": 57,
+                    "endOffset": 416
+                },
+                "from": {
+                    "file": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 92,
+                        "endColumn": 57,
+                        "endOffset": 145
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 421,
+                    "endColumn": 55,
+                    "endOffset": 472
+                },
+                "from": {
+                    "file": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\values\\dimens.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 151,
+                        "endColumn": 55,
+                        "endOffset": 202
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 477,
+                    "endColumn": 52,
+                    "endOffset": 525
+                },
+                "from": {
+                    "file": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 105,
+                        "endColumn": 52,
+                        "endOffset": 153
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 530,
+                    "endColumn": 45,
+                    "endOffset": 571
+                },
+                "from": {
+                    "file": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 58,
+                        "endColumn": 45,
+                        "endOffset": 99
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 576,
+                    "endColumn": 39,
+                    "endOffset": 611
+                },
+                "from": {
+                    "file": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 212,
+                        "endColumn": 39,
+                        "endOffset": 247
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 616,
+                    "endColumn": 52,
+                    "endOffset": 664
+                },
+                "from": {
+                    "file": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 159,
+                        "endColumn": 52,
+                        "endOffset": 207
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 669,
+                    "endColumn": 37,
+                    "endOffset": 702
+                },
+                "from": {
+                    "file": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 252,
+                        "endColumn": 37,
+                        "endOffset": 285
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 707,
+                    "endLine": 25,
+                    "endColumn": 12,
+                    "endOffset": 993
+                },
+                "from": {
+                    "file": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 191,
+                        "endLine": 12,
+                        "endColumn": 12,
+                        "endOffset": 481
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 998,
+                    "endLine": 28,
+                    "endColumn": 12,
+                    "endOffset": 1153
+                },
+                "from": {
+                    "file": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 522,
+                        "endLine": 17,
+                        "endColumn": 12,
+                        "endOffset": 679
+                    }
+                }
+            }
+        ]
+    }
+]

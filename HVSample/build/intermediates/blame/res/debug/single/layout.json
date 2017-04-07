@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\res\\merged\\debug\\layout\\activity_vocab.xml",
+        "source": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\layout\\activity_vocab.xml"
+    },
+    {
+        "merged": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\res\\merged\\debug\\layout\\activity_localvault.xml",
+        "source": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\layout\\activity_localvault.xml"
+    },
+    {
+        "merged": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\res\\merged\\debug\\layout\\list_item.xml",
+        "source": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\layout\\list_item.xml"
+    },
+    {
+        "merged": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\res\\merged\\debug\\layout\\recordpicker.xml",
+        "source": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\layout\\recordpicker.xml"
+    },
+    {
+        "merged": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\res\\merged\\debug\\layout\\weight.xml",
+        "source": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\layout\\weight.xml"
+    },
+    {
+        "merged": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\res\\merged\\debug\\layout\\current_record_item.xml",
+        "source": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\layout\\current_record_item.xml"
+    },
+    {
+        "merged": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
+        "source": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\res\\merged\\debug\\layout\\vocab.xml",
+        "source": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\layout\\vocab.xml"
+    },
+    {
+        "merged": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\res\\merged\\debug\\layout\\activity_fileupload.xml",
+        "source": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\layout\\activity_fileupload.xml"
+    },
+    {
+        "merged": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\res\\merged\\debug\\layout\\record_picker_item.xml",
+        "source": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\layout\\record_picker_item.xml"
+    },
+    {
+        "merged": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_localvault.xml",
+        "source": "E:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\src\\main\\res\\layout\\fragment_localvault.xml"
+    }
+]

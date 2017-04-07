@@ -1,0 +1,4 @@
+include ':android-sdk'
+include ':android-sdk-simplexml-test-test'
+include ':android-sdk-simplexml'
+include ':HVSample'

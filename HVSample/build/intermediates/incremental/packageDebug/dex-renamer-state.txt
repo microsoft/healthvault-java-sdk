@@ -1,0 +1,7 @@
+#Thu Apr 06 19:00:54 PDT 2017
+base.0=E\:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_6049058989a9d25047524b61240f5d4831046868
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=E\:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_53c5be7c3c0345a0bef1de728c613e8224d30069\\classes.dex
+base.1=E\:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_53c5be7c3c0345a0bef1de728c613e8224d30069
+file.0=E\:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_6049058989a9d25047524b61240f5d4831046868\\classes.dex

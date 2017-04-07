@@ -1,0 +1,19 @@
+#Thu Apr 06 19:00:53 PDT 2017
+renamed.5=classes3.dex
+renamed.4=classes.dex
+renamed.3=classes5.dex
+renamed.2=classes4.dex
+renamed.1=classes6.dex
+renamed.0=classes2.dex
+base.5=E\:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\8\\commons-codec-1.3_763ef2c73499d0072aaf32c76cc869fdf3b6da37
+base.4=E\:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\support-v4-19.1.0_21a5b6818bcee57798d6cc2812488dff0ba09120
+base.3=E\:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\8\\log4j-1.2.17_f6a03a728e602141074d6923039b11a7ce1665bf
+base.2=E\:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\8\\hv-sdk-1.6_95dd8bfb1e60054fcd9e34763842c3321b0e2eb1
+base.1=E\:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\8\\simple-xml-2.7.1_16d2a62fedfaa7ac890adbdae945c5ba96b3431a
+base.0=E\:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\8\\android-logging-log4j-1.0.3_3e8d78f364918c53d8a502a4caeb4aeab83e07c5
+file.5=E\:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\8\\commons-codec-1.3_763ef2c73499d0072aaf32c76cc869fdf3b6da37\\classes.dex
+file.4=E\:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\support-v4-19.1.0_21a5b6818bcee57798d6cc2812488dff0ba09120\\classes.dex
+file.3=E\:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\8\\log4j-1.2.17_f6a03a728e602141074d6923039b11a7ce1665bf\\classes.dex
+file.2=E\:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\8\\hv-sdk-1.6_95dd8bfb1e60054fcd9e34763842c3321b0e2eb1\\classes.dex
+file.1=E\:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\8\\simple-xml-2.7.1_16d2a62fedfaa7ac890adbdae945c5ba96b3431a\\classes.dex
+file.0=E\:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\8\\android-logging-log4j-1.0.3_3e8d78f364918c53d8a502a4caeb4aeab83e07c5\\classes.dex

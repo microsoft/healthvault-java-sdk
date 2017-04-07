@@ -2,24 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/android/examples/HVSample/HVSample.iml" filepath="$PROJECT_DIR$/android/examples/HVSample/HVSample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/android-sdk/android-sdk.iml" filepath="$PROJECT_DIR$/android/android-sdk/android-sdk.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/android-sdk-simplexml/android-sdk-simplexml.iml" filepath="$PROJECT_DIR$/android/android-sdk-simplexml/android-sdk-simplexml.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/android-sdk-simplexml-test-test/android-sdk-simplexml-test-test.iml" filepath="$PROJECT_DIR$/android/android-sdk-simplexml-test-test/android-sdk-simplexml-test-test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/java-1.4.2/sdk/src/main/main.iml" filepath="$PROJECT_DIR$/java-1.4.2/sdk/src/main/main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/examples/ui-sdk/src/main/main1.iml" filepath="$PROJECT_DIR$/examples/ui-sdk/src/main/main1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/java-1.4.2/ui/src/main/main2.iml" filepath="$PROJECT_DIR$/java-1.4.2/ui/src/main/main2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/examples/ui-jaxb/src/main/main3.iml" filepath="$PROJECT_DIR$/examples/ui-jaxb/src/main/main3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sdk/src/main/main4.iml" filepath="$PROJECT_DIR$/sdk/src/main/main4.iml" />
-      <module fileurl="file://$PROJECT_DIR$/hv-jaxb/src/main/main5.iml" filepath="$PROJECT_DIR$/hv-jaxb/src/main/main5.iml" />
-      <module fileurl="file://$PROJECT_DIR$/java-1.4.2/ui/src/test/test.iml" filepath="$PROJECT_DIR$/java-1.4.2/ui/src/test/test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sdk/src/test/test1.iml" filepath="$PROJECT_DIR$/sdk/src/test/test1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/examples/ui-jaxb/src/test/test2.iml" filepath="$PROJECT_DIR$/examples/ui-jaxb/src/test/test2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/examples/ui-sdk/src/test/test3.iml" filepath="$PROJECT_DIR$/examples/ui-sdk/src/test/test3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/hv-jaxb/src/test/test4.iml" filepath="$PROJECT_DIR$/hv-jaxb/src/test/test4.iml" />
-      <module fileurl="file://$PROJECT_DIR$/java-1.4.2/sdk/src/test/test5.iml" filepath="$PROJECT_DIR$/java-1.4.2/sdk/src/test/test5.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/examples/weighter/weighter.iml" filepath="$PROJECT_DIR$/android/examples/weighter/weighter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/examples/weighter-simplexml/weighter-simplexml.iml" filepath="$PROJECT_DIR$/android/examples/weighter-simplexml/weighter-simplexml.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HVSample/HVSample.iml" filepath="$PROJECT_DIR$/HVSample/HVSample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-sdk/android-sdk.iml" filepath="$PROJECT_DIR$/android-sdk/android-sdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-sdk-simplexml/android-sdk-simplexml.iml" filepath="$PROJECT_DIR$/android-sdk-simplexml/android-sdk-simplexml.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-sdk-simplexml-test-test/android-sdk-simplexml-test-test.iml" filepath="$PROJECT_DIR$/android-sdk-simplexml-test-test/android-sdk-simplexml-test-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/healthvault-java-sdk.iml" filepath="$PROJECT_DIR$/healthvault-java-sdk.iml" />
     </modules>
   </component>
 </project>

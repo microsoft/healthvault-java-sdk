@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/addWeightContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/weightInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".8"
+            android:inputType="number"
+            android:text=""
+            android:gravity="left" >
+        </EditText>
+
+        <Button
+            android:id="@+id/addWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight=".2"
+            android:text="Add" 
+            android:gravity="right"
+            android:textAlignment="center">
+        </Button>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/weightList"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right" >
+    </ListView>
+
+</LinearLayout>
