@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_height="fill_parent"
+    android:layout_width="wrap_content">
+    <LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
+		<Spinner
+			android:id="@+id/spinner"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight=".6"/>
+		<Button android:layout_width="wrap_content" android:id="@+id/auth" android:text="Auth" android:layout_height="wrap_content"></Button>
+		<Button android:id="@+id/newapp"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="NewApp" />
+	</LinearLayout>
+	<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
+		<EditText android:text="" android:id="@+id/weightInput" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight=".8" android:numeric="decimal|integer"></EditText>
+		<Button android:layout_width="wrap_content" android:id="@+id/putThing" android:text="Add" android:layout_gravity="right" android:layout_height="wrap_content" android:layout_weight=".2"></Button>
+	</LinearLayout>
+	<ListView android:id="@+id/weightList" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="right"></ListView>
+	
+</LinearLayout>
+
