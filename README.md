@@ -1,9 +1,10 @@
-# Contributing
+# HealthVault Java Sdk
 
 This project comprises an SDK to access HealthVault and some sample ui's
 allowing a user to view and add weight measurements.  
 
 Building:
+
     The build environment relies on Maven.  (http://maven.apache.org) 
     The UI and jaxb libraries both rely on the SDK.  
 
@@ -23,6 +24,7 @@ Building:
     complain that it cannot find its dependencies.
 
 Running the Sample:
+
     You can run the app directly from the command line with maven:
     > cd samle/jaxb-ui
     > mvn jetty:run
@@ -34,6 +36,7 @@ Running the Sample:
     and install it in your servlet container. 
 
 Private Key:
+
     Healthvault uses public/private key infrastructure to verify the 
     application.  It does not validate the public key certificate chain so 
     there is no need to obtain keys from a trusted CA.  The healthvault java 
@@ -67,18 +70,20 @@ Private Key:
 
     keytool -export -alias java-wildcat -keystore keystore > my-pub.cer
 
-    Send the my-pub.cer file to the HealthVault team and we’ll take care of 
+    Send the my-pub.cer file to the HealthVault team and weâ€™ll take care of 
     the rest.
 
 Making SDK Requests:
+
     The application is responsible for marshaling and unmarshaling the <info> 
     section in each HV Request.  You can find detailed schemas for each 
     method here:  http://developer.healthvault.com/methods/methods.aspx.
 
 SSL:
+
     HealthVault requires requests be sent over SSL. Our site's certificates are
     signed with GTE CyberTrust Global Root as the trusted root certificate 
-    authority. This public key is shipped with Sun’s java runtime in a file 
+    authority. This public key is shipped with Sunâ€™s java runtime in a file 
     located at java.home/lib/security/cacerts. The alias for this key is 
     "gtecybertrustglobalca".  Depending on your JRE or environment, this
     public key may not be installed in your trusted store.  This is a known
@@ -88,6 +93,8 @@ SSL:
 
     keytool -keystore cacerts -exportcert -alias gtecybertrustglobalca > gte.crt
 
-    This public key should then be imported into WebSphere’s trusted store.
+    This public key should then be imported into WebSphereâ€™s trusted store.
 
+# Contributing 
 
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments. 
