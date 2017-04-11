@@ -1,4 +1,0 @@
-#Thu Apr 06 19:00:53 PDT 2017
-base.0=E\:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_5
-renamed.0=classes.dex
-file.0=E\:\\MYPROJECTS\\healthvault-java-sdk\\HVSample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_5\\classes.dex

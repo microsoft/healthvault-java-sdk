@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="default"><source path="E:\MYPROJECTS\healthvault-java-sdk\android-sdk-simplexml\build\intermediates\bundles\default\assets"/></dataSet><dataSet config="main"><source path="E:\MYPROJECTS\healthvault-java-sdk\HVSample\src\main\assets"/><source path="E:\MYPROJECTS\healthvault-java-sdk\HVSample\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="E:\MYPROJECTS\healthvault-java-sdk\HVSample\src\debug\assets"/></dataSet></merger>
