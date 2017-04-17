@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 21
     buildToolsVersion "25.0.0"
 
     defaultConfig {
         applicationId "com.microsoft.hsg.android.hvsample"
-        minSdkVersion 14
-        targetSdkVersion 18
+        minSdkVersion 21
+        targetSdkVersion 25
     }
 
     buildTypes {
@@ -20,5 +20,5 @@ android {
 
 dependencies {
     compile project(':android-sdk-simplexml')
-    compile 'com.android.support:support-v4:19.+'
+    compile group: 'com.hianzuo.android', name: 'LibLruCache', version: '1.0.0'
 }

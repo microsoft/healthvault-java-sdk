@@ -6,7 +6,6 @@ import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.util.concurrent.Callable;
 
-import org.apache.http.client.methods.AbortableHttpRequest;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Order;
 import org.simpleframework.xml.Root;
