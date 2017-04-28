@@ -3,6 +3,8 @@
 This project comprises an SDK to access HealthVault and some sample ui's
 allowing a user to view and add weight measurements.  
 
+NOTE:  The HVSample project has been migrated to Android Studio.  For information on how to run the sample, access the Readme file here (https://github.com/Microsoft/healthvault-java-sdk/tree/master/HVSample/README.md)
+
 ## Building
 
 The build environment relies on Maven.  (http://maven.apache.org) 
