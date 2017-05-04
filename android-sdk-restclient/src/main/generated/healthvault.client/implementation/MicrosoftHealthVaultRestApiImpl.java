@@ -4,7 +4,7 @@
  * regenerated.
  */
 
-package healthvault.client;
+package healthvault.client.implementation;
 
 import healthvault.client.MicrosoftHealthVaultRestApi;
 import com.microsoft.rest.ServiceClient;
