@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/GitHub.iml" filepath="$PROJECT_DIR$/GitHub.iml" />
       <module fileurl="file://$PROJECT_DIR$/HVSample/HVSample.iml" filepath="$PROJECT_DIR$/HVSample/HVSample.iml" />
       <module fileurl="file://$PROJECT_DIR$/android-sdk/android-sdk.iml" filepath="$PROJECT_DIR$/android-sdk/android-sdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-sdk-restclient/android-sdk-restclient.iml" filepath="$PROJECT_DIR$/android-sdk-restclient/android-sdk-restclient.iml" />
       <module fileurl="file://$PROJECT_DIR$/android-sdk-simplexml/android-sdk-simplexml.iml" filepath="$PROJECT_DIR$/android-sdk-simplexml/android-sdk-simplexml.iml" />
       <module fileurl="file://$PROJECT_DIR$/android-sdk-simplexml-test-test/android-sdk-simplexml-test-test.iml" filepath="$PROJECT_DIR$/android-sdk-simplexml-test-test/android-sdk-simplexml-test-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/healthvault-java-sdk.iml" filepath="$PROJECT_DIR$/healthvault-java-sdk.iml" />

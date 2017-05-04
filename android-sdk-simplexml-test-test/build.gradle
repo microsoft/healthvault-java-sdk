@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 21
     buildToolsVersion "25.0.0"
 
     defaultConfig {
         applicationId "com.microsoft.hsg.android.demo.weight.test"
-        minSdkVersion 10
-        targetSdkVersion 10
+        minSdkVersion 21
+        targetSdkVersion 25
     }
 
     buildTypes {
@@ -16,4 +16,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+}
+
+dependencies {
+    compile project(':android-sdk-simplexml')
 }
