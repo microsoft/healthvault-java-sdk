@@ -1,0 +1,42 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/generated/']
+        }
+    }
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.8.8'
+    compile group: 'org.joda', name: 'com.springsource.org.joda.time', version: '1.6.2'
+    compile group: 'com.microsoft.rest', name: 'client-runtime', version: '1.0.2'
+    testCompile 'junit:junit:4.12'
+    compile project(':android-sdk-simplexml')
+}
