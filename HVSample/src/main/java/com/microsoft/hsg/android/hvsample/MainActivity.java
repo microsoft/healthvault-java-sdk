@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,9 +26,20 @@ import com.microsoft.hsg.android.simplexml.HealthVaultApp;
 import com.microsoft.hsg.android.simplexml.HealthVaultInitializationHandler;
 import com.microsoft.hsg.android.simplexml.HealthVaultSettings;
 import com.microsoft.hsg.android.simplexml.client.HealthVaultClient;
+import com.microsoft.hsg.android.simplexml.client.HealthVaultRestClient;
 import com.microsoft.hsg.android.simplexml.client.RequestCallback;
 import com.microsoft.hsg.android.simplexml.things.types.types.PersonInfo;
 import com.microsoft.hsg.android.simplexml.things.types.types.Record;
+import com.microsoft.rest.ServiceResponse;
+
+import healthvault.client.implementation.MicrosoftHealthVaultRestApiImpl;
+import healthvault.client.models.ActionPlan;
+import healthvault.client.models.ActionPlansResponseActionPlanInstance;
+import okhttp3.ResponseBody;
+import retrofit2.Response;
+import rx.Observable;
+import rx.Subscriber;
+import rx.schedulers.Schedulers;
 
 public class MainActivity 
 	extends ListActivity 
@@ -35,6 +47,7 @@ public class MainActivity
 
 	private HealthVaultApp service;
 	private HealthVaultClient hvClient;
+	private HealthVaultRestClient restClient;
 	
 	private ProgressDialog connectProgressDialog;
 	
@@ -156,7 +169,7 @@ public class MainActivity
 	                Toast.LENGTH_LONG).show();
 		}
 	}
-	
+
 	public void onListItemClick(ListView parent, View v, int position, long id) {
         TextView item = (TextView) v;
         Intent intent = null;

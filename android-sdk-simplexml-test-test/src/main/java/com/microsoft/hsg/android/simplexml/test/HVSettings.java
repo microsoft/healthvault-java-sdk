@@ -44,6 +44,18 @@ public class HVSettings implements HealthVaultSettings {
 	}
 
 	@Override
+	public String getRestUrl() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRestUrl(String url) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public String getAppId() {
 		return appId;
 	}

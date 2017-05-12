@@ -73,6 +73,20 @@ public interface HealthVaultSettings {
      */
     public void setShellUrl(String url);
 
+	/**
+	 * Gets the rest url.
+	 *
+	 * @return the rest url
+	 */
+	public String getRestUrl();
+
+	/**
+	 * Sets the rest url.
+	 *
+	 * @param url the new rest url
+	 */
+	public void setRestUrl(String url);
+
     /**
      * Gets the app id.
      * 

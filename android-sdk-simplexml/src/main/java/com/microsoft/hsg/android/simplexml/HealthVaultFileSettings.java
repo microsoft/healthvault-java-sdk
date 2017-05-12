@@ -131,6 +131,20 @@ public class HealthVaultFileSettings implements HealthVaultSettings {
     }
 
     /* (non-Javadoc)
+ * @see com.microsoft.hsg.android.HealthVaultSettings#getRestUrl()
+ */
+    public String getRestUrl() {
+        return properties.getProperty("rest-url");
+    }
+
+    /* (non-Javadoc)
+     * @see com.microsoft.hsg.android.HealthVaultSettings#setRestUrl(java.lang.String)
+     */
+    public void setRestUrl(String url) {
+        properties.setProperty("rest-url", url);
+    }
+
+    /* (non-Javadoc)
      * @see com.microsoft.hsg.android.HealthVaultSettings#setAppId(java.lang.String)
      */
     public void setAppId(String appId) {
