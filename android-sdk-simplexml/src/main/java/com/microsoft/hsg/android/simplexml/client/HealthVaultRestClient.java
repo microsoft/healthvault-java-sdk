@@ -1,3 +1,25 @@
+/*
+ *  Copyright (c) Microsoft Corporation
+ *
+ *	All rights reserved. 
+ *
+ *	MIT License
+ *	Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ *  and associated documentation files (the ""Software""), to deal in the Software without
+ *  restriction, including without limitation the rights to use, copy, modify, merge, publish,
+ *  distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom
+ *  the Software is furnished to do so, subject to the following conditions:
+ *
+ *	The above copyright notice and this permission notice shall be included in all copies or
+ *  substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ *  BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ *  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ *  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package com.microsoft.hsg.android.simplexml.client;
 
 import java.io.IOException;
@@ -9,6 +31,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.concurrent.TimeUnit;
 
+import org.joda.time.DateTime;
+import org.joda.time.Minutes;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
@@ -58,28 +82,27 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
-public class HealthVaultRestClient {
+public class HealthVaultRestClient implements IHealthVaultRestClient {
 
 	/** The instance. */
 	private static MicrosoftHealthVaultRestApiImpl instance;
+	private DateTime lastRefreshedSessionCredential;
+	private final int SessionCredentialCallThresholdMinutes = 5;
 
-	/** The settings. */
-	private static String restURL;
-	private static Connection hvConnection;
-
-	public static MicrosoftHealthVaultRestApiImpl getInstance(HealthVaultSettings settings, Connection connection) {
+	public MicrosoftHealthVaultRestApiImpl getInstance(HealthVaultSettings settings, Connection connection) {
 		if (instance == null) {
-			restURL = settings.getRestUrl();
-			hvConnection = connection;
-			instance = new MicrosoftHealthVaultRestApiImpl(restURL, GetOkHttp(), GetRetrofit().newBuilder());
+			final String restURL = settings.getRestUrl();
+			final Connection hvConnection = connection;
+			tokenRefreshCheck(hvConnection);
+			instance = new MicrosoftHealthVaultRestApiImpl(restURL, getOkHttp(hvConnection), getRetrofit(restURL).newBuilder());
 		}
 
 		return instance;
 	}
 
-	private static Retrofit GetRetrofit(){
+	private Retrofit getRetrofit(String url){
 		Retrofit retrofit = new Retrofit.Builder()
-				.baseUrl(restURL)
+				.baseUrl(url)
 				.addConverterFactory(GsonConverterFactory.create())
 				.addConverterFactory(JacksonConverterFactory.create())
 				.addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -87,8 +110,9 @@ public class HealthVaultRestClient {
 		return retrofit;
 	}
 
-	private static OkHttpClient.Builder GetOkHttp(){
-			OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+	private OkHttpClient.Builder getOkHttp(Connection connection){
+		final Connection hvConnection = connection;
+		OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
 		clientBuilder.connectionPool(new ConnectionPool(3, 3, TimeUnit.SECONDS));
 		clientBuilder.addInterceptor(new Interceptor() {
 			@Override
@@ -103,4 +127,10 @@ public class HealthVaultRestClient {
 		return clientBuilder;
 	}
 
+	private void tokenRefreshCheck(Connection connection){
+		if (Minutes.minutesBetween(DateTime.now(), lastRefreshedSessionCredential).isGreaterThan(Minutes.minutes(SessionCredentialCallThresholdMinutes))) {
+			connection.getAuthenticator().authenticate(connection, true);
+			lastRefreshedSessionCredential = DateTime.now();
+		}
+	}
 }

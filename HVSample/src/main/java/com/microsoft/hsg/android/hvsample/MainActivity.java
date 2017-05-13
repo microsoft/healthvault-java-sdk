@@ -47,8 +47,7 @@ public class MainActivity
 
 	private HealthVaultApp service;
 	private HealthVaultClient hvClient;
-	private HealthVaultRestClient restClient;
-	
+
 	private ProgressDialog connectProgressDialog;
 	
 	String[] tests = {

@@ -14,12 +14,16 @@ import java.lang.reflect.Type;
 import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import com.google.common.reflect.TypeToken;
+import com.microsoft.hsg.Connection;
+import com.microsoft.hsg.android.simplexml.ConnectionFactory;
 import com.microsoft.hsg.android.simplexml.client.HealthVaultClient;
 import com.microsoft.hsg.android.simplexml.client.HealthVaultRestClient;
 import org.joda.time.DateTime;
 import com.microsoft.hsg.android.simplexml.HealthVaultApp;
+import com.microsoft.hsg.android.simplexml.client.IHealthVaultRestClient;
 import com.microsoft.hsg.android.simplexml.methods.getthings3.request.BlobFormatSpec;
 import com.microsoft.hsg.android.simplexml.methods.getthings3.request.ThingRequestGroup2;
 import com.microsoft.hsg.android.simplexml.things.thing.BlobInfo;
@@ -37,25 +41,46 @@ import javax.inject.Inject;
 import dagger.Provides;
 
 import healthvault.client.implementation.MicrosoftHealthVaultRestApiImpl;
+import okhttp3.ConnectionPool;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class ActionPlanTest {
-	private HealthVaultApp service;
-	private HealthVaultClient hvClient;
-	private HealthVaultRestClient restClient;
+	private static HealthVaultApp service;
+	private static HealthVaultClient hvClient;
+	private final String restHealthVaultUrl = "https://hvc-dev-khvwus01.westus2.cloudapp.azure.com/v3/";
 
 	@Test
-	public void CreateRestClient(){
-		SetupTest();
-		final MicrosoftHealthVaultRestApiImpl restClient = HealthVaultRestClient.getInstance(service.getSettings(), service.getConnection());
+	public void createDefaultRestClient(){
+		final MicrosoftHealthVaultRestApiImpl restClient = new MicrosoftHealthVaultRestApiImpl(restHealthVaultUrl);
 		assertNotEquals(restClient, null);
 	}
 
-	private void SetupTest(){
-		service = provideHealthVaultApp();
+	@Test
+	public void createRestClient(){
+		final MicrosoftHealthVaultRestApiImpl restClient = new MicrosoftHealthVaultRestApiImpl(restHealthVaultUrl, getOkHttp(), getRetrofit(restHealthVaultUrl).newBuilder());
+		Retrofit retrofit = restClient.retrofit();
+		assertNotEquals(retrofit, null);
 	}
 
-	@Provides static HealthVaultApp provideHealthVaultApp() {
+	private Retrofit getRetrofit(String url){
+		Retrofit retrofit = new Retrofit.Builder()
+				.baseUrl(url)
+				.addConverterFactory(GsonConverterFactory.create())
+				.addConverterFactory(JacksonConverterFactory.create())
+				.addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+				.build();
+		return retrofit;
+	}
 
-		return HealthVaultApp.getInstance();
+	private OkHttpClient.Builder getOkHttp(){
+		OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+
+		return clientBuilder;
 	}
 }
