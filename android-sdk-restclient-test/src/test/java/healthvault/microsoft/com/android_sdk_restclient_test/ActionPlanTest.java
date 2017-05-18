@@ -53,7 +53,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public class ActionPlanTest {
 	private static HealthVaultApp service;
 	private static HealthVaultClient hvClient;
-	private final String restHealthVaultUrl = "https://hvc-dev-khvwus01.westus2.cloudapp.azure.com/v3/";
+	private String restHealthVaultUrl = "https://data.microsofthealth.net/";
 
 	@Test
 	public void createDefaultRestClient(){

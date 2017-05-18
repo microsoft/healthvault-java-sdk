@@ -2,12 +2,18 @@ package com.microsoft.hsg.android.hvsample;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import com.microsoft.hsg.Connection;
 import com.microsoft.hsg.HVException;
 import com.microsoft.hsg.android.simplexml.HealthVaultApp;
+import com.microsoft.hsg.android.simplexml.HealthVaultSettings;
 import com.microsoft.hsg.android.simplexml.ShellActivity;
 import com.microsoft.hsg.android.simplexml.client.HealthVaultClient;
+import com.microsoft.hsg.android.simplexml.client.HealthVaultRestClient;
 import com.microsoft.hsg.android.simplexml.client.RequestCallback;
 import com.microsoft.hsg.android.simplexml.methods.getthings3.request.ThingRequestGroup2;
 import com.microsoft.hsg.android.simplexml.methods.getthings3.response.ThingResponseGroup2;
@@ -19,6 +25,7 @@ import com.microsoft.hsg.android.simplexml.things.types.weight.Weight;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -30,52 +37,63 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
+import healthvault.client.implementation.MicrosoftHealthVaultRestApiImpl;
+import healthvault.client.models.ActionPlan;
+import healthvault.client.models.ActionPlansResponseActionPlanInstance;
+
+import healthvault.client.models.Objective;
+import okhttp3.ResponseBody;
+import retrofit2.Response;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.schedulers.Schedulers;
+
 public class WeightActivity extends Activity {
 
 	private HealthVaultApp service;
-    private HealthVaultClient hvClient;
-    private Record currentRecord;
-    
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.weight);
-        service = HealthVaultApp.getInstance();
-        hvClient = new HealthVaultClient();
-        
-        Button weightsBtn = (Button) findViewById(R.id.addWeight);
-        final EditText editText = (EditText) findViewById(R.id.weightInput);
+	private HealthVaultClient hvClient;
+	private Record currentRecord;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.weight);
+		service = HealthVaultApp.getInstance();
+		hvClient = new HealthVaultClient();
+
+		Button weightsBtn = (Button) findViewById(R.id.addWeight);
+		final EditText editText = (EditText) findViewById(R.id.weightInput);
 		
-        weightsBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-            	if (service.isAppConnected()) {
-            		putWeight(editText.getText().toString());
-            	}
-            }
-        });
-    }
-    
+		weightsBtn.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				if (service.isAppConnected()) {
+					putWeight(editText.getText().toString());
+				}
+			}
+		});
+	}
+
 	@Override
 	protected void onStart() {
 		super.onStart();
 		hvClient.start();
 	}
     
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-        currentRecord = HealthVaultApp.getInstance().getCurrentRecord();
-        getWeights();
-    }
-    
-    @Override
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		currentRecord = HealthVaultApp.getInstance().getCurrentRecord();
+		getWeights();
+	}
+
+	@Override
 	protected void onStop() {
-    	hvClient.stop();
+		hvClient.stop();
 		super.onStop();
 	}
 
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
     private void getWeights()
     {
     	hvClient.asyncRequest(

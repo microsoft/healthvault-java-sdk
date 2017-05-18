@@ -154,7 +154,7 @@ public class MainActivity
                     true);
 			
 			HealthVaultSettings settings = service.getSettings();
-			settings.setMasterAppId("c6ba979f-c342-4408-a2bc-0dfb43b2bf8d");
+			settings.setMasterAppId("e92b8605-ad54-4d48-829f-1a5f1dfbe40f");
 			settings.setServiceUrl("https://platform.healthvault-ppe.com/platform/wildcat.ashx");
 			settings.setShellUrl("https://account.healthvault-ppe.com");
 			settings.setIsMultiInstanceAware(true);
