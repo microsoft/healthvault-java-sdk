@@ -86,15 +86,15 @@ import retrofit2.http.Query;
 
 public class HealthVaultRestClient {
 
-	/** The instance. */
 	private static MicrosoftHealthVaultRestApiImpl instance;
 	private static DateTime lastRefreshedSessionCredential = DateTime.now();;
 	private static final int SessionCredentialCallThresholdMinutes = 5;
 	private static Retrofit retrofit;
 	private static String restURL;
 	private static OkHttpClient.Builder okBuilder;
-	private static Connection hvConnection;
+	private static Connection connection;
 	private static Record currentRecord;
+	private static HealthVaultSettings settings;
 
 	public HealthVaultRestClient (HealthVaultSettings settings, Connection connection, Record currentRecord){
 		InitInstance(settings, connection, currentRecord);
@@ -104,13 +104,14 @@ public class HealthVaultRestClient {
 		if (connection == null){
 			throw new HVException("connection is null");
 		}
-		restURL = settings.getRestUrl();
-		OkHttpClient.Builder okBuilder = getOkHttp(connection, currentRecord);
-		Retrofit retrofit = getRetrofit(restURL);
-		instance = new MicrosoftHealthVaultRestApiImpl(restURL, okBuilder, retrofit.newBuilder());
+		this.restURL = settings.getRestUrl();
+		this.currentRecord = currentRecord;
+		this.connection = connection;
+		this.okBuilder = getOkHttp(connection, currentRecord);
+		this.retrofit = getRetrofit(this.restURL);
 	}
 
-	public static MicrosoftHealthVaultRestApiImpl getInstance(HealthVaultSettings settings, Connection connection, Record currentRecord) {
+	public MicrosoftHealthVaultRestApiImpl getInstance() {
 		if (instance == null) {
 			tokenRefreshCheck(connection);
 			OkHttpClient.Builder okBuilder = getOkHttp(connection, currentRecord);
@@ -120,7 +121,7 @@ public class HealthVaultRestClient {
 		return instance;
 	}
 
-	private static Retrofit getRetrofit(String url){
+	private Retrofit getRetrofit(String url){
 		Retrofit retrofit = new Retrofit.Builder()
 				.baseUrl(url)
 				.addConverterFactory(GsonConverterFactory.create())
@@ -129,7 +130,7 @@ public class HealthVaultRestClient {
 		return retrofit;
 	}
 
-	private static OkHttpClient.Builder getOkHttp(Connection connection, Record currentRecord){
+	private OkHttpClient.Builder getOkHttp(Connection connection, Record currentRecord){
 		final String token = getAuthToken(connection, currentRecord);
 		OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
 		clientBuilder.connectionPool(new ConnectionPool(3, 5, TimeUnit.SECONDS));
@@ -146,14 +147,14 @@ public class HealthVaultRestClient {
 		return clientBuilder;
 	}
 
-	private static String getAuthToken (Connection connection, Record currentRecord){
+	private String getAuthToken (Connection connection, Record currentRecord){
 		String token =  "MSH-V1 app-token=" + connection.getSessionToken().toString() +
 				",offline-person-id=" + currentRecord.getPersonId() +
 				",record-id=" + currentRecord.getId();
 		return token;
 	}
 
-	public static void tokenRefreshCheck(Connection connection){
+	public void tokenRefreshCheck(Connection connection){
 		if (Minutes.minutesBetween(DateTime.now(), lastRefreshedSessionCredential).isGreaterThan(Minutes.minutes(SessionCredentialCallThresholdMinutes))) {
 			connection.getAuthenticator().authenticate(connection, true);
 			lastRefreshedSessionCredential = DateTime.now();

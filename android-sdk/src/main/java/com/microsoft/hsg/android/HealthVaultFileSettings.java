@@ -50,11 +50,9 @@ public class HealthVaultFileSettings implements HealthVaultSettings {
 	public HealthVaultFileSettings(Context ctx) {
 		this.ctx = ctx;
 
-		try
-		{
+		try {
 			properties = new Properties();
-			try
-			{
+			try {
 				properties.load(ctx.openFileInput("settings.props"));
 			}
 			catch(FileNotFoundException fnfe) {

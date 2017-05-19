@@ -17,19 +17,19 @@ public class RecordPickerActivity extends ListActivity {
 	private HealthVaultClient hvclient;
 	
 	@Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.recordpicker);
-        
-        hvclient = new HealthVaultClient();
-        
-        RecordPickerArrayAdapter adapter = 
-	            new RecordPickerArrayAdapter(this, 
-	            		HealthVaultApp.getInstance().getRecordList(),
-	            		hvclient);
-        
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.recordpicker);
+
+		hvclient = new HealthVaultClient();
+
+		RecordPickerArrayAdapter adapter =
+				new RecordPickerArrayAdapter(this,
+						HealthVaultApp.getInstance().getRecordList(),
+						hvclient);
+
 		setListAdapter(adapter);
-    }
+	}
 	
 	@Override
 	protected void onStart() {

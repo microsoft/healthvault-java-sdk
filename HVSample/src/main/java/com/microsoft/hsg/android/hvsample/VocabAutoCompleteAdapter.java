@@ -23,82 +23,82 @@ public class VocabAutoCompleteAdapter extends ArrayAdapter<String> implements Fi
 	
 	private LruCache<String, ArrayList<String>> cache;
 
-    public VocabAutoCompleteAdapter(Context context, 
-    		int textViewResourceId,
-    		VocabIdentifier vocabKey,
-    		HealthVaultClient hvClient) {
-        super(context, textViewResourceId);
-        
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        int memSize = am.getMemoryClass() * 1024 * 1024;
-        
-        this.vocabKey = vocabKey;
-        cache = new LruCache<String, ArrayList<String>>(memSize);
-        resultList = new ArrayList<String>(0);
-    }
+	public VocabAutoCompleteAdapter(Context context,
+			int textViewResourceId,
+			VocabIdentifier vocabKey,
+			HealthVaultClient hvClient) {
+		super(context, textViewResourceId);
+
+		ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+		int memSize = am.getMemoryClass() * 1024 * 1024;
+
+		this.vocabKey = vocabKey;
+		cache = new LruCache<String, ArrayList<String>>(memSize);
+		resultList = new ArrayList<String>(0);
+	}
 
 	@Override
-    public int getCount() {
-        return resultList.size();
-    }
+	public int getCount() {
+		return resultList.size();
+	}
 
-    @Override
-    public String getItem(int index) {
-        return resultList.get(index);
-    }
+	@Override
+	public String getItem(int index) {
+		return resultList.get(index);
+	}
 
-    @Override
-    public Filter getFilter() {
-        Filter filter = new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                FilterResults filterResults = new FilterResults();
-                if (constraint != null) {
-                	String searchText = constraint.toString();
-                	String key = vocabKey.getFamily() + "_" + vocabKey.getName() + "_" + searchText;
-                	
-                	resultList = cache.get(key) == null ? new ArrayList<String>() : cache.get(key);
-                	
-                	if(resultList.size() == 0) {
-	                    resultList = autocomplete(searchText);
-	                    
-	                    ArrayList<String> cachedResults = new ArrayList<String>();
-	                    cachedResults.addAll(resultList);
-	                    
-	                    cache.put(key, cachedResults);
-                	}
+	@Override
+	public Filter getFilter() {
+		Filter filter = new Filter() {
+			@Override
+			protected FilterResults performFiltering(CharSequence constraint) {
+				FilterResults filterResults = new FilterResults();
+				if (constraint != null) {
+					String searchText = constraint.toString();
+					String key = vocabKey.getFamily() + "_" + vocabKey.getName() + "_" + searchText;
+
+					resultList = cache.get(key) == null ? new ArrayList<String>() : cache.get(key);
+
+					if(resultList.size() == 0) {
+						resultList = autocomplete(searchText);
+
+						ArrayList<String> cachedResults = new ArrayList<String>();
+						cachedResults.addAll(resultList);
+
+						cache.put(key, cachedResults);
+					}
 	
-                    filterResults.values = resultList;
-                    filterResults.count = resultList.size();
-                }
-                
-                return filterResults;
-            }
+					filterResults.values = resultList;
+					filterResults.count = resultList.size();
+				}
 
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                if (results != null && results.count > 0) {
-                    notifyDataSetChanged();
-                }
-                else {
-                    notifyDataSetInvalidated();
-                }
-            }};
-        return filter;
-    }
-    
-    private ArrayList<String> autocomplete(String searchText) {
-    	Vocabs vocabs = HealthVaultApp.getInstance().getVocabs();
-    	VocabQueryResult result = vocabs.search(vocabKey, searchText);
-    	ArrayList<String> results = new ArrayList<String>();
-    	
-    	if(result != null && result.hasItems()) {
-    		ArrayList<VocabItem> items = result.getItems();
-    		for(VocabItem item : items) {
-    			results.add(item.getDisplayText());
-    		}
-    	}
-    	
-    	return results;
-    }
+				return filterResults;
+			}
+
+			@Override
+			protected void publishResults(CharSequence constraint, FilterResults results) {
+				if (results != null && results.count > 0) {
+					notifyDataSetChanged();
+				}
+				else {
+					notifyDataSetInvalidated();
+				}
+			}};
+		return filter;
+	}
+
+	private ArrayList<String> autocomplete(String searchText) {
+		Vocabs vocabs = HealthVaultApp.getInstance().getVocabs();
+		VocabQueryResult result = vocabs.search(vocabKey, searchText);
+		ArrayList<String> results = new ArrayList<String>();
+
+		if(result != null && result.hasItems()) {
+			ArrayList<VocabItem> items = result.getItems();
+			for(VocabItem item : items) {
+				results.add(item.getDisplayText());
+			}
+		}
+
+		return results;
+	}
 }

@@ -51,12 +51,13 @@ public class MainActivity
 	private ProgressDialog connectProgressDialog;
 	
 	String[] tests = {
-            "WeightPutGet",
-            "FileUpload",
-            "FileDownload",
-            "VocabTest",
-            "LocalVault"
-    };
+			"WeightPutGet",
+			"FileUpload",
+			"FileDownload",
+			"VocabTest",
+			"LocalVault",
+			"ActionPlan"
+	};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,7 @@ public class MainActivity
 		ListView listView = getListView();
 		
 		listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tests));
+		setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tests));
 	}
 	
 	@Override
@@ -83,12 +84,12 @@ public class MainActivity
 	}
 	
 	@Override
-    protected void onResume()
-    {
+	protected void onResume()
+	{
 		super.onResume();
-    }
+	}
 	
-    @Override
+	@Override
 	protected void onStop() {
 		super.onStop();
 		if(connectProgressDialog != null) {
@@ -97,18 +98,18 @@ public class MainActivity
 		
 		hvClient.stop();
 	}
-    
-    @Override
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
 		RelativeLayout recordNameLayout = (RelativeLayout) menu.findItem(R.id.record_name_layout).getActionView();
-        TextView tv = (TextView) recordNameLayout.findViewById(R.id.current_record_name);
-        
-        HealthVaultApp application = HealthVaultApp.getInstance();
+		TextView tv = (TextView) recordNameLayout.findViewById(R.id.current_record_name);
+
+		HealthVaultApp application = HealthVaultApp.getInstance();
 		if(service.isAppConnected() && application.getCurrentRecord() != null) {	
-	       tv.setText(application.getCurrentRecord().getName());
-	       
-	       recordNameLayout.setOnClickListener(new OnClickListener() {
+		   tv.setText(application.getCurrentRecord().getName());
+
+		   recordNameLayout.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View arg0) {
@@ -129,29 +130,29 @@ public class MainActivity
 
 	public void onError(Exception e) {
 		Toast.makeText(
-                MainActivity.this, 
-                e.getMessage(), 
-                Toast.LENGTH_LONG).show();
+				MainActivity.this,
+				e.getMessage(),
+				Toast.LENGTH_LONG).show();
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	        case R.id.action_connect:
-	            doConnect();
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+		switch (item.getItemId()) {
+			case R.id.action_connect:
+				doConnect();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 	
 	private void doConnect() {
 		if (!service.isAppConnected()) {
 			connectProgressDialog = ProgressDialog.show(
-                    MainActivity.this,
-                    "",
-                    "Please wait...", 
-                    true);
+					MainActivity.this,
+					"",
+					"Please wait...",
+					true);
 			
 			HealthVaultSettings settings = service.getSettings();
 			settings.setMasterAppId("e92b8605-ad54-4d48-829f-1a5f1dfbe40f");
@@ -160,70 +161,76 @@ public class MainActivity
 			settings.setIsMultiInstanceAware(true);
 			settings.setIsMRA(true);
 			service.start(MainActivity.this, MainActivity.this);
-    	}
+		}
 		else {
 			Toast.makeText(
-	                MainActivity.this, 
-	                "App is already connected", 
-	                Toast.LENGTH_LONG).show();
+					MainActivity.this,
+					"App is already connected",
+					Toast.LENGTH_LONG).show();
 		}
 	}
 
 	public void onListItemClick(ListView parent, View v, int position, long id) {
-        TextView item = (TextView) v;
-        Intent intent = null;
-        if (service.isAppConnected()) {
-	        switch(position) {
-	        case 0: 
-        		intent = new Intent(MainActivity.this, WeightActivity.class);
-	        	break;
-	        case 1:
-	        	intent = new Intent(MainActivity.this, FileUploadActivity.class);
-	        	break;
-	        case 2:
-	        	intent = new Intent(MainActivity.this, FileDownloadActivity.class);
-	        	break;
-	        case 3:
-	        	intent = new Intent(MainActivity.this, VocabActivity.class);
-	        	break;
-	        case 4:
-	        	intent = new Intent(MainActivity.this, LocalVaultActivity.class);
-	        }
-        }
-        
-        if(intent != null) {
-        	startActivity(intent);
-        }
-    }
+		TextView item = (TextView) v;
+		Intent intent = null;
+		if (service.isAppConnected()) {
+			switch(position) {
+			case 0:
+				intent = new Intent(MainActivity.this, WeightActivity.class);
+				break;
+			case 1:
+				intent = new Intent(MainActivity.this, FileUploadActivity.class);
+				break;
+			case 2:
+				Toast.makeText(
+						MainActivity.this,
+						"Not implemented yet",
+						Toast.LENGTH_LONG).show();
+				break;
+			case 3:
+				intent = new Intent(MainActivity.this, VocabActivity.class);
+				break;
+			case 4:
+				intent = new Intent(MainActivity.this, LocalVaultActivity.class);
+				break;
+			case 5:
+				intent = new Intent(MainActivity.this, ActionPlanActivity.class);
+			}
+		}
+
+		if(intent != null) {
+			startActivity(intent);
+		}
+	}
 	
 	/*private void registerHandlers() {
 
 		// Connect button
 		Button connect = (Button) findViewById(R.id.connect);
 		connect.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-            	doConnect();
-            }
-        });
+			public void onClick(View view) {
+				doConnect();
+			}
+		});
 		
 		Button weightsBtn = (Button) findViewById(R.id.weights);
 		weightsBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-            	if (service.isAppConnected()) {
-            		Intent intent = new Intent(MainActivity.this, WeightActivity.class);
-                    startActivity(intent);
-            	}
-            }
-        });
+			public void onClick(View view) {
+				if (service.isAppConnected()) {
+					Intent intent = new Intent(MainActivity.this, WeightActivity.class);
+					startActivity(intent);
+				}
+			}
+		});
 		
 		Button fileUploadBtn = (Button) findViewById(R.id.fileUpload);
 		fileUploadBtn.setOnClickListener(new View.OnClickListener() {
-            @SuppressWarnings("unchecked")
+			@SuppressWarnings("unchecked")
 			public void onClick(View view) {
-            	if (service.isAppConnected()) {
-            		String filename = writeFile();
-            		
-            		InputStream source;
+				if (service.isAppConnected()) {
+					String filename = writeFile();
+
+					InputStream source;
 					try {
 						source = openFileInput(filename);
 						
@@ -231,24 +238,24 @@ public class MainActivity
 						hvFile.setName(filename);
 						
 						hvClient.start();
-	            		
-	            		hvClient.asyncRequest(hvFile.uploadAsync(((HVApp)getApplication()).getCurrentRecord(), null, source), 
-	            				new MainActivityCallback(MainActivityCallback.UpdateRecords));
+
+						hvClient.asyncRequest(hvFile.uploadAsync(((HVApp)getApplication()).getCurrentRecord(), null, source),
+								new MainActivityCallback(MainActivityCallback.UpdateRecords));
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-            	}
-            }
-        });
+				}
+			}
+		});
 		
 		Button vocabTest = (Button) findViewById(R.id.vocabTest);
 		vocabTest.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-            	Intent intent  = new Intent(MainActivity.this, VocabActivity.class);
-            	startActivity(intent);
-            }
-        });
+			public void onClick(View view) {
+				Intent intent  = new Intent(MainActivity.this, VocabActivity.class);
+				startActivity(intent);
+			}
+		});
 	}*/
 
 	private String writeFile() {
@@ -272,14 +279,14 @@ public class MainActivity
 	private class HVConnect extends AsyncTask<Void, Void, Void> {
 		
 		private ProgressDialog progressDialog;
-        
-        public HVConnect() {
-            progressDialog = ProgressDialog.show(
-                    MainActivity.this,
-                    "",
-                    "Please wait...", 
-                    true);
-        }
+
+		public HVConnect() {
+			progressDialog = ProgressDialog.show(
+					MainActivity.this,
+					"",
+					"Please wait...",
+					true);
+		}
 
 		@Override
 		protected Void doInBackground(Void... arg0) {
@@ -296,38 +303,38 @@ public class MainActivity
 		}
 		
 		@Override
-        protected void onPostExecute(Void result) {
-            progressDialog.dismiss();
-        }
+		protected void onPostExecute(Void result) {
+			progressDialog.dismiss();
+		}
 	}
 	
 	public class MainActivityCallback<Object> implements RequestCallback {
-    	public final static int UpdateRecords = 0;
-    
-    	private int event;
-    	
-    	public MainActivityCallback(int event) {
-    		MainActivity.this.setProgressBarIndeterminateVisibility(true);
-    		this.event = event;
-    	}
+		public final static int UpdateRecords = 0;
 
-        @Override
-        public void onError(HVException exception) {
-        	MainActivity.this.setProgressBarIndeterminateVisibility(false);
-            Toast.makeText(
-    		MainActivity.this, 
-                "An error occurred.  " + exception.getMessage(), 
-                Toast.LENGTH_LONG).show();
-        }
+		private int event;
+
+		public MainActivityCallback(int event) {
+			MainActivity.this.setProgressBarIndeterminateVisibility(true);
+			this.event = event;
+		}
+
+		@Override
+		public void onError(HVException exception) {
+			MainActivity.this.setProgressBarIndeterminateVisibility(false);
+			Toast.makeText(
+			MainActivity.this,
+				"An error occurred.  " + exception.getMessage(),
+				Toast.LENGTH_LONG).show();
+		}
 
 		@Override
 		public void onSuccess(java.lang.Object obj) {
 			MainActivity.this.setProgressBarIndeterminateVisibility(false);
-            switch(event) {
-            case UpdateRecords:
-                // updateRecords((List<Record>)obj);
-                break;
-            }
-        }
-    }
+			switch(event) {
+			case UpdateRecords:
+				// updateRecords((List<Record>)obj);
+				break;
+			}
+		}
+	}
 }

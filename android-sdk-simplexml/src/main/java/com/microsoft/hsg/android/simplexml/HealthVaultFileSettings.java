@@ -72,97 +72,97 @@ public class HealthVaultFileSettings implements HealthVaultSettings {
 	 * @see com.microsoft.hsg.android.HealthVaultSettings#getIsMultiInstanceAware()
 	 */
 	public boolean getIsMultiInstanceAware() {
-		return Boolean.valueOf(properties.getProperty("is-multi-instance-aware"));
+		return Boolean.valueOf(properties.getProperty(Constants.IsMultiInstanceAware));
 	}
 	
 	/* (non-Javadoc)
 	 * @see com.microsoft.hsg.android.HealthVaultSettings#setIsMultiInstanceAware(boolean)
 	 */
 	public void setIsMultiInstanceAware(boolean isAware) {
-		properties.setProperty("is-multi-instance-aware", String.valueOf(isAware));
+		properties.setProperty(Constants.IsMultiInstanceAware, String.valueOf(isAware));
 	}
     /* (non-Javadoc)
      * @see com.microsoft.hsg.android.HealthVaultSettings#getAuthenticationSecret()
      */
     public String getAuthenticationSecret() {
-        return properties.getProperty("authentication-secret");
+        return properties.getProperty(Constants.AuthenticationSecret);
     }
 
     /* (non-Javadoc)
      * @see com.microsoft.hsg.android.HealthVaultSettings#setMasterAppId(java.lang.String)
      */
     public void setMasterAppId(String appId) {
-        properties.setProperty("master-app-id", appId);
+        properties.setProperty(Constants.MasterAppId, appId);
     }
     
     /* (non-Javadoc)
      * @see com.microsoft.hsg.android.HealthVaultSettings#getMasterAppId()
      */
     public String getMasterAppId() {
-        return properties.getProperty("master-app-id");
+        return properties.getProperty(Constants.MasterAppId);
     }
 
     /* (non-Javadoc)
      * @see com.microsoft.hsg.android.HealthVaultSettings#getServiceUrl()
      */
     public String getServiceUrl() {
-        return properties.getProperty("service-url");
+        return properties.getProperty(Constants.ServiceUrl);
     }
     
     /* (non-Javadoc)
      * @see com.microsoft.hsg.android.HealthVaultSettings#setServiceUrl(java.lang.String)
      */
     public void setServiceUrl(String url) {
-        properties.setProperty("service-url", url);
+        properties.setProperty(Constants.ServiceUrl, url);
     }
 
     /* (non-Javadoc)
      * @see com.microsoft.hsg.android.HealthVaultSettings#getShellUrl()
      */
     public String getShellUrl() {
-        return properties.getProperty("shell-url");
+        return properties.getProperty(Constants.ShellUrl);
     }
 
     /* (non-Javadoc)
      * @see com.microsoft.hsg.android.HealthVaultSettings#setShellUrl(java.lang.String)
      */
     public void setShellUrl(String url) {
-        properties.setProperty("shell-url", url);
+        properties.setProperty(Constants.ShellUrl, url);
     }
 
     /* (non-Javadoc)
  * @see com.microsoft.hsg.android.HealthVaultSettings#getRestUrl()
  */
     public String getRestUrl() {
-        return properties.getProperty("rest-url");
+        return properties.getProperty(Constants.RestUrl);
     }
 
     /* (non-Javadoc)
      * @see com.microsoft.hsg.android.HealthVaultSettings#setRestUrl(java.lang.String)
      */
     public void setRestUrl(String url) {
-        properties.setProperty("rest-url", url);
+        properties.setProperty(Constants.RestUrl, url);
     }
 
     /* (non-Javadoc)
      * @see com.microsoft.hsg.android.HealthVaultSettings#setAppId(java.lang.String)
      */
     public void setAppId(String appId) {
-        properties.setProperty("appid", appId);
+        properties.setProperty(Constants.AppId, appId);
     }
     
     /* (non-Javadoc)
      * @see com.microsoft.hsg.android.HealthVaultSettings#getAppId()
      */
     public String getAppId() {
-        return properties.getProperty("appid");
+        return properties.getProperty(Constants.AppId);
     }
 
     /* (non-Javadoc)
      * @see com.microsoft.hsg.android.HealthVaultSettings#setAuthenticationSecret(java.lang.String)
      */
     public void setAuthenticationSecret(String secret) {
-        properties.setProperty("authentication-secret", secret);
+        properties.setProperty(Constants.AuthenticationSecret, secret);
 
     }
     
@@ -171,7 +171,7 @@ public class HealthVaultFileSettings implements HealthVaultSettings {
      */
     public HealthVaultApp.ConnectionStatus getConnectionStatus()
     {
-        if (properties.containsKey("connected")) {
+        if (properties.containsKey(Constants.ConnectionStatus)) {
             return HealthVaultApp.ConnectionStatus.Connected;
         }
         else {
@@ -184,26 +184,26 @@ public class HealthVaultFileSettings implements HealthVaultSettings {
      */
     public void setConnectionStatus(HealthVaultApp.ConnectionStatus status) {
         if (status == HealthVaultApp.ConnectionStatus.Connected) {
-            properties.setProperty("connected", "true");
+            properties.setProperty(Constants.ConnectionStatus, "true");
         } else {
-        	properties.remove("connected");
+        	properties.remove(Constants.ConnectionStatus);
         }
     }
     
     public boolean getIsMRA() {
-		return Boolean.valueOf(properties.getProperty("is-mra"));
+		return Boolean.valueOf(properties.getProperty(Constants.IsMRA));
 	}
 	
 	public void setIsMRA(boolean isMRA) {
-		properties.setProperty("is-mra", String.valueOf(isMRA));
+		properties.setProperty(Constants.IsMRA, String.valueOf(isMRA));
 	}
 	
 	public String getAuthorizedRecordsResponse() {
-		return properties.getProperty("authorized-records-response");
+		return properties.getProperty(Constants.AuthorizedRecordsResponse);
 	}
 	
 	public void setAuthorizedRecordsResponse(String response) {
-		properties.setProperty("authorized-records-response", response);
+		properties.setProperty(Constants.AuthorizedRecordsResponse, response);
 	}
     
     /* (non-Javadoc)
