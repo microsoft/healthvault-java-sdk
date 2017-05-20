@@ -50,23 +50,23 @@ import rx.schedulers.Schedulers;
 
 public class WeightActivity extends Activity {
 
-	private HealthVaultApp service;
-	private HealthVaultClient hvClient;
-	private Record currentRecord;
+	private HealthVaultApp mService;
+	private HealthVaultClient mClient;
+	private Record mCurrentRecord;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.weight);
-		service = HealthVaultApp.getInstance();
-		hvClient = new HealthVaultClient();
+		mService = HealthVaultApp.getInstance();
+		mClient = new HealthVaultClient();
 
 		final Button weightsBtn = (Button) findViewById(R.id.addWeight);
 		final EditText editText = (EditText) findViewById(R.id.weightInput);
 		
 		weightsBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				if (service.isAppConnected()) {
+				if (mService.isAppConnected()) {
 					putWeight(editText.getText().toString());
 				}
 			}
@@ -76,37 +76,34 @@ public class WeightActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		hvClient.start();
+		mClient.start();
 	}
 
 	@Override
-	protected void onResume()
-	{
+	protected void onResume() {
 		super.onResume();
-		currentRecord = HealthVaultApp.getInstance().getCurrentRecord();
 		getWeights();
 	}
 
 	@Override
 	protected void onStop() {
-		hvClient.stop();
+		mClient.stop();
 		super.onStop();
 	}
 
 	@SuppressWarnings("unchecked")
-	private void getWeights()
-	{
-		hvClient.asyncRequest(
-				currentRecord.getThingsAsync(ThingRequestGroup2.thingTypeQuery(Weight.ThingType)),
+	private void getWeights() {
+		mCurrentRecord = HealthVaultApp.getInstance().getCurrentRecord();
+		mClient.asyncRequest(
+				mCurrentRecord.getThingsAsync(ThingRequestGroup2.thingTypeQuery(Weight.ThingType)),
 				new WeightCallback(WeightCallback.RenderWeights));
 	}
 
 	private void putWeight(String value) {
 		final Thing2 thing = new Thing2();
 		thing.setData(new Weight(Double.parseDouble(value)));
-		// thing.setData(new Weight(-10));
-		hvClient.asyncRequest(
-				currentRecord.putThingAsync(thing),
+		mClient.asyncRequest(
+				mCurrentRecord.putThingAsync(thing),
 				new WeightCallback(WeightCallback.PutWeights));
 	}
 

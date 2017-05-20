@@ -22,11 +22,13 @@
 
 package com.microsoft.hsg.android;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.microsoft.hsg.HVSystemException;
 
@@ -49,13 +51,19 @@ public class HealthVaultFileSettings implements HealthVaultSettings {
 	 */
 	public HealthVaultFileSettings(Context ctx) {
 		this.ctx = ctx;
-
+		FileInputStream inputStream = null;
 		try {
 			properties = new Properties();
 			try {
-				properties.load(ctx.openFileInput("settings.props"));
+				inputStream = ctx.openFileInput("settings.props");
+				properties.load(inputStream);
 			}
 			catch(FileNotFoundException fnfe) {
+				Log.e("FileSettings", "the settings.props file could not be found");
+			} finally {
+				if(inputStream != null) {
+					inputStream.close();
+				}
 			}
 		}
 		catch(IOException ioe) {

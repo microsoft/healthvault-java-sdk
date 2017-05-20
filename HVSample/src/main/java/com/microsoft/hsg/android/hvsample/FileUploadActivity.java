@@ -32,17 +32,17 @@ import com.microsoft.hsg.android.simplexml.things.types.file.File;
 
 public class FileUploadActivity extends Activity {
 	
-	HealthVaultApp service;
-	HealthVaultClient hvClient;
+	HealthVaultApp mService;
+	HealthVaultClient mClient;
 	
-	private Camera camera;
-	private SurfaceView surfaceView;
-	private View progressContainer;
+	private Camera mCamera;
+	private SurfaceView mSurfaceView;
+	private View mProgressContainer;
 
 	private Camera.ShutterCallback shutterCallback = new Camera.ShutterCallback() {
 		public void onShutter() {
 			// display the progress indicator
-			progressContainer.setVisibility(View.VISIBLE);
+			mProgressContainer.setVisibility(View.VISIBLE);
 		}
 	};
 
@@ -75,7 +75,7 @@ public class FileUploadActivity extends Activity {
 				FileInputStream source;
 				try {
 					source = openFileInput(filename);
-					hvClient.asyncRequest(hvFile.uploadAsync(HealthVaultApp.getInstance().getCurrentRecord(), null, source), 
+					mClient.asyncRequest(hvFile.uploadAsync(HealthVaultApp.getInstance().getCurrentRecord(), null, source),
 							new FileUploadActivityCallback<Void>());
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
@@ -96,21 +96,21 @@ public class FileUploadActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_fileupload);
 		
-		service = HealthVaultApp.getInstance(this);
-		hvClient = new HealthVaultClient();
-		
-		progressContainer = findViewById(R.id.camera_progressContainer);
-		progressContainer.setVisibility(View.INVISIBLE);
+		mService = HealthVaultApp.getInstance(this);
+		mClient = new HealthVaultClient();
 
-		surfaceView = (SurfaceView)findViewById(R.id.camera_surfaceView);
-		SurfaceHolder holder = surfaceView.getHolder();
+		mProgressContainer = findViewById(R.id.camera_progressContainer);
+		mProgressContainer.setVisibility(View.INVISIBLE);
+
+		mSurfaceView = (SurfaceView)findViewById(R.id.camera_surfaceView);
+		SurfaceHolder holder = mSurfaceView.getHolder();
 
 		holder.addCallback(new SurfaceHolder.Callback() {
 
 			public void surfaceCreated(SurfaceHolder holder) {
 				try {
-					if (camera != null) {
-						camera.setPreviewDisplay(holder);
+					if (mCamera != null) {
+						mCamera.setPreviewDisplay(holder);
 					}
 				} catch (IOException exception) {
 					exception.printStackTrace();
@@ -118,25 +118,25 @@ public class FileUploadActivity extends Activity {
 			}
 
 			public void surfaceDestroyed(SurfaceHolder holder) {
-				if (camera != null) {
-					camera.stopPreview();
+				if (mCamera != null) {
+					mCamera.stopPreview();
 				}
 			}
 
 			public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
-				if (camera == null) return;
+				if (mCamera == null) return;
 
-				Camera.Parameters parameters = camera.getParameters();
+				Camera.Parameters parameters = mCamera.getParameters();
 				Size s = getBestSupportedSize(parameters.getSupportedPreviewSizes(), w, h);
 				parameters.setPreviewSize(s.width, s.height);
 				s = getBestSupportedSize(parameters.getSupportedPictureSizes(), w, h);
 				parameters.setPictureSize(s.width, s.height);
-				camera.setParameters(parameters);
+				mCamera.setParameters(parameters);
 				try {
-					camera.startPreview();
+					mCamera.startPreview();
 				} catch (Exception e) {
-					camera.release();
-					camera = null;
+					mCamera.release();
+					mCamera = null;
 				}
 			}
 		});
@@ -151,7 +151,7 @@ public class FileUploadActivity extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		hvClient.start();
+		mClient.start();
 	}
 
 
@@ -160,7 +160,7 @@ public class FileUploadActivity extends Activity {
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-		hvClient.start();
+		mClient.start();
 	}
 
 
@@ -168,16 +168,16 @@ public class FileUploadActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		camera = Camera.open();
+		mCamera = Camera.open();
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
 
-		if (camera != null) {
-			camera.release();
-			camera = null;
+		if (mCamera != null) {
+			mCamera.release();
+			mCamera = null;
 		}
 	}
 	
@@ -186,7 +186,7 @@ public class FileUploadActivity extends Activity {
 		fileUploadBtn.setOnClickListener(new View.OnClickListener() {
 			@SuppressWarnings("unchecked")
 			public void onClick(View view) {
-				if (service.isAppConnected()) {
+				if (mService.isAppConnected()) {
 					String filename = writeFile();
 
 					InputStream source;
@@ -195,10 +195,10 @@ public class FileUploadActivity extends Activity {
 						
 						File hvFile = new File();
 						hvFile.setName(filename);
-						
-						hvClient.start();
 
-						hvClient.asyncRequest(hvFile.uploadAsync(HealthVaultApp.getInstance().getCurrentRecord(), null, source),
+						mClient.start();
+
+						mClient.asyncRequest(hvFile.uploadAsync(HealthVaultApp.getInstance().getCurrentRecord(), null, source),
 								new FileUploadActivityCallback<Void>());
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
@@ -211,8 +211,8 @@ public class FileUploadActivity extends Activity {
 		Button cameraClickButton = (Button)findViewById(R.id.camera_click);
 		cameraClickButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				if (camera != null) {
-					camera.takePicture(shutterCallback, null, jpegCallback);
+				if (mCamera != null) {
+					mCamera.takePicture(shutterCallback, null, jpegCallback);
 				}
 			}
 		});
@@ -246,7 +246,7 @@ public class FileUploadActivity extends Activity {
 
 		@Override
 		public void onSuccess(Object t) {
-			progressContainer.setVisibility(View.INVISIBLE);
+			mProgressContainer.setVisibility(View.INVISIBLE);
 			finish();
 		}
 	}

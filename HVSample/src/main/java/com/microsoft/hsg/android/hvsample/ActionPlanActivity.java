@@ -49,20 +49,20 @@ import rx.Subscription;
 import rx.schedulers.Schedulers;
 
 public class ActionPlanActivity  extends Activity {
-	private HealthVaultApp service;
-	private HealthVaultClient hvClient;
-	private Record currentRecord;
-	private static ActionPlansResponseActionPlanInstance actionPlanInstance;
+	private HealthVaultApp mService;
+	private HealthVaultClient mClient;
+	private Record mCurrentRecord;
+	private static ActionPlansResponseActionPlanInstance mActionPlanInstance;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_actionplan);
-		service = HealthVaultApp.getInstance();
-		hvClient = new HealthVaultClient();
+		mService = HealthVaultApp.getInstance();
+		mClient = new HealthVaultClient();
 
-		if (service.isAppConnected()) {
-			currentRecord = HealthVaultApp.getInstance().getCurrentRecord();
+		if (mService.isAppConnected()) {
+			mCurrentRecord = HealthVaultApp.getInstance().getCurrentRecord();
 			getActionPlan();
 		}
 	}
@@ -70,34 +70,33 @@ public class ActionPlanActivity  extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		hvClient.start();
+		mClient.start();
 	}
 
 	@Override
-	protected void onResume()
-	{
+	protected void onResume() {
 		super.onResume();
-		currentRecord = HealthVaultApp.getInstance().getCurrentRecord();
+		mCurrentRecord = HealthVaultApp.getInstance().getCurrentRecord();
 		getActionPlan();
 	}
 
 	@Override
 	protected void onStop() {
-		hvClient.stop();
+		mClient.stop();
 		super.onStop();
 	}
 
 	@SuppressWarnings("unchecked")
 	private void getActionPlan(){
-		service.getSettings().setRestUrl("https://data.ppe.microsofthealth.net/");
-		HealthVaultSettings settings = service.getSettings();
-		Connection connection = service.getConnection();
+		mService.getSettings().setRestUrl("https://data.ppe.microsofthealth.net/");
+		HealthVaultSettings settings = mService.getSettings();
+		Connection connection = mService.getConnection();
 
-		final MicrosoftHealthVaultRestApiImpl restClient = new HealthVaultRestClient(settings, connection, currentRecord).getInstance();
+		final MicrosoftHealthVaultRestApiImpl restClient = new HealthVaultRestClient(settings, connection, mCurrentRecord).getClient();
 
 		restClient.getActionPlansAsync()
 				.subscribeOn(Schedulers.io())
-				.observeOn(Schedulers.newThread())
+				.observeOn(Schedulers.io())
 				.subscribe(new Subscriber<Object>() {
 					@Override
 					public final void onCompleted() {
@@ -110,7 +109,7 @@ public class ActionPlanActivity  extends Activity {
 
 					@Override
 					public final void onNext(final Object response) {
-						actionPlanInstance = (ActionPlansResponseActionPlanInstance) response;
+						mActionPlanInstance = (ActionPlansResponseActionPlanInstance) response;
 					}
 				});
 		renderActionPlans();
@@ -118,23 +117,19 @@ public class ActionPlanActivity  extends Activity {
 
 	private void renderActionPlans() {
 		List<String> actionplans = new ArrayList<String>();
-		if (actionPlanInstance != null) {
-			int size = actionPlanInstance.plans().size();
+		if (mActionPlanInstance != null) {
+			int size = mActionPlanInstance.plans().size();
 			for (int index = 0; index < size; ++index) {
-				actionplans.add("Plan: " + actionPlanInstance.plans().get(index).name().toString() +
-						"     Category:" + actionPlanInstance.plans().get(index).category().toString());
+				actionplans.add("Plan: " + mActionPlanInstance.plans().get(index).name().toString() +
+						"     Category:" + mActionPlanInstance.plans().get(index).category().toString());
 			}
 			ListView lv = (ListView) findViewById(R.id.actionPlanList);
 			lv.setAdapter(new ArrayAdapter<String>(
 					ActionPlanActivity.this,
 					android.R.layout.simple_list_item_1,
 					actionplans));
-		}
-		else {
-			Toast.makeText(
-					ActionPlanActivity.this,
-					"No Action plans!",
-					Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(ActionPlanActivity.this, "No Action plans!", Toast.LENGTH_SHORT).show();
 		}
 	}
 }

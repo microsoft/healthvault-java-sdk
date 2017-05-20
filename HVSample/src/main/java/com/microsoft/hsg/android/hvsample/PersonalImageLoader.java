@@ -17,7 +17,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import com.hianzuo.lrucache.LruCache;
+import android.util.LruCache;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -33,9 +33,9 @@ import com.microsoft.hsg.android.simplexml.things.types.types.Record;
 
 public class PersonalImageLoader implements ComponentCallbacks2 {
 
-	private ImageLruCache cache;
-	private HealthVaultClient hvClient;
-	private Activity context;
+	private ImageLruCache mCache;
+	private HealthVaultClient mClient;
+	private Activity mContext;
 	
 	private ImageView imageView;
 	
@@ -44,18 +44,17 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 		ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 		int memSize = am.getMemoryClass() * 1024 * 1024;
 
-		cache = new ImageLruCache(memSize);
-		hvClient = client;
-		this.context = context;
+		mCache = new ImageLruCache(memSize);
+		mClient = client;
+		mContext = context;
 	}
 
 	public void load(String id, ImageView imageView, int defaultresource) {
 		imageView.setImageResource(defaultresource);
-		Bitmap image = cache.get(id);
+		Bitmap image = mCache.get(id);
 		if (image != null) {
 			imageView.setImageBitmap(image);
-		}
-		else {
+		} else {
 			List<Record> records = HealthVaultApp.getInstance().getRecordList();
 			Record record = null;
 
@@ -66,7 +65,7 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 				}
 			}
 
-			hvClient.asyncRequest(getImageAsync(record), new PersonalImageCallback(id, imageView));
+			mClient.asyncRequest(getImageAsync(record), new PersonalImageCallback(id, imageView));
 		}
 	}
 	
@@ -74,7 +73,7 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 		return new Callable<Bitmap>() {
 			public Bitmap call() throws URISyntaxException, IOException {
 				// check if it exist in file
-				File cacheDir = context.getCacheDir();
+				File cacheDir = mContext.getCacheDir();
 
 				if(!cacheDir.exists()) {
 					cacheDir.mkdirs();
@@ -84,7 +83,9 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 
 				if(file.exists()) {
 					FileInputStream in = new FileInputStream(file);
-					return BitmapFactory.decodeStream(in);
+					Bitmap bitmap = BitmapFactory.decodeStream(in);
+					in.close();
+					return bitmap;
 				}
 
 				// try to get from web
@@ -94,14 +95,28 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 				if(things != null && !things.isEmpty()) {
 					Thing2 thing = things.get(0);
 					PersonalImage image = (PersonalImage)thing.getData();
-					
-					FileOutputStream destination = new FileOutputStream(file);
-					image.download(record, destination);
-					destination.flush();
-					destination.close();
-					
-					FileInputStream is = new FileInputStream(file);
-					return BitmapFactory.decodeStream(is);
+					FileOutputStream destination = null;
+					FileInputStream inputStream = null;
+					Bitmap bitmap;
+
+					try {
+						destination = new FileOutputStream(file);
+						image.download(record, destination);
+
+						inputStream = new FileInputStream(file);
+						bitmap = BitmapFactory.decodeStream(inputStream);
+						return bitmap;
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						if (destination != null) {
+							destination.close();
+						}
+						if (inputStream != null) {
+							inputStream.close();
+						}
+					}
 				}
 
 				return null;
@@ -124,10 +139,10 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 	@Override
 	public void onTrimMemory(int level) {
 		 if (level >= TRIM_MEMORY_MODERATE) {
-			cache.evictAll();
+			 mCache.evictAll();
 		 }
 		else if (level >= TRIM_MEMORY_BACKGROUND) {
-			cache.trimToSize(cache.size() / 2);
+			 mCache.trimToSize(mCache.size() / 2);
 		}
 	}
 	
@@ -150,7 +165,7 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 		@Override
 		public void onError(HVException exception) {
 			Toast.makeText(
-				context,
+				mContext,
 				"An error occurred.  " + exception.getMessage(),
 				Toast.LENGTH_LONG).show();
 		}
@@ -158,7 +173,7 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 		@Override
 		public void onSuccess(Bitmap image) {
 			if(image != null) {
-				cache.put(id, image);
+				mCache.put(id, image);
 				imageView.setImageBitmap(image);
 			}
 		}

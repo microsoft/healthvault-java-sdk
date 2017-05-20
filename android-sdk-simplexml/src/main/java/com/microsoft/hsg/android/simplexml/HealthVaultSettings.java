@@ -22,6 +22,8 @@
 
 package com.microsoft.hsg.android.simplexml;
 
+import org.joda.time.DateTime;
+
 import java.net.URI;
 
 // TODO: Auto-generated Javadoc
@@ -112,7 +114,12 @@ public interface HealthVaultSettings {
      * @param appId the new master app id
      */
     public void setMasterAppId(String appId);
-    
+
+	public void setSessionExpiration();
+
+	public DateTime getSessionExpiration();
+
+	public boolean isSessionExpiraed();
     /**
      * Gets the authentication secret.
      * 

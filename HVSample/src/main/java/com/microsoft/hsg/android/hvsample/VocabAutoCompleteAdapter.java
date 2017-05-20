@@ -18,10 +18,10 @@ import com.microsoft.hsg.android.simplexml.vocabs.types.VocabItem;
 
 public class VocabAutoCompleteAdapter extends ArrayAdapter<String> implements Filterable {
 	
-	private ArrayList<String> resultList;
-	private VocabIdentifier vocabKey;
+	private ArrayList<String> mResultList;
+	private VocabIdentifier mVocabKey;
 	
-	private LruCache<String, ArrayList<String>> cache;
+	private LruCache<String, ArrayList<String>> mCache;
 
 	public VocabAutoCompleteAdapter(Context context,
 			int textViewResourceId,
@@ -32,19 +32,19 @@ public class VocabAutoCompleteAdapter extends ArrayAdapter<String> implements Fi
 		ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 		int memSize = am.getMemoryClass() * 1024 * 1024;
 
-		this.vocabKey = vocabKey;
-		cache = new LruCache<String, ArrayList<String>>(memSize);
-		resultList = new ArrayList<String>(0);
+		mVocabKey = vocabKey;
+		mCache = new LruCache<String, ArrayList<String>>(memSize);
+		mResultList = new ArrayList<String>(0);
 	}
 
 	@Override
 	public int getCount() {
-		return resultList.size();
+		return mResultList.size();
 	}
 
 	@Override
 	public String getItem(int index) {
-		return resultList.get(index);
+		return mResultList.get(index);
 	}
 
 	@Override
@@ -55,21 +55,21 @@ public class VocabAutoCompleteAdapter extends ArrayAdapter<String> implements Fi
 				FilterResults filterResults = new FilterResults();
 				if (constraint != null) {
 					String searchText = constraint.toString();
-					String key = vocabKey.getFamily() + "_" + vocabKey.getName() + "_" + searchText;
+					String key = mVocabKey.getFamily() + "_" + mVocabKey.getName() + "_" + searchText;
 
-					resultList = cache.get(key) == null ? new ArrayList<String>() : cache.get(key);
+					mResultList = mCache.get(key) == null ? new ArrayList<String>() : mCache.get(key);
 
-					if(resultList.size() == 0) {
-						resultList = autocomplete(searchText);
+					if(mResultList.size() == 0) {
+						mResultList = autocomplete(searchText);
 
 						ArrayList<String> cachedResults = new ArrayList<String>();
-						cachedResults.addAll(resultList);
+						cachedResults.addAll(mResultList);
 
-						cache.put(key, cachedResults);
+						mCache.put(key, cachedResults);
 					}
 	
-					filterResults.values = resultList;
-					filterResults.count = resultList.size();
+					filterResults.values = mResultList;
+					filterResults.count = mResultList.size();
 				}
 
 				return filterResults;
@@ -79,8 +79,7 @@ public class VocabAutoCompleteAdapter extends ArrayAdapter<String> implements Fi
 			protected void publishResults(CharSequence constraint, FilterResults results) {
 				if (results != null && results.count > 0) {
 					notifyDataSetChanged();
-				}
-				else {
+				} else {
 					notifyDataSetInvalidated();
 				}
 			}};
@@ -89,7 +88,7 @@ public class VocabAutoCompleteAdapter extends ArrayAdapter<String> implements Fi
 
 	private ArrayList<String> autocomplete(String searchText) {
 		Vocabs vocabs = HealthVaultApp.getInstance().getVocabs();
-		VocabQueryResult result = vocabs.search(vocabKey, searchText);
+		VocabQueryResult result = vocabs.search(mVocabKey, searchText);
 		ArrayList<String> results = new ArrayList<String>();
 
 		if(result != null && result.hasItems()) {

@@ -45,8 +45,8 @@ public class MainActivity
 	extends ListActivity 
 	implements HealthVaultInitializationHandler {
 
-	private HealthVaultApp service;
-	private HealthVaultClient hvClient;
+	private HealthVaultApp mService;
+	private HealthVaultClient mClient;
 
 	private ProgressDialog connectProgressDialog;
 	
@@ -63,13 +63,13 @@ public class MainActivity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		service = HealthVaultApp.getInstance(this);
-		if (service.isAppConnected()) {
-			service.start(this, this);
+
+		mService = HealthVaultApp.getInstance(this);
+		if (mService.isAppConnected()) {
+			mService.start(this, this);
 		}
 
-		hvClient = new HealthVaultClient();
+		mClient = new HealthVaultClient();
 		
 		ListView listView = getListView();
 		
@@ -80,7 +80,7 @@ public class MainActivity
 	@Override
 	protected void onStart() {
 		super.onStart();
-		hvClient.start();
+		mClient.start();
 	}
 	
 	@Override
@@ -96,7 +96,7 @@ public class MainActivity
 			connectProgressDialog.dismiss();
 		}
 		
-		hvClient.stop();
+		mClient.stop();
 	}
 
 	@Override
@@ -106,7 +106,7 @@ public class MainActivity
 		TextView tv = (TextView) recordNameLayout.findViewById(R.id.current_record_name);
 
 		HealthVaultApp application = HealthVaultApp.getInstance();
-		if(service.isAppConnected() && application.getCurrentRecord() != null) {	
+		if(mService.isAppConnected() && application.getCurrentRecord() != null) {
 		   tv.setText(application.getCurrentRecord().getName());
 
 		   recordNameLayout.setOnClickListener(new OnClickListener() {
@@ -147,20 +147,20 @@ public class MainActivity
 	}
 	
 	private void doConnect() {
-		if (!service.isAppConnected()) {
+		if (!mService.isAppConnected()) {
 			connectProgressDialog = ProgressDialog.show(
 					MainActivity.this,
 					"",
 					"Please wait...",
 					true);
 			
-			HealthVaultSettings settings = service.getSettings();
+			HealthVaultSettings settings = mService.getSettings();
 			settings.setMasterAppId("e92b8605-ad54-4d48-829f-1a5f1dfbe40f");
 			settings.setServiceUrl("https://platform.healthvault-ppe.com/platform/wildcat.ashx");
 			settings.setShellUrl("https://account.healthvault-ppe.com");
 			settings.setIsMultiInstanceAware(true);
 			settings.setIsMRA(true);
-			service.start(MainActivity.this, MainActivity.this);
+			mService.start(MainActivity.this, MainActivity.this);
 		}
 		else {
 			Toast.makeText(
@@ -173,7 +173,7 @@ public class MainActivity
 	public void onListItemClick(ListView parent, View v, int position, long id) {
 		TextView item = (TextView) v;
 		Intent intent = null;
-		if (service.isAppConnected()) {
+		if (mService.isAppConnected()) {
 			switch(position) {
 			case 0:
 				intent = new Intent(MainActivity.this, WeightActivity.class);
@@ -291,13 +291,13 @@ public class MainActivity
 		@Override
 		protected Void doInBackground(Void... arg0) {
 			
-			HealthVaultSettings settings = service.getSettings();
+			HealthVaultSettings settings = mService.getSettings();
 			settings.setMasterAppId("c6ba979f-c342-4408-a2bc-0dfb43b2bf8d");
 			settings.setServiceUrl("https://platform.healthvault-ppe.com/platform/wildcat.ashx");
 			settings.setShellUrl("https://account.healthvault-ppe.com");
 			settings.setIsMultiInstanceAware(true);
-			
-			service.start(MainActivity.this, MainActivity.this);
+
+			mService.start(MainActivity.this, MainActivity.this);
 			
 			return null;
 		}
@@ -321,10 +321,7 @@ public class MainActivity
 		@Override
 		public void onError(HVException exception) {
 			MainActivity.this.setProgressBarIndeterminateVisibility(false);
-			Toast.makeText(
-			MainActivity.this,
-				"An error occurred.  " + exception.getMessage(),
-				Toast.LENGTH_LONG).show();
+			Toast.makeText(MainActivity.this, "An error occurred.  " + exception.getMessage(), Toast.LENGTH_LONG).show();
 		}
 
 		@Override
@@ -332,7 +329,6 @@ public class MainActivity
 			MainActivity.this.setProgressBarIndeterminateVisibility(false);
 			switch(event) {
 			case UpdateRecords:
-				// updateRecords((List<Record>)obj);
 				break;
 			}
 		}

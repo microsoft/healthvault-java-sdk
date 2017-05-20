@@ -14,7 +14,7 @@
 
 	<FrameLayout
 		android:layout_width="match_parent"
-		android:layout_height="fill_parent" >
+		android:layout_height="match_parent" >
 	<LinearLayout android:id="@+id/camera_preview"
 	android:orientation="horizontal"
 	android:layout_width="match_parent"

@@ -84,7 +84,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
-public class HealthVaultRestClient {
+public class HealthVaultRestClient implements IHealthVaultRestClient {
 
 	private static MicrosoftHealthVaultRestApiImpl instance;
 	private static DateTime lastRefreshedSessionCredential = DateTime.now();;
@@ -97,28 +97,25 @@ public class HealthVaultRestClient {
 	private static HealthVaultSettings settings;
 
 	public HealthVaultRestClient (HealthVaultSettings settings, Connection connection, Record currentRecord){
-		InitInstance(settings, connection, currentRecord);
+		Initialize(settings, connection, currentRecord);
 	}
 
-	private void InitInstance(HealthVaultSettings settings, Connection connection, Record currentRecord){
+	private void Initialize(HealthVaultSettings settings, Connection connection, Record currentRecord){
 		if (connection == null){
 			throw new HVException("connection is null");
 		}
+		this.settings = settings;
 		this.restURL = settings.getRestUrl();
 		this.currentRecord = currentRecord;
 		this.connection = connection;
 		this.okBuilder = getOkHttp(connection, currentRecord);
 		this.retrofit = getRetrofit(this.restURL);
+		tokenRefresh(connection);
 	}
 
-	public MicrosoftHealthVaultRestApiImpl getInstance() {
-		if (instance == null) {
-			tokenRefreshCheck(connection);
-			OkHttpClient.Builder okBuilder = getOkHttp(connection, currentRecord);
-			instance = new MicrosoftHealthVaultRestApiImpl(restURL, okBuilder, retrofit.newBuilder());
-		}
-
-		return instance;
+	public MicrosoftHealthVaultRestApiImpl getClient() {
+		OkHttpClient.Builder okBuilder = getOkHttp(connection, currentRecord);
+		return new MicrosoftHealthVaultRestApiImpl(restURL, okBuilder, retrofit.newBuilder());
 	}
 
 	private Retrofit getRetrofit(String url){
@@ -130,13 +127,13 @@ public class HealthVaultRestClient {
 		return retrofit;
 	}
 
-	private OkHttpClient.Builder getOkHttp(Connection connection, Record currentRecord){
-		final String token = getAuthToken(connection, currentRecord);
+	public OkHttpClient.Builder getOkHttp(final Connection connection, final Record currentRecord){
 		OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
 		clientBuilder.connectionPool(new ConnectionPool(3, 5, TimeUnit.SECONDS));
 		clientBuilder.addInterceptor(new Interceptor() {
 			@Override
 			public okhttp3.Response intercept(Chain chain) throws IOException {
+				String token = getAuthToken(connection, currentRecord);
 				Request request = chain.request();
 				Request.Builder newRequest = request.newBuilder().header("Authorization", token);
 				newRequest.build();
@@ -154,10 +151,14 @@ public class HealthVaultRestClient {
 		return token;
 	}
 
-	public void tokenRefreshCheck(Connection connection){
-		if (Minutes.minutesBetween(DateTime.now(), lastRefreshedSessionCredential).isGreaterThan(Minutes.minutes(SessionCredentialCallThresholdMinutes))) {
-			connection.getAuthenticator().authenticate(connection, true);
-			lastRefreshedSessionCredential = DateTime.now();
+	public void tokenRefresh(Connection connection){
+		DateTime dateTime= this.settings.getSessionExpiration();
+		if(dateTime.isBeforeNow()) {
+			if (Minutes.minutesBetween(DateTime.now(), lastRefreshedSessionCredential).isGreaterThan(Minutes.minutes(SessionCredentialCallThresholdMinutes))) {
+				connection.getAuthenticator().authenticate(connection, true);
+				lastRefreshedSessionCredential = DateTime.now();
+				this.settings.setSessionExpiration();
+			}
 		}
 	}
 }
