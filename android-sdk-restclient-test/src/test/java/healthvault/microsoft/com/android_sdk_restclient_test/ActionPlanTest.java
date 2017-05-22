@@ -36,10 +36,6 @@ import com.microsoft.hsg.android.simplexml.things.types.base.CodableValue;
 import com.microsoft.hsg.android.simplexml.things.types.types.PersonInfo;
 import com.microsoft.hsg.android.simplexml.things.types.types.Record;
 
-import javax.inject.Inject;
-
-import dagger.Provides;
-
 import healthvault.client.implementation.MicrosoftHealthVaultRestApiImpl;
 import okhttp3.ConnectionPool;
 import okhttp3.Interceptor;

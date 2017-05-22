@@ -58,6 +58,7 @@ public class FileUploadActivity extends Activity {
 				os.write(data);
 			} catch (Exception e) {
 				Log.e("FileUpload", "Error writing to file " + filename, e);
+				success = false;
 			} finally {
 				try {
 					if (os != null)
@@ -72,7 +73,7 @@ public class FileUploadActivity extends Activity {
 				com.microsoft.hsg.android.simplexml.things.types.file.File hvFile = new com.microsoft.hsg.android.simplexml.things.types.file.File();
 				hvFile.setName(filename);
 				
-				FileInputStream source;
+				FileInputStream source = null;
 				try {
 					source = openFileInput(filename);
 					mClient.asyncRequest(hvFile.uploadAsync(HealthVaultApp.getInstance().getCurrentRecord(), null, source),
@@ -86,6 +87,15 @@ public class FileUploadActivity extends Activity {
 				} catch (URISyntaxException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				}
+				finally {
+					if(source != null){
+						try {
+							source.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 				}
 			}
 		}
@@ -186,25 +196,30 @@ public class FileUploadActivity extends Activity {
 		fileUploadBtn.setOnClickListener(new View.OnClickListener() {
 			@SuppressWarnings("unchecked")
 			public void onClick(View view) {
-				if (mService.isAppConnected()) {
-					String filename = writeFile();
-
-					InputStream source;
-					try {
-						source = openFileInput(filename);
-						
-						File hvFile = new File();
-						hvFile.setName(filename);
-
-						mClient.start();
-
-						mClient.asyncRequest(hvFile.uploadAsync(HealthVaultApp.getInstance().getCurrentRecord(), null, source),
-								new FileUploadActivityCallback<Void>());
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+			if (mService.isAppConnected()) {
+				String filename = writeFile();
+				InputStream source = null;
+				try {
+					source = openFileInput(filename);
+					File hvFile = new File();
+					hvFile.setName(filename);
+					mClient.start();
+					mClient.asyncRequest(hvFile.uploadAsync(HealthVaultApp.getInstance().getCurrentRecord(), null, source),
+						new FileUploadActivityCallback<Void>());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				finally {
+					if(source != null){
+						try {
+							source.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
 				}
+			}
 			}
 		});
 		

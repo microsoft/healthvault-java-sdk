@@ -51,12 +51,12 @@ public class MainActivity
 	private ProgressDialog connectProgressDialog;
 	
 	String[] tests = {
-			"WeightPutGet",
-			"FileUpload",
-			"FileDownload",
-			"VocabTest",
-			"LocalVault",
-			"ActionPlan"
+		"WeightPutGet",
+		"FileUpload",
+		"FileDownload",
+		"VocabTest",
+		"LocalVault",
+		"ActionPlan"
 	};
 	
 	@Override
@@ -84,8 +84,7 @@ public class MainActivity
 	}
 	
 	@Override
-	protected void onResume()
-	{
+	protected void onResume() {
 		super.onResume();
 	}
 	
@@ -107,9 +106,8 @@ public class MainActivity
 
 		HealthVaultApp application = HealthVaultApp.getInstance();
 		if(mService.isAppConnected() && application.getCurrentRecord() != null) {
-		   tv.setText(application.getCurrentRecord().getName());
-
-		   recordNameLayout.setOnClickListener(new OnClickListener() {
+			tv.setText(application.getCurrentRecord().getName());
+			recordNameLayout.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View arg0) {
@@ -117,8 +115,7 @@ public class MainActivity
 					startActivity(intent);
 				}
 			});
-		}
-		else {
+		} else {
 			tv.setVisibility(View.GONE);
 		}
 		
@@ -129,10 +126,7 @@ public class MainActivity
 	}
 
 	public void onError(Exception e) {
-		Toast.makeText(
-				MainActivity.this,
-				e.getMessage(),
-				Toast.LENGTH_LONG).show();
+		Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
 	}
 
 	@Override
@@ -145,14 +139,10 @@ public class MainActivity
 				return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	private void doConnect() {
 		if (!mService.isAppConnected()) {
-			connectProgressDialog = ProgressDialog.show(
-					MainActivity.this,
-					"",
-					"Please wait...",
-					true);
+			connectProgressDialog = ProgressDialog.show(MainActivity.this, "", "Please wait...", true);
 			
 			HealthVaultSettings settings = mService.getSettings();
 			settings.setMasterAppId("e92b8605-ad54-4d48-829f-1a5f1dfbe40f");
@@ -161,12 +151,8 @@ public class MainActivity
 			settings.setIsMultiInstanceAware(true);
 			settings.setIsMRA(true);
 			mService.start(MainActivity.this, MainActivity.this);
-		}
-		else {
-			Toast.makeText(
-					MainActivity.this,
-					"App is already connected",
-					Toast.LENGTH_LONG).show();
+		} else {
+			Toast.makeText(MainActivity.this, "App is already connected", Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -182,10 +168,7 @@ public class MainActivity
 				intent = new Intent(MainActivity.this, FileUploadActivity.class);
 				break;
 			case 2:
-				Toast.makeText(
-						MainActivity.this,
-						"Not implemented yet",
-						Toast.LENGTH_LONG).show();
+				Toast.makeText(MainActivity.this, "Not implemented yet", Toast.LENGTH_LONG).show();
 				break;
 			case 3:
 				intent = new Intent(MainActivity.this, VocabActivity.class);
@@ -203,74 +186,19 @@ public class MainActivity
 		}
 	}
 	
-	/*private void registerHandlers() {
-
-		// Connect button
-		Button connect = (Button) findViewById(R.id.connect);
-		connect.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				doConnect();
-			}
-		});
-		
-		Button weightsBtn = (Button) findViewById(R.id.weights);
-		weightsBtn.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				if (service.isAppConnected()) {
-					Intent intent = new Intent(MainActivity.this, WeightActivity.class);
-					startActivity(intent);
-				}
-			}
-		});
-		
-		Button fileUploadBtn = (Button) findViewById(R.id.fileUpload);
-		fileUploadBtn.setOnClickListener(new View.OnClickListener() {
-			@SuppressWarnings("unchecked")
-			public void onClick(View view) {
-				if (service.isAppConnected()) {
-					String filename = writeFile();
-
-					InputStream source;
-					try {
-						source = openFileInput(filename);
-						
-						File hvFile = new File();
-						hvFile.setName(filename);
-						
-						hvClient.start();
-
-						hvClient.asyncRequest(hvFile.uploadAsync(((HVApp)getApplication()).getCurrentRecord(), null, source),
-								new MainActivityCallback(MainActivityCallback.UpdateRecords));
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-		});
-		
-		Button vocabTest = (Button) findViewById(R.id.vocabTest);
-		vocabTest.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				Intent intent  = new Intent(MainActivity.this, VocabActivity.class);
-				startActivity(intent);
-			}
-		});
-	}*/
-
 	private String writeFile() {
 		String filename = "writefile" + (int)(Math.random() * 100)  + ".txt";
 		String string = "This is from file upload";
 		FileOutputStream outputStream;
 
 		try {
-		  outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-		  outputStream.write(string.getBytes());
-		  outputStream.close();
-		  
-		  return filename;
+			outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+			outputStream.write(string.getBytes());
+			outputStream.close();
+
+			return filename;
 		} catch (Exception e) {
-		  e.printStackTrace();
+			e.printStackTrace();
 		}
 		
 		return null;
@@ -281,11 +209,7 @@ public class MainActivity
 		private ProgressDialog progressDialog;
 
 		public HVConnect() {
-			progressDialog = ProgressDialog.show(
-					MainActivity.this,
-					"",
-					"Please wait...",
-					true);
+			progressDialog = ProgressDialog.show(MainActivity.this, "", "Please wait...", true);
 		}
 
 		@Override

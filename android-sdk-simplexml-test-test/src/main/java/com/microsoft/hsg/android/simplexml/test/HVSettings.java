@@ -3,10 +3,13 @@ package com.microsoft.hsg.android.simplexml.test;
 import com.microsoft.hsg.android.simplexml.HealthVaultApp.ConnectionStatus;
 import com.microsoft.hsg.android.simplexml.HealthVaultSettings;
 
+import org.joda.time.DateTime;
+
 public class HVSettings implements HealthVaultSettings {
 	
-	private String appId;
-	private String authSecret;
+	private String mAppId;
+	private String mAuthSecret;
+	private DateTime mExperation;
 
 	@Override
 	public boolean getIsMultiInstanceAware() {
@@ -57,14 +60,27 @@ public class HVSettings implements HealthVaultSettings {
 
 	@Override
 	public String getAppId() {
-		return appId;
+		return mAppId;
 	}
 
 	@Override
 	public void setAppId(String appid) {
-		this.appId = appid;
+		mAppId = appid;
 	}
 
+	@Override
+	public void setSessionExpiration() {
+		mExperation = DateTime.now().plusHours(4);
+	}
+
+	@Override
+	public DateTime getSessionExpiration() {
+		return mExperation;
+	}
+
+	public boolean isSessionExpiraed() {
+		return mExperation.isBeforeNow();
+	}
 	@Override
 	public String getMasterAppId() {
 		// TODO Auto-generated method stub
@@ -79,12 +95,12 @@ public class HVSettings implements HealthVaultSettings {
 
 	@Override
 	public String getAuthenticationSecret() {
-		return this.authSecret;
+		return mAuthSecret;
 	}
 
 	@Override
 	public void setAuthenticationSecret(String secret) {
-		this.authSecret = secret;
+		mAuthSecret = secret;
 	}
 
 	@Override

@@ -87,7 +87,7 @@ public class ActionPlanActivity  extends Activity {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void getActionPlan(){
+	private void getActionPlan() {
 		mService.getSettings().setRestUrl("https://data.ppe.microsofthealth.net/");
 		HealthVaultSettings settings = mService.getSettings();
 		Connection connection = mService.getConnection();

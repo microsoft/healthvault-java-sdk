@@ -87,14 +87,14 @@ import retrofit2.http.Query;
 public class HealthVaultRestClient implements IHealthVaultRestClient {
 
 	private static MicrosoftHealthVaultRestApiImpl instance;
-	private static DateTime lastRefreshedSessionCredential = DateTime.now();;
-	private static final int SessionCredentialCallThresholdMinutes = 5;
-	private static Retrofit retrofit;
-	private static String restURL;
-	private static OkHttpClient.Builder okBuilder;
-	private static Connection connection;
-	private static Record currentRecord;
-	private static HealthVaultSettings settings;
+	private static DateTime mLastRefreshedSessionCredential = DateTime.now();;
+	private static final int mSessionCredentialCallThresholdMinutes = 5;
+	private static Retrofit mRetrofit;
+	private static String mRestURL;
+	private static OkHttpClient.Builder mOkBuilder;
+	private static Connection mConnection;
+	private static Record mCurrentRecord;
+	private static HealthVaultSettings mSettings;
 
 	public HealthVaultRestClient (HealthVaultSettings settings, Connection connection, Record currentRecord){
 		Initialize(settings, connection, currentRecord);
@@ -104,18 +104,17 @@ public class HealthVaultRestClient implements IHealthVaultRestClient {
 		if (connection == null){
 			throw new HVException("connection is null");
 		}
-		this.settings = settings;
-		this.restURL = settings.getRestUrl();
-		this.currentRecord = currentRecord;
-		this.connection = connection;
-		this.okBuilder = getOkHttp(connection, currentRecord);
-		this.retrofit = getRetrofit(this.restURL);
+		mSettings = settings;
+		mRestURL = settings.getRestUrl();
+		mCurrentRecord = currentRecord;
+		mConnection = connection;
+		mOkBuilder = getOkHttp(connection, currentRecord);
+		mRetrofit = getRetrofit(mRestURL);
 		tokenRefresh(connection);
 	}
 
 	public MicrosoftHealthVaultRestApiImpl getClient() {
-		OkHttpClient.Builder okBuilder = getOkHttp(connection, currentRecord);
-		return new MicrosoftHealthVaultRestApiImpl(restURL, okBuilder, retrofit.newBuilder());
+		return new MicrosoftHealthVaultRestApiImpl(mRestURL, mOkBuilder, mRetrofit.newBuilder());
 	}
 
 	private Retrofit getRetrofit(String url){
@@ -152,12 +151,12 @@ public class HealthVaultRestClient implements IHealthVaultRestClient {
 	}
 
 	public void tokenRefresh(Connection connection){
-		DateTime dateTime= this.settings.getSessionExpiration();
+		DateTime dateTime= mSettings.getSessionExpiration();
 		if(dateTime.isBeforeNow()) {
-			if (Minutes.minutesBetween(DateTime.now(), lastRefreshedSessionCredential).isGreaterThan(Minutes.minutes(SessionCredentialCallThresholdMinutes))) {
+			if (Minutes.minutesBetween(DateTime.now(), mLastRefreshedSessionCredential).isGreaterThan(Minutes.minutes(mSessionCredentialCallThresholdMinutes))) {
 				connection.getAuthenticator().authenticate(connection, true);
-				lastRefreshedSessionCredential = DateTime.now();
-				this.settings.setSessionExpiration();
+				mLastRefreshedSessionCredential = DateTime.now();
+				mSettings.setSessionExpiration();
 			}
 		}
 	}
