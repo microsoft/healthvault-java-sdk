@@ -110,7 +110,6 @@ public class HealthVaultRestClient implements IHealthVaultRestClient {
 		mConnection = connection;
 		mOkBuilder = getOkHttp(connection, currentRecord);
 		mRetrofit = getRetrofit(mRestURL);
-		tokenRefresh(connection);
 	}
 
 	public MicrosoftHealthVaultRestApiImpl getClient() {
@@ -144,6 +143,11 @@ public class HealthVaultRestClient implements IHealthVaultRestClient {
 	}
 
 	private String getAuthToken (Connection connection, Record currentRecord){
+		DateTime dateTime= mSettings.getSessionExpiration();
+		if(dateTime.isBeforeNow()) {
+			tokenRefresh(connection);
+		}
+
 		String token =  "MSH-V1 app-token=" + connection.getSessionToken().toString() +
 				",offline-person-id=" + currentRecord.getPersonId() +
 				",record-id=" + currentRecord.getId();
@@ -151,13 +155,10 @@ public class HealthVaultRestClient implements IHealthVaultRestClient {
 	}
 
 	public void tokenRefresh(Connection connection){
-		DateTime dateTime= mSettings.getSessionExpiration();
-		if(dateTime.isBeforeNow()) {
 			if (Minutes.minutesBetween(DateTime.now(), mLastRefreshedSessionCredential).isGreaterThan(Minutes.minutes(mSessionCredentialCallThresholdMinutes))) {
 				connection.getAuthenticator().authenticate(connection, true);
 				mLastRefreshedSessionCredential = DateTime.now();
 				mSettings.setSessionExpiration();
 			}
-		}
 	}
 }

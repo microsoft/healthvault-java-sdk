@@ -26,7 +26,7 @@
 	<Button android:id="@+id/camera_click"
 	  android:layout_width="wrap_content"
 	  android:layout_height="match_parent"
-	  android:text="click"/>
+	  android:text="take picture"/>
   </LinearLayout>
   <FrameLayout android:id="@+id/camera_progressContainer"
 	android:layout_width="match_parent"
