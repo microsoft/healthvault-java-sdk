@@ -85,10 +85,7 @@ public class ShellActivity extends Activity {
 	 *
 	 * @return the intent
 	 */
-	public static Intent createCreateApplicationIntent(
-			Context ctx,
-			String appToken,
-			String appId) {
+	public static Intent createCreateApplicationIntent(Context ctx, String appToken, String appId) {
 		String queryString = String.format(
 			 "?appCreationToken=%s&instanceName=%s&appid=%s&aib=%s&ismra=%s",
 			 URLEncoder.encode(appToken),
@@ -124,7 +121,6 @@ public class ShellActivity extends Activity {
 		WebSettings settings = webView.getSettings();
 		settings.setJavaScriptEnabled(true);
 		settings.setSupportZoom(true);
-		//settings.setBuiltInZoomControls(true);
 
 		webView.setWebViewClient(new ShellWebViewClient());
 		webView.setWebChromeClient(new WebChromeClient() {

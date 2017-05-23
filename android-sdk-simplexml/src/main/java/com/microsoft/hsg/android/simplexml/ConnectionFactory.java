@@ -53,8 +53,7 @@ public class ConnectionFactory
 	 */
 	private static synchronized Authenticator getAuthenticator(
 			String appId, byte[] authenticationSecret)
-	throws IOException
-	{
+	throws IOException {
 		if (authenticator == null) {
 			authenticator = new SodaAuthenticator(
 				appId, authenticationSecret);
@@ -68,17 +67,13 @@ public class ConnectionFactory
 	 *
 	 * @return the unauthenticated connection
 	 */
-	public static Connection getUnauthenticatedConnection()
-	{
-		try
-		{
+	public static Connection getUnauthenticatedConnection() {
+		try {
 			Connection connection = new Connection();
 			connection.setTransport(getTransport());
 
 			return connection;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw new HVException(e);
 		}
 	}

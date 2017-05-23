@@ -100,7 +100,7 @@ public class FileUploadActivity extends Activity {
 			}
 		}
 	};
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -109,7 +109,7 @@ public class FileUploadActivity extends Activity {
 		mService = HealthVaultApp.getInstance(this);
 		mClient = new HealthVaultClient();
 
-		mProgressContainer = findViewById(R.id.camera_progressContainer);
+		mProgressContainer = findViewById(R.id.camera_progress_container);
 		mProgressContainer.setVisibility(View.INVISIBLE);
 
 		mSurfaceView = (SurfaceView)findViewById(R.id.camera_surfaceView);
@@ -135,7 +135,7 @@ public class FileUploadActivity extends Activity {
 
 			public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
 				if (mCamera == null) return;
-
+				Camera.open();
 				Camera.Parameters parameters = mCamera.getParameters();
 				Size s = getBestSupportedSize(parameters.getSupportedPreviewSizes(), w, h);
 				parameters.setPreviewSize(s.width, s.height);
@@ -154,17 +154,13 @@ public class FileUploadActivity extends Activity {
 		// write buttons
 		wireButtons();
 	}
-	
-	
-	
+
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
 		mClient.start();
 	}
-
-
 
 	@Override
 	protected void onStop() {
@@ -173,18 +169,21 @@ public class FileUploadActivity extends Activity {
 		mClient.start();
 	}
 
-
-
 	@Override
 	public void onResume() {
 		super.onResume();
-		mCamera = Camera.open();
+		try {
+			if (mCamera != null) {
+				mCamera = Camera.open();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-
 		if (mCamera != null) {
 			mCamera.release();
 			mCamera = null;
@@ -192,7 +191,7 @@ public class FileUploadActivity extends Activity {
 	}
 	
 	private void wireButtons() {
-		Button fileUploadBtn = (Button) findViewById(R.id.defaultFileupload);
+		Button fileUploadBtn = (Button) findViewById(R.id.defaultfile_upload_button);
 		fileUploadBtn.setOnClickListener(new View.OnClickListener() {
 			@SuppressWarnings("unchecked")
 			public void onClick(View view) {

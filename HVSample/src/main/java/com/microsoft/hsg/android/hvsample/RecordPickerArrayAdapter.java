@@ -25,8 +25,7 @@ public class RecordPickerArrayAdapter extends BaseAdapter {
 
 	public RecordPickerArrayAdapter(Activity context,
 			List<Record> records,
-			HealthVaultClient hvClient)
-	{
+			HealthVaultClient hvClient) {
 		mRecords = records;
 		mLayoutInflater = LayoutInflater.from(context);
 		mImageLoader = new PersonalImageLoader(context, hvClient);
@@ -54,8 +53,8 @@ public class RecordPickerArrayAdapter extends BaseAdapter {
 			viewHolder = new ViewHolderItem();
 			convertView = mLayoutInflater.inflate(R.layout.record_picker_item, parent, true);
 
-			viewHolder.textViewItem = (TextView) convertView.findViewById(R.id.txtrecordName);
-			viewHolder.imageViewItem = (ImageView) convertView.findViewById(R.id.recordIcon);
+			viewHolder.textViewItem = (TextView) convertView.findViewById(R.id.recordname_text);
+			viewHolder.imageViewItem = (ImageView) convertView.findViewById(R.id.record_icon);
 
 			convertView.setTag(viewHolder);
 		} else {

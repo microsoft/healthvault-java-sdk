@@ -5,12 +5,12 @@
 	android:orientation="vertical" >
 
 	<LinearLayout
-		android:id="@+id/addWeightContainer"
+		android:id="@+id/addweight_container"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content" >
 
 		<EditText
-			android:id="@+id/weightInput"
+			android:id="@+id/weight_input_text"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight=".8"
@@ -20,7 +20,7 @@
 		</EditText>
 
 		<Button
-			android:id="@+id/addWeight"
+			android:id="@+id/add_weight_button"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="right"
@@ -32,7 +32,7 @@
 	</LinearLayout>
 
 	<ListView
-		android:id="@+id/weightList"
+		android:id="@+id/weight_list"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_gravity="right" >

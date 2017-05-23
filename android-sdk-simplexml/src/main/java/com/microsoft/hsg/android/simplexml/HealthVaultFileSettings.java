@@ -22,7 +22,9 @@
 
 package com.microsoft.hsg.android.simplexml;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -57,8 +59,11 @@ public class HealthVaultFileSettings implements HealthVaultSettings {
 		try {
 			mProperties = new Properties();
 			try {
-				mProperties.load(ctx.openFileInput("settings.props"));
+				FileInputStream is = ctx.openFileInput("settings.props");
+				mProperties.load(is);
+				is.close();
 			} catch(FileNotFoundException fnfe) {
+				fnfe.printStackTrace();
 			}
 		} catch(IOException ioe) {
 			throw new HVSystemException("Could not load mProperties.", ioe);
@@ -226,13 +231,12 @@ public class HealthVaultFileSettings implements HealthVaultSettings {
 	 * @see com.microsoft.hsg.android.HealthVaultSettings#save()
 	 */
 	public void save() {
-		try
-		{
-			mProperties.save(mContext.openFileOutput(
-					"settings.props", mContext.MODE_PRIVATE),
-				"settings");
+		try {
+			FileOutputStream os = mContext.openFileOutput("settings.props", mContext.MODE_PRIVATE);
+			mProperties.save(os, "settings");
+			os.close();
 		} catch (Exception e) {
+			throw new HVSystemException("Could not load mProperties.", e);
 		}
 	}
-
 }

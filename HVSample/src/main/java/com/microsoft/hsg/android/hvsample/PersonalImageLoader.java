@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +36,9 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 
 	private ImageLruCache mCache;
 	private HealthVaultClient mClient;
-	private Activity mContext;
-	
-	private ImageView imageView;
-	
+	//private Activity mContext;
+	private WeakReference<Activity> mContext;
+
 	public PersonalImageLoader(Activity context,
 			HealthVaultClient client) {
 		ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -46,7 +46,7 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 
 		mCache = new ImageLruCache(memSize);
 		mClient = client;
-		mContext = context;
+		mContext = new WeakReference<Activity>(context);
 	}
 
 	public void load(String id, ImageView imageView, int defaultresource) {
@@ -73,7 +73,7 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 		return new Callable<Bitmap>() {
 			public Bitmap call() throws URISyntaxException, IOException {
 				// check if it exist in file
-				File cacheDir = mContext.getCacheDir();
+				File cacheDir = mContext.get().getCacheDir();
 
 				if(!cacheDir.exists()) {
 					cacheDir.mkdirs();
@@ -154,27 +154,25 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 	
 	private class PersonalImageCallback implements RequestCallback<Bitmap> {
 		
-		private ImageView imageView;
+		private ImageView mImageView;
 		private String id;
 		
 		public PersonalImageCallback(String id, ImageView imageView) {
 			this.id = id;
-			this.imageView = imageView;
+			mImageView = imageView;
 		}
 
 		@Override
 		public void onError(HVException exception) {
 			Toast.makeText(
-				mContext,
-				"An error occurred.  " + exception.getMessage(),
-				Toast.LENGTH_LONG).show();
+				mContext.get(), "An error occurred.  " + exception.getMessage(), Toast.LENGTH_LONG).show();
 		}
 
 		@Override
 		public void onSuccess(Bitmap image) {
 			if(image != null) {
 				mCache.put(id, image);
-				imageView.setImageBitmap(image);
+				mImageView.setImageBitmap(image);
 			}
 		}
 	}

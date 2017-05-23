@@ -49,7 +49,7 @@ public class VocabActivity extends Activity {
 
 	private void init() {
 		// Get a reference to the AutoCompleteTextView in the layout
-		AutoCompleteTextView autoCompView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
+		AutoCompleteTextView autoCompView = (AutoCompleteTextView) findViewById(R.id.autocomplete_textView1);
 		autoCompView.setAdapter(
 				new VocabAutoCompleteAdapter(this, 
 						R.layout.list_item, 

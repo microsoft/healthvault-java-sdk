@@ -53,6 +53,8 @@ public class WeightActivity extends Activity {
 	private HealthVaultApp mService;
 	private HealthVaultClient mClient;
 	private Record mCurrentRecord;
+	private ArrayAdapter<String> mAdapter;
+	private ListView mWeightList;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -61,8 +63,8 @@ public class WeightActivity extends Activity {
 		mService = HealthVaultApp.getInstance();
 		mClient = new HealthVaultClient();
 
-		final Button weightsBtn = (Button) findViewById(R.id.addWeight);
-		final EditText editText = (EditText) findViewById(R.id.weightInput);
+		final Button weightsBtn = (Button) findViewById(R.id.add_weight_button);
+		final EditText editText = (EditText) findViewById(R.id.weight_input_text);
 		
 		weightsBtn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
@@ -113,11 +115,9 @@ public class WeightActivity extends Activity {
 			Weight w = (Weight)thing.getData();
 			weights.add(String.valueOf(w.getValue().getKg()));
 		}
-		ListView lv = (ListView)findViewById(R.id.weightList);
-		lv.setAdapter(new ArrayAdapter<String>(
-			WeightActivity.this,
-			android.R.layout.simple_list_item_1,
-			weights));
+		mWeightList = (ListView)findViewById(R.id.weight_list);
+		mAdapter = new ArrayAdapter<String>(WeightActivity.this, android.R.layout.simple_list_item_1, weights);
+		mWeightList.setAdapter(mAdapter);
 	}
 
 	public class WeightCallback<Object> implements RequestCallback {
