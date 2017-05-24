@@ -31,9 +31,9 @@ import com.microsoft.hsg.android.simplexml.things.types.file.File;
 
 
 public class FileUploadActivity extends Activity {
-	
-	HealthVaultApp mService;
-	HealthVaultClient mClient;
+
+	private HealthVaultApp mService;
+	private HealthVaultClient mClient;
 	
 	private Camera mCamera;
 	private SurfaceView mSurfaceView;
@@ -49,7 +49,7 @@ public class FileUploadActivity extends Activity {
 	private Camera.PictureCallback jpegCallback = new Camera.PictureCallback() {
 		public void onPictureTaken(byte[] data, Camera camera) {
 
-			String filename = UUID.randomUUID().toString() + ".jpg";
+			final String filename = UUID.randomUUID().toString() + ".jpg";
 
 			FileOutputStream os = null;
 			boolean success = true;
@@ -79,13 +79,10 @@ public class FileUploadActivity extends Activity {
 					mClient.asyncRequest(hvFile.uploadAsync(HealthVaultApp.getInstance().getCurrentRecord(), null, source),
 							new FileUploadActivityCallback<Void>());
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (URISyntaxException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				finally {
@@ -157,14 +154,12 @@ public class FileUploadActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 		mClient.start();
 	}
 
 	@Override
 	protected void onStop() {
-		// TODO Auto-generated method stub
 		super.onStop();
 		mClient.start();
 	}
@@ -206,7 +201,6 @@ public class FileUploadActivity extends Activity {
 					mClient.asyncRequest(hvFile.uploadAsync(HealthVaultApp.getInstance().getCurrentRecord(), null, source),
 						new FileUploadActivityCallback<Void>());
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				finally {
@@ -254,7 +248,6 @@ public class FileUploadActivity extends Activity {
 
 		@Override
 		public void onError(HVException exception) {
-			// TODO Auto-generated method stub
 			Toast.makeText(FileUploadActivity.this, exception.getStackTrace().toString(), Toast.LENGTH_SHORT).show();
 		}
 

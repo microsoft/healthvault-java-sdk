@@ -155,7 +155,7 @@ public class ShellActivity extends Activity {
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onDestroy()
 	 */
-	@Override
+
 	protected void onDestroy() {
 		super.onDestroy();
 	}

@@ -37,7 +37,6 @@ public class RecordPickerActivity extends ListActivity {
 		mClient.start();
 	}
 	
-	@Override
 	protected void onResume() {
 		super.onResume();
 	}

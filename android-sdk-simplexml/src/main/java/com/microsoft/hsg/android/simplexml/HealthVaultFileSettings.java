@@ -59,7 +59,7 @@ public class HealthVaultFileSettings implements HealthVaultSettings {
 		try {
 			mProperties = new Properties();
 			try {
-				FileInputStream is = ctx.openFileInput("settings.props");
+				FileInputStream is = ctx.openFileInput(Constants.SettingProperties);
 				mProperties.load(is);
 				is.close();
 			} catch(FileNotFoundException fnfe) {
@@ -232,8 +232,8 @@ public class HealthVaultFileSettings implements HealthVaultSettings {
 	 */
 	public void save() {
 		try {
-			FileOutputStream os = mContext.openFileOutput("settings.props", mContext.MODE_PRIVATE);
-			mProperties.save(os, "settings");
+			FileOutputStream os = mContext.openFileOutput(Constants.SettingProperties, mContext.MODE_PRIVATE);
+			mProperties.save(os, Constants.Setting);
 			os.close();
 		} catch (Exception e) {
 			throw new HVSystemException("Could not load mProperties.", e);

@@ -83,7 +83,7 @@ public class MainActivity
 		mClient.start();
 	}
 	
-	@Override
+
 	protected void onResume() {
 		super.onResume();
 	}

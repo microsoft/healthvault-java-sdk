@@ -39,6 +39,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 
 import healthvault.client.implementation.MicrosoftHealthVaultRestApiImpl;
 import healthvault.client.models.ActionPlan;
+import healthvault.client.models.ActionPlanInstance;
 import healthvault.client.models.ActionPlansResponseActionPlanInstance;
 
 import healthvault.client.models.Objective;
@@ -52,6 +53,8 @@ public class ActionPlanActivity  extends Activity {
 	private HealthVaultApp mService;
 	private HealthVaultClient mClient;
 	private Record mCurrentRecord;
+	private ArrayAdapter<String> mAdapter;
+	private ListView mPlanList;
 	private static ActionPlansResponseActionPlanInstance mActionPlanInstance;
 
 	@Override
@@ -73,11 +76,8 @@ public class ActionPlanActivity  extends Activity {
 		mClient.start();
 	}
 
-	@Override
 	protected void onResume() {
 		super.onResume();
-		mCurrentRecord = HealthVaultApp.getInstance().getCurrentRecord();
-		getActionPlan();
 	}
 
 	@Override
@@ -120,14 +120,13 @@ public class ActionPlanActivity  extends Activity {
 		if (mActionPlanInstance != null) {
 			int size = mActionPlanInstance.plans().size();
 			for (int index = 0; index < size; ++index) {
-				actionplans.add("Plan: " + mActionPlanInstance.plans().get(index).name().toString() +
-						"     Category:" + mActionPlanInstance.plans().get(index).category().toString());
+				ActionPlanInstance plan = mActionPlanInstance.plans().get(index);
+				actionplans.add("Plan: " + plan.name().toString() +
+						"     Category: " + plan.category().toString());
 			}
-			ListView lv = (ListView) findViewById(R.id.actionPlanList);
-			lv.setAdapter(new ArrayAdapter<String>(
-					ActionPlanActivity.this,
-					android.R.layout.simple_list_item_1,
-					actionplans));
+			mPlanList = (ListView) findViewById(R.id.actionPlanList);
+			mAdapter = new ArrayAdapter<String>(ActionPlanActivity.this, android.R.layout.simple_list_item_1, actionplans);
+			mPlanList.setAdapter(mAdapter);
 		} else {
 			Toast.makeText(ActionPlanActivity.this, "No Action plans!", Toast.LENGTH_SHORT).show();
 		}

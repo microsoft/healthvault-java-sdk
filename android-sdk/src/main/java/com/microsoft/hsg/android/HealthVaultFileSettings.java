@@ -56,7 +56,7 @@ public class HealthVaultFileSettings implements HealthVaultSettings {
 		try {
 			properties = new Properties();
 			try {
-				inputStream = ctx.openFileInput("settings.props");
+				inputStream = ctx.openFileInput(Constants.SettingProperties);
 				properties.load(inputStream);
 			}
 			catch(FileNotFoundException fnfe) {
@@ -199,8 +199,8 @@ public class HealthVaultFileSettings implements HealthVaultSettings {
 	public void save() {
 		FileOutputStream os = null;
 		try {
-			os = ctx.openFileOutput("settings.props", Context.MODE_PRIVATE);
-			properties.save(os, "settings");
+			os = ctx.openFileOutput(Constants.SettingProperties, Context.MODE_PRIVATE);
+			properties.save(os, Constants.Setting);
 		} catch (Exception e) {
 			Log.e("Save", "Error saving to file ", e);
 		}
