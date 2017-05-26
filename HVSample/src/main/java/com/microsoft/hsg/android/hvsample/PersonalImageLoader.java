@@ -36,7 +36,6 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 
 	private ImageLruCache mCache;
 	private HealthVaultClient mClient;
-	//private Activity mContext;
 	private WeakReference<Activity> mContext;
 
 	public PersonalImageLoader(Activity context,
@@ -71,9 +70,12 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 	
 	private Callable<Bitmap> getImageAsync(final Record record) {
 		return new Callable<Bitmap>() {
-			public Bitmap call() throws URISyntaxException, IOException {
+			public Bitmap call() throws Exception {
+				if (mContext == null) {
+					throw new Exception("The activity can not be null");
+				}
 				// check if it exist in file
-				File cacheDir = mContext.get().getCacheDir();
+				File cacheDir = mContext.get().getCacheDir();;
 
 				if(!cacheDir.exists()) {
 					cacheDir.mkdirs();
@@ -164,8 +166,10 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 
 		@Override
 		public void onError(HVException exception) {
-			Toast.makeText(
-				mContext.get(), "An error occurred.  " + exception.getMessage(), Toast.LENGTH_LONG).show();
+			if (mContext != null) {
+				Toast.makeText(
+						mContext.get(), "An error occurred.  " + exception.getMessage(), Toast.LENGTH_LONG).show();
+			}
 		}
 
 		@Override
