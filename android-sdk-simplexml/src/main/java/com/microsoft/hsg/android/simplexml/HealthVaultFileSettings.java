@@ -52,8 +52,7 @@ public class HealthVaultFileSettings implements HealthVaultSettings {
 	 *
 	 * @param ctx the ctx
 	 */
-	public HealthVaultFileSettings(Context ctx)
-	{
+	public HealthVaultFileSettings(Context ctx) {
 		mContext = ctx.getApplicationContext();
 
 		try {
@@ -98,7 +97,7 @@ public class HealthVaultFileSettings implements HealthVaultSettings {
 	}
 
 	public void setSessionExpiration() {
-		mExpiration = DateTime.now().plusHours(Constants.SessionExperationHours);
+		mExpiration = DateTime.now().plusHours(Constants.SessionExpirationHours);
 	}
 
 	public DateTime getSessionExpiration() {

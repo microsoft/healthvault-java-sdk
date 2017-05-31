@@ -71,7 +71,7 @@ public class HVSettings implements HealthVaultSettings {
 
 	@Override
 	public void setSessionExpiration() {
-		mExpiration = DateTime.now().plusHours(Constants.SessionExperationHours);
+		mExpiration = DateTime.now().plusHours(Constants.SessionExpirationHours);
 	}
 
 	@Override

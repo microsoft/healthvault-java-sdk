@@ -76,10 +76,6 @@ public class ActionPlanActivity  extends Activity {
 		mClient.start();
 	}
 
-	protected void onResume() {
-		super.onResume();
-	}
-
 	@Override
 	protected void onStop() {
 		mClient.stop();

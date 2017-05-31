@@ -14,5 +14,5 @@ public class Constants {
 		public static String AuthorizedRecordsResponse = "authorized-records-response";
 		public static String SettingProperties = "settings.props";
 		public static String Setting = "settings";
-		public static int SessionExperationHours = 4;
+		public static int SessionExpirationHours = 4;
 }
