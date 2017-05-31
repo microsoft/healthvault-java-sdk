@@ -47,6 +47,7 @@ public class MainActivity
 
 	private HealthVaultApp mService;
 	private HealthVaultClient mClient;
+	private final String mMasterAppId = "Add your Master App Id";
 
 	private ProgressDialog connectProgressDialog;
 	
@@ -90,12 +91,11 @@ public class MainActivity
 	
 	@Override
 	protected void onStop() {
+		mClient.stop();
 		super.onStop();
 		if(connectProgressDialog != null) {
 			connectProgressDialog.dismiss();
 		}
-		
-		mClient.stop();
 	}
 
 	@Override
@@ -145,7 +145,7 @@ public class MainActivity
 			connectProgressDialog = ProgressDialog.show(MainActivity.this, "", "Please wait...", true);
 			
 			HealthVaultSettings settings = mService.getSettings();
-			settings.setMasterAppId("e92b8605-ad54-4d48-829f-1a5f1dfbe40f");
+			settings.setMasterAppId(mMasterAppId);
 			settings.setServiceUrl("https://platform.healthvault-ppe.com/platform/wildcat.ashx");
 			settings.setShellUrl("https://account.healthvault-ppe.com");
 			settings.setIsMultiInstanceAware(true);
@@ -178,6 +178,7 @@ public class MainActivity
 				break;
 			case 5:
 				intent = new Intent(MainActivity.this, ActionPlanActivity.class);
+				break;
 			}
 		}
 
@@ -216,7 +217,7 @@ public class MainActivity
 		protected Void doInBackground(Void... arg0) {
 			
 			HealthVaultSettings settings = mService.getSettings();
-			settings.setMasterAppId("c6ba979f-c342-4408-a2bc-0dfb43b2bf8d");
+			settings.setMasterAppId(mMasterAppId);
 			settings.setServiceUrl("https://platform.healthvault-ppe.com/platform/wildcat.ashx");
 			settings.setShellUrl("https://account.healthvault-ppe.com");
 			settings.setIsMultiInstanceAware(true);

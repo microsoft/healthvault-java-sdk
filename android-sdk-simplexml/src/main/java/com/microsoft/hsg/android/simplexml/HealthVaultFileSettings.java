@@ -43,7 +43,7 @@ public class HealthVaultFileSettings implements HealthVaultSettings {
 
 	/** The mProperties. */
 	private Properties mProperties;
-	private DateTime mExperation;
+	private DateTime mExpiration;
 	/** The ctx. */
 	private Context mContext;
 
@@ -98,15 +98,15 @@ public class HealthVaultFileSettings implements HealthVaultSettings {
 	}
 
 	public void setSessionExpiration() {
-		mExperation = DateTime.now().plusHours(4);
+		mExpiration = DateTime.now().plusHours(Constants.SessionExperationHours);
 	}
 
 	public DateTime getSessionExpiration() {
-		return mExperation;
+		return mExpiration;
 	}
 
 	public boolean isSessionExpiraed() {
-		return mExperation.isBeforeNow();
+		return mExpiration.isBeforeNow();
 	}
 
 	/* (non-Javadoc)

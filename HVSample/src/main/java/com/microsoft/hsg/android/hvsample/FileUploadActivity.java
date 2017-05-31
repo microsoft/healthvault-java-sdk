@@ -160,8 +160,8 @@ public class FileUploadActivity extends Activity {
 
 	@Override
 	protected void onStop() {
+		mClient.stop();
 		super.onStop();
-		mClient.start();
 	}
 
 	@Override

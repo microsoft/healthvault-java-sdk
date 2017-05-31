@@ -1,5 +1,4 @@
-/*
- *  Copyright (c) Microsoft Corporation
+/* Copyright (c) Microsoft Corporation
  *
  *	All rights reserved. 
  *
@@ -155,7 +154,6 @@ public class ShellActivity extends Activity {
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onDestroy()
 	 */
-
 	protected void onDestroy() {
 		super.onDestroy();
 	}

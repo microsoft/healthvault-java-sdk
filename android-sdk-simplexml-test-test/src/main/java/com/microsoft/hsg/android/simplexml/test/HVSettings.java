@@ -1,5 +1,6 @@
 package com.microsoft.hsg.android.simplexml.test;
 
+import com.microsoft.hsg.android.simplexml.Constants;
 import com.microsoft.hsg.android.simplexml.HealthVaultApp.ConnectionStatus;
 import com.microsoft.hsg.android.simplexml.HealthVaultSettings;
 
@@ -9,7 +10,7 @@ public class HVSettings implements HealthVaultSettings {
 	
 	private String mAppId;
 	private String mAuthSecret;
-	private DateTime mExperation;
+	private DateTime mExpiration;
 
 	@Override
 	public boolean getIsMultiInstanceAware() {
@@ -70,16 +71,16 @@ public class HVSettings implements HealthVaultSettings {
 
 	@Override
 	public void setSessionExpiration() {
-		mExperation = DateTime.now().plusHours(4);
+		mExpiration = DateTime.now().plusHours(Constants.SessionExperationHours);
 	}
 
 	@Override
 	public DateTime getSessionExpiration() {
-		return mExperation;
+		return mExpiration;
 	}
 
 	public boolean isSessionExpiraed() {
-		return mExperation.isBeforeNow();
+		return mExpiration.isBeforeNow();
 	}
 	@Override
 	public String getMasterAppId() {

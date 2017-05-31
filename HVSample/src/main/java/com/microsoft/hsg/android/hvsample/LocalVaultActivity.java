@@ -59,8 +59,8 @@ public class LocalVaultActivity extends Activity {
 		}
 
 	protected void onStart() {
-		mClient.start();
 		super.onStart();
+		mClient.start();
 	}
 	
 	protected void onStop() {
