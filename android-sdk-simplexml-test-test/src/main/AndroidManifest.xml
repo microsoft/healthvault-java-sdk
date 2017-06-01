@@ -16,4 +16,8 @@
         <uses-library android:name="android.test.runner" />
     </application>
 
+    <activity
+        android:name="com.microsoft.hsg.android.simplexml.test.BlobTest">
+    </activity>
+
 </manifest>

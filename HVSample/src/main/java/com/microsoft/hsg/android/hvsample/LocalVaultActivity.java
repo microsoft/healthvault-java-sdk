@@ -26,12 +26,12 @@ import com.microsoft.hsg.android.simplexml.things.types.types.Record;
 import com.microsoft.hsg.android.simplexml.things.types.weight.Weight;
 
 public class LocalVaultActivity extends Activity {
-	private HealthVaultClient hvClient;
+	private HealthVaultClient mClient;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		hvClient = new HealthVaultClient();
+		mClient = new HealthVaultClient();
 		setContentView(R.layout.activity_localvault);
 
 		if (savedInstanceState == null) {
@@ -59,12 +59,12 @@ public class LocalVaultActivity extends Activity {
 		}
 
 	protected void onStart() {
-		hvClient.start();
 		super.onStart();
+		mClient.start();
 	}
 	
 	protected void onStop() {
-		hvClient.stop();
+		mClient.stop();
 		super.onStop();
 	}
 
@@ -90,7 +90,7 @@ public class LocalVaultActivity extends Activity {
 			Record currentRecord = HealthVaultApp.getInstance().getCurrentRecord();
 			SynchronizedView syncView = getSynchronizedView();
 			if (syncView != null) {
-                hvClient.asyncRequest(syncView.synchronizeAsync(), null);
+				mClient.asyncRequest(syncView.synchronizeAsync(), null);
 			}
 			return true;
 		}

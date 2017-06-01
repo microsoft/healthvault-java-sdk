@@ -13,29 +13,27 @@ import android.widget.AutoCompleteTextView;
 
 public class VocabActivity extends Activity {
 
-	private HealthVaultClient hvClient;
+	private HealthVaultClient mClient;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_vocab);
-		
-		hvClient = new HealthVaultClient();
+
+		mClient = new HealthVaultClient();
 		
 		init();
 	}
 	
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
-		hvClient.start();
+		mClient.start();
 	}
 	
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		
 		init();
@@ -43,18 +41,18 @@ public class VocabActivity extends Activity {
 
 	@Override
 	protected void onStop() {
-		hvClient.stop();
+		mClient.stop();
 		super.onStop();
 	}
 
 	private void init() {
 		// Get a reference to the AutoCompleteTextView in the layout
-		AutoCompleteTextView autoCompView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
+		AutoCompleteTextView autoCompView = (AutoCompleteTextView) findViewById(R.id.autocomplete_textView1);
 		autoCompView.setAdapter(
 				new VocabAutoCompleteAdapter(this, 
 						R.layout.list_item, 
 						new VocabIdentifier(VocabFamily.USDA, VocabName.FoodDescription),
-						hvClient));
+						mClient));
 		autoCompView.setThreshold(3);
 	}
 }

@@ -1,12 +1,16 @@
 package com.microsoft.hsg.android.simplexml.test;
 
+import com.microsoft.hsg.android.simplexml.Constants;
 import com.microsoft.hsg.android.simplexml.HealthVaultApp.ConnectionStatus;
 import com.microsoft.hsg.android.simplexml.HealthVaultSettings;
 
+import org.joda.time.DateTime;
+
 public class HVSettings implements HealthVaultSettings {
 	
-	private String appId;
-	private String authSecret;
+	private String mAppId;
+	private String mAuthSecret;
+	private DateTime mExpiration;
 
 	@Override
 	public boolean getIsMultiInstanceAware() {
@@ -44,15 +48,40 @@ public class HVSettings implements HealthVaultSettings {
 	}
 
 	@Override
+	public String getRestUrl() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRestUrl(String url) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public String getAppId() {
-		return appId;
+		return mAppId;
 	}
 
 	@Override
 	public void setAppId(String appid) {
-		this.appId = appid;
+		mAppId = appid;
 	}
 
+	@Override
+	public void setSessionExpiration() {
+		mExpiration = DateTime.now().plusHours(Constants.SessionExpirationHours);
+	}
+
+	@Override
+	public DateTime getSessionExpiration() {
+		return mExpiration;
+	}
+
+	public boolean isSessionExpiraed() {
+		return mExpiration.isBeforeNow();
+	}
 	@Override
 	public String getMasterAppId() {
 		// TODO Auto-generated method stub
@@ -67,12 +96,12 @@ public class HVSettings implements HealthVaultSettings {
 
 	@Override
 	public String getAuthenticationSecret() {
-		return this.authSecret;
+		return mAuthSecret;
 	}
 
 	@Override
 	public void setAuthenticationSecret(String secret) {
-		this.authSecret = secret;
+		mAuthSecret = secret;
 	}
 
 	@Override

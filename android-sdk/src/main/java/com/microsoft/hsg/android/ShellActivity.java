@@ -119,8 +119,7 @@ public class ShellActivity extends Activity {
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setSupportZoom(true);
-        //settings.setBuiltInZoomControls(true); 
-        
+
         webView.setWebViewClient(new ShellWebViewClient());
         webView.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress)  {
@@ -154,7 +153,7 @@ public class ShellActivity extends Activity {
     /* (non-Javadoc)
      * @see android.app.Activity#onDestroy()
      */
-    @Override
+
     protected void onDestroy() {
         super.onDestroy();
     }

@@ -24,6 +24,7 @@ import com.microsoft.hsg.android.simplexml.things.types.weight.Weight;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,6 +40,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 
 import healthvault.client.implementation.MicrosoftHealthVaultRestApiImpl;
 import healthvault.client.models.ActionPlan;
+import healthvault.client.models.ActionPlanInstance;
 import healthvault.client.models.ActionPlansResponseActionPlanInstance;
 
 import healthvault.client.models.Objective;
@@ -48,31 +50,25 @@ import rx.Subscriber;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
 
-public class WeightActivity extends Activity {
-
+public class ActionPlanActivity  extends Activity {
 	private HealthVaultApp mService;
 	private HealthVaultClient mClient;
 	private Record mCurrentRecord;
 	private ArrayAdapter<String> mAdapter;
-	private ListView mWeightList;
+	private ListView mPlanList;
+	private static ActionPlansResponseActionPlanInstance mActionPlanInstance;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.weight);
+		setContentView(R.layout.activity_actionplan);
 		mService = HealthVaultApp.getInstance();
 		mClient = new HealthVaultClient();
 
-		final Button weightsBtn = (Button) findViewById(R.id.add_weight_button);
-		final EditText editText = (EditText) findViewById(R.id.weight_input_text);
-		
-		weightsBtn.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				if (mService.isAppConnected()) {
-					putWeight(editText.getText().toString());
-				}
-			}
-		});
+		if (mService.isAppConnected()) {
+			mCurrentRecord = HealthVaultApp.getInstance().getCurrentRecord();
+			getActionPlan();
+		}
 	}
 
 	@Override
@@ -82,75 +78,55 @@ public class WeightActivity extends Activity {
 	}
 
 	@Override
-	protected void onResume() {
-		super.onResume();
-		getWeights();
-	}
-
-	@Override
 	protected void onStop() {
 		mClient.stop();
 		super.onStop();
 	}
 
 	@SuppressWarnings("unchecked")
-	private void getWeights() {
-		mCurrentRecord = HealthVaultApp.getInstance().getCurrentRecord();
-		mClient.asyncRequest(
-				mCurrentRecord.getThingsAsync(ThingRequestGroup2.thingTypeQuery(Weight.ThingType)),
-				new WeightCallback(WeightCallback.RenderWeights));
+	private void getActionPlan() {
+		mService.getSettings().setRestUrl("https://data.ppe.microsofthealth.net/");
+		HealthVaultSettings settings = mService.getSettings();
+		Connection connection = mService.getConnection();
+
+		final MicrosoftHealthVaultRestApiImpl restClient = new HealthVaultRestClient(settings, connection, mCurrentRecord).getClient();
+
+		restClient.getActionPlansAsync()
+				.subscribeOn(Schedulers.io())
+				.observeOn(Schedulers.io())
+				.subscribe(new Subscriber<Object>() {
+					@Override
+					public final void onCompleted() {
+					}
+
+					@Override
+					public final void onError(final Throwable e) {
+						Log.e("error", e.getMessage());
+					}
+
+					@Override
+					public final void onNext(final Object response) {
+						mActionPlanInstance = (ActionPlansResponseActionPlanInstance) response;
+					}
+				});
+		renderActionPlans();
 	}
 
-	private void putWeight(String value) {
-		final Thing2 thing = new Thing2();
-		thing.setData(new Weight(Double.parseDouble(value)));
-		mClient.asyncRequest(
-				mCurrentRecord.putThingAsync(thing),
-				new WeightCallback(WeightCallback.PutWeights));
-	}
-
-	private void renderWeights(List<Thing2> things) {
-		List<String> weights = new ArrayList<String>();
-		for(Thing2 thing : things) {
-			Weight w = (Weight)thing.getData();
-			weights.add(String.valueOf(w.getValue().getKg()));
-		}
-		mWeightList = (ListView)findViewById(R.id.weight_list);
-		mAdapter = new ArrayAdapter<String>(WeightActivity.this, android.R.layout.simple_list_item_1, weights);
-		mWeightList.setAdapter(mAdapter);
-	}
-
-	public class WeightCallback<Object> implements RequestCallback {
-		public static final int RenderWeights = 0;
-		public static final int PutWeights = 1;
-
-		private int event;
-
-		public WeightCallback(int event) {
-			WeightActivity.this.setProgressBarIndeterminateVisibility(true);
-			this.event = event;
-		}
-
-		@Override
-		public void onError(HVException exception) {
-			WeightActivity.this.setProgressBarIndeterminateVisibility(false);
-			Toast.makeText(
-				WeightActivity.this,
-				"An error occurred.  " + exception.getMessage(),
-				Toast.LENGTH_LONG).show();
-		}
-
-		@Override
-		public void onSuccess(java.lang.Object obj) {
-			WeightActivity.this.setProgressBarIndeterminateVisibility(false);
-			switch(event) {
-			case PutWeights:
-				getWeights();
-				break;
-			case RenderWeights:
-				renderWeights(((ThingResponseGroup2)obj).getThing());
-				break;
+	private void renderActionPlans() {
+		Toast.makeText(ActionPlanActivity.this, Build.VERSION.RELEASE, Toast.LENGTH_SHORT).show();
+		List<String> actionplans = new ArrayList<String>();
+		if (mActionPlanInstance != null) {
+			int size = mActionPlanInstance.plans().size();
+			for (int index = 0; index < size; ++index) {
+				ActionPlanInstance plan = mActionPlanInstance.plans().get(index);
+				actionplans.add("Plan: " + plan.name().toString() +
+						"     Category: " + plan.category().toString());
 			}
+			mPlanList = (ListView) findViewById(R.id.actionPlanList);
+			mAdapter = new ArrayAdapter<String>(ActionPlanActivity.this, android.R.layout.simple_list_item_1, actionplans);
+			mPlanList.setAdapter(mAdapter);
+		} else {
+			Toast.makeText(ActionPlanActivity.this, "No Action plans!", Toast.LENGTH_SHORT).show();
 		}
 	}
 }
