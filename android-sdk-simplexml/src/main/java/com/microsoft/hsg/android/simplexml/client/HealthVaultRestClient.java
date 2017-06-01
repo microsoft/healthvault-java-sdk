@@ -24,7 +24,7 @@ package com.microsoft.hsg.android.simplexml.client;
 
 import java.io.IOException;
 import java.net.URL;
-
+import android.os.Build;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -95,6 +95,9 @@ public class HealthVaultRestClient implements IHealthVaultRestClient {
 	private static Record mCurrentRecord;
 	private static HealthVaultSettings mSettings;
 	private static final int mSessionCredentialCallThresholdMinutes = 5;
+	private static final String osVersion = Build.VERSION.RELEASE;
+	private static final String category = "HV-Android";
+	private static final String fileVersion = "hv-sdk-1.6";
 
 	public HealthVaultRestClient (HealthVaultSettings settings, Connection connection, Record currentRecord){
 		Initialize(settings, connection, currentRecord);
@@ -133,13 +136,22 @@ public class HealthVaultRestClient implements IHealthVaultRestClient {
 			public okhttp3.Response intercept(Chain chain) throws IOException {
 				String token = getAuthToken(connection, currentRecord);
 				Request request = chain.request();
-				Request.Builder newRequest = request.newBuilder().header("Authorization", token);
+				Request.Builder newRequest = request.newBuilder().addHeader("Authorization", token);
+				newRequest.addHeader("x-ms-version", getVersion());
 				newRequest.build();
 
 				return chain.proceed(newRequest.build());
 			}
 		});
 		return clientBuilder;
+	}
+
+	private String getVersion() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(category + "/");
+		sb.append(fileVersion + " ");
+		sb.append(osVersion);
+		return sb.toString();
 	}
 
 	private String getAuthToken (Connection connection, Record currentRecord){

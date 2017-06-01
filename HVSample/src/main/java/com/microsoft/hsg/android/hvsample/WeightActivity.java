@@ -121,8 +121,8 @@ public class WeightActivity extends Activity {
 	}
 
 	public class WeightCallback<Object> implements RequestCallback {
-		public final static int RenderWeights = 0;
-		public final static int PutWeights = 1;
+		public static final int RenderWeights = 0;
+		public static final int PutWeights = 1;
 
 		private int event;
 

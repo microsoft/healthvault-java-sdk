@@ -229,7 +229,7 @@ public class MainActivity
 	}
 	
 	public class MainActivityCallback<Object> implements RequestCallback {
-		public final static int UpdateRecords = 0;
+		public static final int UpdateRecords = 0;
 
 		private int event;
 

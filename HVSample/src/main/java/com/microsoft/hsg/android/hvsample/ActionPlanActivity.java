@@ -24,6 +24,7 @@ import com.microsoft.hsg.android.simplexml.things.types.weight.Weight;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -112,6 +113,7 @@ public class ActionPlanActivity  extends Activity {
 	}
 
 	private void renderActionPlans() {
+		Toast.makeText(ActionPlanActivity.this, Build.VERSION.RELEASE, Toast.LENGTH_SHORT).show();
 		List<String> actionplans = new ArrayList<String>();
 		if (mActionPlanInstance != null) {
 			int size = mActionPlanInstance.plans().size();
