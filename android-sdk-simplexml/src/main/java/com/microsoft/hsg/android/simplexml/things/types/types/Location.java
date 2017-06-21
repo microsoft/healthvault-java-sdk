@@ -7,7 +7,7 @@ import org.simpleframework.xml.Element;
  * 
  * <pre>
  * &lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;summary xmlns="http://www.w3.org/2001/XMLSchema" xmlns:this="urn:com.microsoft.wc.types"&gt;
- *                     A location consisting of a country and optionally a state/province.
+ *                     A location consisting of a country/region and optionally a state/province.
  *                 &lt;/summary&gt;
  * </pre>
  * 
@@ -44,7 +44,7 @@ public class Location {
     protected String stateProvince;
 
     /**
-     * Gets the value of the country property.
+     * Gets the value of the country/region property.
      * 
      * @return
      *     possible object is
@@ -56,7 +56,7 @@ public class Location {
     }
 
     /**
-     * Sets the value of the country property.
+     * Sets the value of the country/region property.
      * 
      * @param value
      *     allowed object is
