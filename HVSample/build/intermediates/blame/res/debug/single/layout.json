@@ -1,0 +1,50 @@
+[
+    {
+        "merged": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/build/intermediates/res/merged/debug/layout/current_record_item.xml",
+        "source": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/src/main/res/layout/current_record_item.xml"
+    },
+    {
+        "merged": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/build/intermediates/res/merged/debug/layout/weight.xml",
+        "source": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/src/main/res/layout/weight.xml"
+    },
+    {
+        "merged": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/build/intermediates/res/merged/debug/layout/vocab.xml",
+        "source": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/src/main/res/layout/vocab.xml"
+    },
+    {
+        "merged": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/build/intermediates/res/merged/debug/layout/recordpicker.xml",
+        "source": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/src/main/res/layout/recordpicker.xml"
+    },
+    {
+        "merged": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/build/intermediates/res/merged/debug/layout/record_picker_item.xml",
+        "source": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/src/main/res/layout/record_picker_item.xml"
+    },
+    {
+        "merged": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/build/intermediates/res/merged/debug/layout/activity_vocab.xml",
+        "source": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/src/main/res/layout/activity_vocab.xml"
+    },
+    {
+        "merged": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/build/intermediates/res/merged/debug/layout/activity_fileupload.xml",
+        "source": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/src/main/res/layout/activity_fileupload.xml"
+    },
+    {
+        "merged": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/build/intermediates/res/merged/debug/layout/fragment_localvault.xml",
+        "source": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/src/main/res/layout/fragment_localvault.xml"
+    },
+    {
+        "merged": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/build/intermediates/res/merged/debug/layout/activity_main.xml",
+        "source": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/build/intermediates/res/merged/debug/layout/activity_localvault.xml",
+        "source": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/src/main/res/layout/activity_localvault.xml"
+    },
+    {
+        "merged": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/build/intermediates/res/merged/debug/layout/activity_actionplan.xml",
+        "source": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/src/main/res/layout/activity_actionplan.xml"
+    },
+    {
+        "merged": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/build/intermediates/res/merged/debug/layout/list_item.xml",
+        "source": "/Users/andrewbutler/Development/healthvault-java-sdk/HVSample/src/main/res/layout/list_item.xml"
+    }
+]

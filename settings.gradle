@@ -1,5 +1,4 @@
-include ':android-sdk', ':android-sdk-restclient-test'
+include ':android-sdk-restclient-test'
 include ':android-sdk-simplexml-test-test'
 include ':android-sdk-simplexml'
-include ':HVSample'
 include ':android-sdk-restclient'
