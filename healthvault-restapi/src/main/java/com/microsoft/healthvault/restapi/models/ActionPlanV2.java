@@ -6,8 +6,9 @@
 
 package com.microsoft.healthvault.restapi.models;
 
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
 
 /**
  * An action plan being created for a user.

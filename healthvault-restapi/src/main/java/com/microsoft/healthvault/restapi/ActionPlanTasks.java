@@ -7,15 +7,15 @@
 package com.microsoft.healthvault.restapi;
 
 import com.microsoft.healthvault.restapi.models.ActionPlanTaskInstanceV2;
-import com.microsoft.healthvault.restapi.models.ActionPlanTasksResponseActionPlanTaskInstanceV2;
 import com.microsoft.healthvault.restapi.models.ActionPlanTaskTrackingResponseActionPlanTaskTracking;
 import com.microsoft.healthvault.restapi.models.ActionPlanTaskV2;
+import com.microsoft.healthvault.restapi.models.ActionPlanTasksResponseActionPlanTaskInstanceV2;
 import com.microsoft.healthvault.restapi.models.ErrorResponseException;
 import com.microsoft.healthvault.restapi.models.TrackingValidation;
 import com.microsoft.rest.ServiceCallback;
 import com.microsoft.rest.ServiceFuture;
 import com.microsoft.rest.ServiceResponse;
-import java.io.IOException;
+
 import rx.Observable;
 
 /**

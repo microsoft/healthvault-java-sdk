@@ -8,14 +8,15 @@ package com.microsoft.healthvault.restapi;
 
 import com.microsoft.healthvault.restapi.models.ActionPlanAdherenceSummary;
 import com.microsoft.healthvault.restapi.models.ActionPlanInstanceV2;
-import com.microsoft.healthvault.restapi.models.ActionPlansResponseActionPlanInstanceV2;
 import com.microsoft.healthvault.restapi.models.ActionPlanV2;
+import com.microsoft.healthvault.restapi.models.ActionPlansResponseActionPlanInstanceV2;
 import com.microsoft.healthvault.restapi.models.ErrorResponseException;
 import com.microsoft.rest.ServiceCallback;
 import com.microsoft.rest.ServiceFuture;
 import com.microsoft.rest.ServiceResponse;
-import java.io.IOException;
+
 import org.joda.time.DateTime;
+
 import rx.Observable;
 
 /**

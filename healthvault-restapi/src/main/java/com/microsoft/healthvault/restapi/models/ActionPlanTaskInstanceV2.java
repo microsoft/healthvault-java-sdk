@@ -6,9 +6,11 @@
 
 package com.microsoft.healthvault.restapi.models;
 
-import org.joda.time.DateTime;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import org.joda.time.DateTime;
+
+import java.util.List;
 
 /**
  * An instance of an action a user should complete.

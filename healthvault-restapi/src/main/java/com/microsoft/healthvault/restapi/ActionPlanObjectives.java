@@ -10,7 +10,7 @@ import com.microsoft.healthvault.restapi.models.ErrorResponseException;
 import com.microsoft.rest.ServiceCallback;
 import com.microsoft.rest.ServiceFuture;
 import com.microsoft.rest.ServiceResponse;
-import java.io.IOException;
+
 import rx.Observable;
 
 /**
