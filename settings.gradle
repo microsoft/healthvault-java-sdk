@@ -1,4 +1,2 @@
-include ':android-sdk-restclient-test'
-include ':android-sdk-simplexml-test-test'
-include ':android-sdk-simplexml'
-include ':android-sdk-restclient'
+include ':healthvault'
+include ':healthvault-restapi'

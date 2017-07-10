@@ -5,12 +5,8 @@
 .codeiris
 .DS_Store
 /build
-/android-sdk/build
-/android-sdk-simplexml/build
-/android-sdk-simplexml-test-test/build
-/android-sdk-restclient/build
+/healthvault/build
+/healthvault-restapi/build
 /captures
 .externalNativeBuild
-/android-sdk-test-test/build
-/android-sdk-restclient-test/build
 codeiris/
