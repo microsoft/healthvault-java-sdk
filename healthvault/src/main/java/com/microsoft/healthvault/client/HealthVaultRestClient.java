@@ -26,7 +26,7 @@ import android.os.Build;
 
 import com.microsoft.healthvault.HealthVaultSettings;
 import com.microsoft.healthvault.restapi.implementation.MicrosoftHealthVaultRestApiImpl;
-import com.microsoft.healthvault.things.types.types.Record;
+import com.microsoft.healthvault.types.Record;
 import com.microsoft.hsg.Connection;
 import com.microsoft.hsg.HVException;
 

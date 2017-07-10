@@ -9,8 +9,8 @@ import com.microsoft.healthvault.methods.request.RequestTemplate;
 import com.microsoft.healthvault.methods.searchvocabulary.request.SearchVocabularyRequest;
 import com.microsoft.healthvault.methods.searchvocabulary.request.VocabSearch;
 import com.microsoft.healthvault.methods.searchvocabulary.response.SearchVocabularyResponse;
-import com.microsoft.healthvault.things.types.base.VocabFamily;
-import com.microsoft.healthvault.things.types.base.VocabName;
+import com.microsoft.healthvault.types.VocabFamily;
+import com.microsoft.healthvault.types.VocabName;
 import com.microsoft.healthvault.types.VocabIdentifier;
 import com.microsoft.hsg.Connection;
 

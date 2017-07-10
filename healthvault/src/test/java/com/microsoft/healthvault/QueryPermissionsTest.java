@@ -3,9 +3,9 @@ package com.microsoft.healthvault;
 import com.microsoft.healthvault.methods.querypermissions.request.QueryPermissionsRequest;
 import com.microsoft.healthvault.methods.querypermissions.response.QueryPermissionsResponse;
 import com.microsoft.healthvault.methods.request.RequestTemplate;
-import com.microsoft.healthvault.things.types.Weight;
-import com.microsoft.healthvault.things.types.types.PersonInfo;
-import com.microsoft.healthvault.things.types.types.Record;
+import com.microsoft.healthvault.thingtypes.Weight;
+import com.microsoft.healthvault.types.PersonInfo;
+import com.microsoft.healthvault.types.Record;
 
 import junit.framework.TestCase;
 

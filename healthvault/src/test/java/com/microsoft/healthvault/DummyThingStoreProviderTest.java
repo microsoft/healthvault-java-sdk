@@ -2,20 +2,20 @@ package com.microsoft.healthvault;
 
 import android.util.Base64;
 
-import com.microsoft.healthvault.things.store.impl.ThingStoreProvider;
-import com.microsoft.healthvault.things.thing.Thing2;
-import com.microsoft.healthvault.things.thing.ThingType;
-import com.microsoft.healthvault.things.types.Allergy;
-import com.microsoft.healthvault.things.types.Appointment;
-import com.microsoft.healthvault.things.types.Cholesterol;
-import com.microsoft.healthvault.things.types.Condition;
-import com.microsoft.healthvault.things.types.Immunization;
-import com.microsoft.healthvault.things.types.Medication;
-import com.microsoft.healthvault.things.types.Weight;
-import com.microsoft.healthvault.things.types.base.CodableValue;
-import com.microsoft.healthvault.things.types.base.ConcentrationValue;
-import com.microsoft.healthvault.things.types.base.DisplayValue;
-import com.microsoft.healthvault.things.types.dates.DateTime;
+import com.microsoft.healthvault.store.ThingStoreProvider;
+import com.microsoft.healthvault.thingtypes.Thing2;
+import com.microsoft.healthvault.thingtypes.ThingType;
+import com.microsoft.healthvault.thingtypes.Allergy;
+import com.microsoft.healthvault.thingtypes.Appointment;
+import com.microsoft.healthvault.thingtypes.Cholesterol;
+import com.microsoft.healthvault.thingtypes.Condition;
+import com.microsoft.healthvault.thingtypes.Immunization;
+import com.microsoft.healthvault.thingtypes.Medication;
+import com.microsoft.healthvault.thingtypes.Weight;
+import com.microsoft.healthvault.types.CodableValue;
+import com.microsoft.healthvault.types.ConcentrationValue;
+import com.microsoft.healthvault.types.DisplayValue;
+import com.microsoft.healthvault.types.DateTime;
 
 import junit.framework.TestCase;
 

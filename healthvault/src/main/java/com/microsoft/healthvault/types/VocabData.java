@@ -22,10 +22,6 @@
 
 package com.microsoft.healthvault.types;
 
-import com.microsoft.healthvault.things.types.base.LabTestResultsData;
-import com.microsoft.healthvault.things.types.base.NutritionInformation;
-import com.microsoft.healthvault.things.types.base.UnitConversions;
-
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementUnion;
 

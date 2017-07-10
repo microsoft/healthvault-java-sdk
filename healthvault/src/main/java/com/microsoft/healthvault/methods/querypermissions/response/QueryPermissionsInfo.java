@@ -8,7 +8,7 @@
 
 package com.microsoft.healthvault.methods.querypermissions.response;
 
-import com.microsoft.healthvault.things.types.types.ThingTypePermission;
+import com.microsoft.healthvault.types.ThingTypePermission;
 
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Order;

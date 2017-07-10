@@ -1,7 +1,7 @@
 package com.microsoft.healthvault.methods.getthings3.response;
 
-import com.microsoft.healthvault.things.thing.Thing2;
-import com.microsoft.healthvault.things.thing.UnprocessedThingKeyInfo;
+import com.microsoft.healthvault.thingtypes.Thing2;
+import com.microsoft.healthvault.thingtypes.UnprocessedThingKeyInfo;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;

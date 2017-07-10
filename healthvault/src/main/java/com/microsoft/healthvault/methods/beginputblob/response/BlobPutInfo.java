@@ -1,6 +1,6 @@
 package com.microsoft.healthvault.methods.beginputblob.response;
 
-import com.microsoft.healthvault.things.thing.BlobHashAlgorithmParameters;
+import com.microsoft.healthvault.types.blob.BlobHashAlgorithmParameters;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Order;

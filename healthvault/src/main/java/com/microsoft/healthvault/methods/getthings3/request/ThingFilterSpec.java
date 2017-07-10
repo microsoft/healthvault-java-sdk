@@ -1,6 +1,6 @@
 package com.microsoft.healthvault.methods.getthings3.request;
 
-import com.microsoft.healthvault.things.thing.ThingState;
+import com.microsoft.healthvault.thingtypes.ThingState;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;

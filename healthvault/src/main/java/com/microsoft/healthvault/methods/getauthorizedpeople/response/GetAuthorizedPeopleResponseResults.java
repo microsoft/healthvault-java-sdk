@@ -1,7 +1,7 @@
 package com.microsoft.healthvault.methods.getauthorizedpeople.response;
 
-import com.microsoft.healthvault.things.types.types.PersonInfo;
-import com.microsoft.healthvault.things.types.types.Record;
+import com.microsoft.healthvault.types.PersonInfo;
+import com.microsoft.healthvault.types.Record;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;

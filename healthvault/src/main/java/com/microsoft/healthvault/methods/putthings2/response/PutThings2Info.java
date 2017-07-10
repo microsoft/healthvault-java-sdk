@@ -8,7 +8,7 @@
 
 package com.microsoft.healthvault.methods.putthings2.response;
 
-import com.microsoft.healthvault.things.thing.ThingKey;
+import com.microsoft.healthvault.thingtypes.ThingKey;
 
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Order;

@@ -1,8 +1,8 @@
 package com.microsoft.healthvault.methods.getthings3.request;
 
 import com.microsoft.healthvault.methods.getthings3.request.BlobPayloadRequest.BlobFormat;
-import com.microsoft.healthvault.things.thing.ThingKey;
-import com.microsoft.healthvault.things.types.base.NonNegativeInt;
+import com.microsoft.healthvault.thingtypes.ThingKey;
+import com.microsoft.healthvault.types.NonNegativeInt;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
