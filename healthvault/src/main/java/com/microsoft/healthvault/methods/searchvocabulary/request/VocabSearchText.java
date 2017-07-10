@@ -22,7 +22,7 @@
 
 package com.microsoft.healthvault.methods.searchvocabulary.request;
 
-import com.microsoft.healthvault.things.types.base.ConstrainedString;
+import com.microsoft.healthvault.types.ConstrainedString;
 
 import org.simpleframework.xml.Attribute;
 

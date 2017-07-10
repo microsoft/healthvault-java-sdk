@@ -32,8 +32,8 @@ import com.microsoft.healthvault.methods.getauthorizedpeople.request.GetAuthoriz
 import com.microsoft.healthvault.methods.getauthorizedpeople.response.GetAuthorizedPeopleResponse;
 import com.microsoft.healthvault.methods.getauthorizedpeople.response.GetAuthorizedPeopleResponseInfo;
 import com.microsoft.healthvault.methods.request.RequestTemplate;
-import com.microsoft.healthvault.things.types.types.PersonInfo;
-import com.microsoft.healthvault.things.types.types.Record;
+import com.microsoft.healthvault.types.PersonInfo;
+import com.microsoft.healthvault.types.Record;
 import com.microsoft.hsg.Connection;
 import com.microsoft.hsg.HVAccessor;
 import com.microsoft.hsg.HVRequestException;

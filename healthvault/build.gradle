@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
 	compileSdkVersion 21
-	buildToolsVersion "25.0.0"
+	buildToolsVersion "25.0.3"
 
 	defaultConfig {
 		minSdkVersion 21
@@ -18,15 +18,18 @@ android {
 }
 
 dependencies {
-	compile group: 'de.mindpipe.android', name: 'android-logging-log4j', version: '1.0.3'
+	// Legacy hv pure java sdk
 	compile files('libs/hv-sdk-1.6.jar')
+
+	compile group: 'de.mindpipe.android', name: 'android-logging-log4j', version: '1.0.3'
 	compile group: 'commons-codec', name: 'commons-codec', version: '1.3'
 	compile group: 'log4j', name: 'log4j', version: '1.2.17'
 
 	compile project(':healthvault-restapi')
 	compile 'com.squareup.retrofit2:retrofit:2.3.0'
 	compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-	compile ('org.simpleframework:simple-xml:2.7.1') {
+
+    compile ('org.simpleframework:simple-xml:2.7.1') {
 		exclude group: 'xpp3', module: 'xpp3'
 		exclude group: 'stax', module: 'stax-api'
 		exclude group: 'stax', module: 'stax'

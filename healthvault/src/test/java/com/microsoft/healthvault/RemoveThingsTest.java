@@ -3,11 +3,11 @@ package com.microsoft.healthvault;
 import com.microsoft.healthvault.methods.removethings.request.RemoveThingsRequest;
 import com.microsoft.healthvault.methods.removethings.response.RemoveThingsResponse;
 import com.microsoft.healthvault.methods.request.RequestTemplate;
-import com.microsoft.healthvault.things.thing.Thing2;
-import com.microsoft.healthvault.things.thing.ThingKey;
-import com.microsoft.healthvault.things.types.Weight;
-import com.microsoft.healthvault.things.types.types.PersonInfo;
-import com.microsoft.healthvault.things.types.types.Record;
+import com.microsoft.healthvault.thingtypes.Thing2;
+import com.microsoft.healthvault.thingtypes.ThingKey;
+import com.microsoft.healthvault.thingtypes.Weight;
+import com.microsoft.healthvault.types.PersonInfo;
+import com.microsoft.healthvault.types.Record;
 
 import junit.framework.TestCase;
 

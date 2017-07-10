@@ -10,7 +10,7 @@ package com.microsoft.healthvault.methods.putthings2.request;
 
 import com.microsoft.healthvault.methods.request.HVMethodRequest;
 import com.microsoft.healthvault.methods.request.HVRequestInfo;
-import com.microsoft.healthvault.things.thing.Thing2;
+import com.microsoft.healthvault.thingtypes.Thing2;
 
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Order;

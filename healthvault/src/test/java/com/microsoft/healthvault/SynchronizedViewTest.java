@@ -6,8 +6,8 @@ import com.microsoft.healthvault.localvault.SynchronizedView;
 import com.microsoft.healthvault.methods.getthings3.request.ThingRequestGroup2;
 import com.microsoft.healthvault.store.HVContentContract;
 import com.microsoft.healthvault.store.HVContentProvider;
-import com.microsoft.healthvault.things.types.Weight;
-import com.microsoft.healthvault.things.types.types.Record;
+import com.microsoft.healthvault.thingtypes.Weight;
+import com.microsoft.healthvault.types.Record;
 
 import junit.framework.Assert;
 
