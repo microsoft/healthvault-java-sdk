@@ -1,11 +1,9 @@
 package com.microsoft.healthvault.restapi;
 
-import com.microsoft.hsg.android.healthvault.HealthVaultApp;
-import com.microsoft.hsg.android.healthvault.client.HealthVaultClient;
+import com.microsoft.healthvault.restapi.implementation.MicrosoftHealthVaultRestApiImpl;
 
 import org.junit.Test;
 
-import healthvault.client.implementation.MicrosoftHealthVaultRestApiImpl;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -15,8 +13,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import static org.junit.Assert.assertNotEquals;
 
 public class ActionPlanTest {
-	private static HealthVaultApp service;
-	private static HealthVaultClient hvClient;
+
 	private String restHealthVaultUrl = "https://data.microsofthealth.net/";
 
 	@Test
