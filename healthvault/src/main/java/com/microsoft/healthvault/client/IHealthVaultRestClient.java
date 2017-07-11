@@ -1,8 +1,8 @@
 package com.microsoft.healthvault.client;
 
-import com.microsoft.healthvault.restapi.implementation.MicrosoftHealthVaultRestApiImpl;
+import com.microsoft.healthvault.restapi.implementation.MicrosoftHealthVaultRESTAPIImpl;
 
 public interface IHealthVaultRestClient {
 
-	public MicrosoftHealthVaultRestApiImpl getClient();
+	public MicrosoftHealthVaultRESTAPIImpl getClient();
 }

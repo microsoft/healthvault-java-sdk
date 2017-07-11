@@ -25,7 +25,7 @@ package com.microsoft.healthvault.client;
 import android.os.Build;
 
 import com.microsoft.healthvault.HealthVaultSettings;
-import com.microsoft.healthvault.restapi.implementation.MicrosoftHealthVaultRestApiImpl;
+import com.microsoft.healthvault.restapi.implementation.MicrosoftHealthVaultRESTAPIImpl;
 import com.microsoft.healthvault.types.Record;
 import com.microsoft.hsg.Connection;
 import com.microsoft.hsg.HVException;
@@ -47,7 +47,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HealthVaultRestClient implements IHealthVaultRestClient {
 
-	private static MicrosoftHealthVaultRestApiImpl instance;
+	private static MicrosoftHealthVaultRESTAPIImpl instance;
 	private static DateTime mLastRefreshedSessionCredential = DateTime.now();;
 	private static Retrofit mRetrofit;
 	private static String mRestURL;
@@ -59,6 +59,7 @@ public class HealthVaultRestClient implements IHealthVaultRestClient {
 	private static final String osVersion = Build.VERSION.RELEASE;
 	private static final String category = "HV-Android";
 	private static final String fileVersion = "hv-sdk-1.6";
+	private static final String restApiVersion = "1.0-rc";
 
 	public HealthVaultRestClient (HealthVaultSettings settings, Connection connection, Record currentRecord){
 		Initialize(settings, connection, currentRecord);
@@ -76,8 +77,8 @@ public class HealthVaultRestClient implements IHealthVaultRestClient {
 		mRetrofit = getRetrofit(mRestURL);
 	}
 
-	public MicrosoftHealthVaultRestApiImpl getClient() {
-		return new MicrosoftHealthVaultRestApiImpl(mRestURL, mOkBuilder, mRetrofit.newBuilder());
+	public MicrosoftHealthVaultRESTAPIImpl getClient() {
+		return new MicrosoftHealthVaultRESTAPIImpl(mRestURL, mOkBuilder, mRetrofit.newBuilder());
 	}
 
 	private Retrofit getRetrofit(String url){
@@ -98,7 +99,8 @@ public class HealthVaultRestClient implements IHealthVaultRestClient {
 				String token = getAuthToken(connection, currentRecord);
 				Request request = chain.request();
 				Request.Builder newRequest = request.newBuilder().addHeader("Authorization", token);
-				newRequest.addHeader("x-ms-version", getVersion());
+				newRequest.addHeader("x-ms-version", restApiVersion);
+				newRequest.addHeader("version", getVersion());
 				newRequest.build();
 
 				return chain.proceed(newRequest.build());
