@@ -1,7 +1,10 @@
 package com.microsoft.healthvault;
 
+import com.microsoft.healthvault.client.HealthVaultRestClient;
 import com.microsoft.healthvault.methods.getthings3.request.ThingRequestGroup2;
 import com.microsoft.healthvault.methods.getthings3.response.ThingResponseGroup2;
+import com.microsoft.healthvault.restapi.implementation.MicrosoftHealthVaultRESTAPIImpl;
+import com.microsoft.healthvault.restapi.models.ActionPlansResponseActionPlanInstance;
 import com.microsoft.healthvault.thingtypes.Extension;
 import com.microsoft.healthvault.thingtypes.Thing2;
 import com.microsoft.healthvault.thingtypes.ThingKey;
@@ -21,8 +24,8 @@ public class RecordTest extends TestCase {
 	public void setUp()
 	{
         HVSettings settings = new HVSettings();
-        settings.setAppId("90976b0c-e0c2-467e-b65c-ed9117aa94e9");
-        settings.setAuthenticationSecret("JpGYZ54MRAhy2Gw9uoWCfxTG97ufR3v7kZ/i2JG+Utw=");
+		settings.setAppId("d00f9957-f954-48a6-adf8-4cfa27ff0e82");
+		settings.setAuthenticationSecret("3e+Hv1dq0CxH2Sp/s0Dqv8RTv/oGfyFEvTwqkvI/DSU=");
 		HealthVaultApp app = new HealthVaultApp(settings);
 		HealthVaultApp.setInstance(app);
 		app.resolvePersonInfoList();
@@ -49,6 +52,8 @@ public class RecordTest extends TestCase {
 		Record record = personInfoList.get(0).getRecords().get(0);
 		ThingKey key = record.putThing(thing);
 	}
+
+
 	
 	public void testGetPersonalDemographics() {
 		Record record = personInfoList.get(0).getRecords().get(0);
