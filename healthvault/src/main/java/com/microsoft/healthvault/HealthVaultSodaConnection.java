@@ -23,46 +23,69 @@
 package com.microsoft.healthvault;
 
 import com.microsoft.healthvault.client.HealthVaultRestClient;
+import com.microsoft.healthvault.methods.getauthorizedpeople.request.GetAuthorizedPeopleParameters;
+import com.microsoft.healthvault.methods.getauthorizedpeople.request.GetAuthorizedPeopleRequest;
+import com.microsoft.healthvault.methods.getauthorizedpeople.response.GetAuthorizedPeopleResponse;
+import com.microsoft.healthvault.methods.getauthorizedpeople.response.GetAuthorizedPeopleResponseInfo;
+import com.microsoft.healthvault.methods.getauthorizedpeople.response.GetAuthorizedPeopleResponseResults;
+import com.microsoft.healthvault.methods.request.RequestTemplate;
 import com.microsoft.healthvault.restapi.MicrosoftHealthVaultRESTAPI;
-import com.microsoft.healthvault.types.Guid;
 import com.microsoft.healthvault.types.PersonInfo;
 import com.microsoft.healthvault.types.Record;
+import com.microsoft.hsg.Connection;
 
-import org.apache.commons.lang3.concurrent.ConcurrentUtils;
+import org.joda.time.DateTime;
 
-import java.util.concurrent.Future;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
 
 public class HealthVaultSodaConnection extends HealthVaultConnectionBase implements IHealthVaultSodaConnection {
     /// TODO: (mikenev) fix the implements
 
     private PersonInfo personInfo;
+    private HealthVaultApp mHealthVaultApp;
     private static final String authenticationLock = "";
 
     @Override
-    public Future<Void> authenticateAsync() {
+    public void authenticate() {
         synchronized(authenticationLock) {
-            /// TODO: (mikenev) Read properties from local storage
-            /// TODO: (mikenev) create application if needed
-            /// TODO: (mikenev) actually authenticate.
+            RequestTemplate requestTemplate = new RequestTemplate(HealthVaultApp.getInstance().getConnection());
+            GetAuthorizedPeopleRequest request = new GetAuthorizedPeopleRequest(new GetAuthorizedPeopleParameters());
+            GetAuthorizedPeopleResponse response = requestTemplate.makeRequest(request, GetAuthorizedPeopleResponse.class);
+            GetAuthorizedPeopleResponseInfo info = response.getInfo();
+            GetAuthorizedPeopleResponseResults results = info.getResponseResults();
+            List<PersonInfo> personInfoList = results.getPersonInfoList();
 
-            if (getSessionCredential() == null) {
-                SessionCredential creds = new SessionCredential();
-                creds.setSharedSecret("3e+Hv1dq0CxH2Sp/s0Dqv8RTv/oGfyFEvTwqkvI/DSU=");
-                //creds.setToken("");
-            }
-
-            if (personInfo == null) {
-                getAndSavePersonInfoAsync();
+            if (personInfoList.size() > 0) {
+                personInfo = personInfoList.get(0);
+                Connection connection = mHealthVaultApp.getConnection();
+                SessionCredential credential = getSessionCredential();
+                credential.setToken(connection.getSessionToken());
             }
         }
+    }
 
-        return ConcurrentUtils.constantFuture(null);
+    @Override
+    protected void setConfiguration(HealthVaultConfiguration configuration) {
+        this.configuration = configuration;
+        HealthVaultSettings settings = new HVSettings(configuration, getSessionCredential());
+        mHealthVaultApp = new HealthVaultApp(settings);
+        HealthVaultApp.setInstance(mHealthVaultApp);
+    }
+
+    @Override
+    public void setSessionCredential(SessionCredential credential) {
+        super.setSessionCredential(credential);
+        HealthVaultSettings settings = new HVSettings(configuration, credential);
+        mHealthVaultApp = new HealthVaultApp(settings);
+        HealthVaultApp.setInstance(mHealthVaultApp);
     }
 
     @Override
     public PersonInfo getPersonInfo() {
         if (personInfo == null) {
-
+            this.authenticate();
         }
 
         return personInfo;
@@ -75,7 +98,140 @@ public class HealthVaultSodaConnection extends HealthVaultConnectionBase impleme
         return client.getClient();
     }
 
-    private void getAndSavePersonInfoAsync() {
+    private class HVSettings implements HealthVaultSettings {
+        private HealthVaultConfiguration mHealthVaultConfiguration;
+        private SessionCredential mSessionCredential;
+        private HealthVaultApp.ConnectionStatus mConnectionStatus;
+        private String mAuthorizedRecordsResponse;
 
+        public HVSettings(HealthVaultConfiguration configuration, SessionCredential credential) {
+            mHealthVaultConfiguration = configuration;
+            mSessionCredential = credential;
+        }
+
+        @Override
+        public boolean getIsMultiInstanceAware() {
+            return mHealthVaultConfiguration.getMultiInstanceAware();
+        }
+
+        @Override
+        public void setIsMultiInstanceAware(boolean isAware) {
+            mHealthVaultConfiguration.setMultiInstanceAware(isAware);
+        }
+
+        @Override
+        public String getServiceUrl() {
+            return mHealthVaultConfiguration.getDefaultHealthVaultUri().toString();
+        }
+
+        @Override
+        public void setServiceUrl(String url) {
+            // don't set these.
+        }
+
+        @Override
+        public String getShellUrl() {
+            return mHealthVaultConfiguration.getDefaultHealthVaultShellUri().toString();
+        }
+
+        @Override
+        public void setShellUrl(String url) {
+            // don't set these.
+        }
+
+        @Override
+        public String getRestUrl() {
+            return mHealthVaultConfiguration.getRestHealthVaultRootUri().toString();
+        }
+
+        @Override
+        public void setRestUrl(String url) {
+            // don't set these.
+        }
+
+        @Override
+        public String getAppId() {
+            return mHealthVaultConfiguration.getMasterApplicationId().get().toString();
+        }
+
+        @Override
+        public void setAppId(String appid) {
+            // don't set these.
+        }
+
+        @Override
+        public String getMasterAppId() {
+            return mHealthVaultConfiguration.getMasterApplicationId().get().toString();
+        }
+
+        @Override
+        public void setMasterAppId(String appId) {
+            // don't set these.
+        }
+
+        @Override
+        public void setSessionExpiration() {
+            mSessionCredential.setExpirationUtc();
+        }
+
+        @Override
+        public DateTime getSessionExpiration() {
+            return mSessionCredential.getExpirationUtc();
+        }
+
+        @Override
+        public boolean isSessionExpiraed() {
+            return DateTime.now().isAfter(mSessionCredential.getExpirationUtc().toInstant());
+        }
+
+        @Override
+        public String getAuthenticationSecret() {
+            return mSessionCredential.getSharedSecret();
+        }
+
+        @Override
+        public void setAuthenticationSecret(String secret) {
+            mSessionCredential.setSharedSecret(secret);
+        }
+
+        @Override
+        public HealthVaultApp.ConnectionStatus getConnectionStatus() {
+            return mConnectionStatus;
+        }
+
+        @Override
+        public void setConnectionStatus(HealthVaultApp.ConnectionStatus status) {
+            mConnectionStatus = status;
+        }
+
+        @Override
+        public boolean getIsMRA() {
+            return mHealthVaultConfiguration.getMultiRecordApp();
+        }
+
+        @Override
+        public void setIsMRA(boolean isAware) {
+            mHealthVaultConfiguration.setMultiRecordApp(isAware);
+        }
+
+        @Override
+        public void setAuthorizedRecordsResponse(String response) {
+            mAuthorizedRecordsResponse = response;
+        }
+
+        @Override
+        public String getAuthorizedRecordsResponse() {
+            return mAuthorizedRecordsResponse;
+        }
+
+        @Override
+        public void save() {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void clear() {
+            // TODO Auto-generated method stub
+        }
     }
 }

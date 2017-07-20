@@ -41,6 +41,9 @@ public class HealthVaultConfiguration {
     private int mInlineBlobHashBlockSize;
     private Guid mMasterApplicationId;
 
+    private Boolean mIsMultiInstanceAware;
+    private Boolean mIsMultiRecordApp;
+
     public HealthVaultConfiguration() {
         mDefaultHealthVaultUri = HealthVaultConfigurationDefaults.HealthVaultRootUrl;
         mDefaultHealthVaultShellUri = HealthVaultConfigurationDefaults.ShellUrl;
@@ -131,5 +134,21 @@ public class HealthVaultConfiguration {
 
     public void setMasterApplicationId(Guid masterApplicationId) {
         mMasterApplicationId = masterApplicationId;
+    }
+
+    public Boolean getMultiInstanceAware() {
+        return mIsMultiInstanceAware;
+    }
+
+    public void setMultiInstanceAware(Boolean multiInstanceAware) {
+        mIsMultiInstanceAware = multiInstanceAware;
+    }
+
+    public Boolean getMultiRecordApp() {
+        return mIsMultiRecordApp;
+    }
+
+    public void setMultiRecordApp(Boolean multiRecordApp) {
+        mIsMultiRecordApp = multiRecordApp;
     }
 }

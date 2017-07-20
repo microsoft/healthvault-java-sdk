@@ -77,9 +77,9 @@ public class SessionCredential {
 
     /**
      * Sets the expiration time of the token
-     * @param expirationUtc the expiration time of the token
+     * Default expiration time for a token is 4 hours.
      */
-    public void setExpirationUtc(DateTime expirationUtc) {
-        this.expirationUtc = expirationUtc;
+    public void setExpirationUtc() {
+        this.expirationUtc = DateTime.now().plusHours(4);
     }
 }

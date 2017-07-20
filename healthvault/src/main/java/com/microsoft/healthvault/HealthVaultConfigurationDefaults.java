@@ -45,7 +45,7 @@ public class HealthVaultConfigurationDefaults {
     /**
     * Default URL for HealthVault application
     */
-    public static final URL HealthVaultRootUrl = makeUrl("https://platform.healthvault.com/platform/");
+    public static final URL HealthVaultRootUrl = makeUrl("https://platform.healthvault.com/platform/wildcat.ashx");
 
     /**
     * Default Rest URL for HealthVault application
@@ -71,6 +71,11 @@ public class HealthVaultConfigurationDefaults {
     * The default request time out value.
     */
     public static final Interval RequestTimeoutDuration = new Interval(0, 30 * 1000);
+
+    /**
+     * The default flag indicating the app is multi-instance aware.
+     */
+    public static final Boolean IsMultiInstanceAware = true;
 
     private static URL makeUrl(String urlString) {
         try {

@@ -32,7 +32,7 @@ import java.util.concurrent.Future;
 public abstract class HealthVaultConnectionBase implements IHealthVaultConnection { // TODO: (mikenev) fix implement chain.
     private Guid applicationId;
     private SessionCredential sessionCredential;
-    private HealthVaultConfiguration configuration;
+    protected HealthVaultConfiguration configuration;
 
     public IPlatformClient createPlatformClient()
     {
@@ -68,24 +68,15 @@ public abstract class HealthVaultConnectionBase implements IHealthVaultConnectio
         this.sessionCredential = credential;
     }
 
-    public abstract Future<Void> authenticateAsync();
-
     public HealthServiceResponseData Execute(HealthVaultMethods method, int methodVersion, String parameters, Guid recordId, Guid correlationId)
     {
         // TODO: (mikenev) actually make the response data.
         return new HealthServiceResponseData();
     }
 
-    public PersonInfo getPersonInfo()
-    {
-        // TODO: (mikenev) make the call to get person info.
-        return new PersonInfo();
-    }
+    public abstract PersonInfo getPersonInfo();
 
-    public void authenticate()
-    {
-        // TODO: (mikenev) make the authentication calls
-    }
+    public abstract void authenticate();
 
     public HealthVaultConfiguration getConfiguration()
     {
