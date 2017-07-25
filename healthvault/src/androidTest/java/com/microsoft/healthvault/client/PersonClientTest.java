@@ -32,13 +32,21 @@ public class PersonClientTest extends TestCase {
         this.connection = HealthVaultConnectionFactory.Current().GetOrCreateSodaConnection(this.configuration);
         this.connection.setSessionCredential(TestSettings.getTestSessionCredential());
         this.personClient = connection.createPersonClient();
+        connection.getPersonInfo(); // authenticate or refresh token.
     }
 
     public void testGetPersonInfo() {
-        IHealthVaultSodaConnection connection = this.connection;
-        PersonInfo personInfo = connection.getPersonInfo();
+        PersonInfo personInfo = this.personClient.getPersonInfoAsync();
 
         Assert.assertNotNull(personInfo);
+    }
+
+
+    public void testGetAuthorizedPeople() {
+        List<PersonInfo> people = this.personClient.getAuthorizedPeopleAsync();
+
+        Assert.assertNotNull(people);
+        Assert.assertTrue(people.size() > 0);
     }
 
 }

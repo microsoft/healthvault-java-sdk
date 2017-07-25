@@ -22,6 +22,23 @@
 
 package com.microsoft.healthvault.client;
 
-public interface IThingClient extends IClient {
+import com.microsoft.healthvault.thingtypes.Thing2;
+import com.microsoft.healthvault.thingtypes.ThingKey;
+import com.microsoft.healthvault.types.Guid;
 
+import java.util.ArrayList;
+import java.util.List;
+
+public interface IThingClient extends IClient {
+    /**
+     * Gets a ThingBase by its unique identifier
+     * @param recordId The health record's ID.
+     * @param thingId The unique identifier of the thing
+     * @return
+     */
+    public Thing2 getThingAsync(Guid recordId, Guid thingId);
+
+    public ArrayList<ThingKey> createThingsAsync(Guid recordId, ArrayList<Thing2> things);
+
+    public void removeThingsAsync(Guid recordId, ArrayList<Thing2> things);
 }

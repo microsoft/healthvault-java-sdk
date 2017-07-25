@@ -22,11 +22,24 @@
 
 package com.microsoft.healthvault.client;
 
+import com.microsoft.healthvault.ApplicationSettings;
 import com.microsoft.healthvault.HealthServiceResponseData;
+import com.microsoft.healthvault.HealthVaultApp;
 import com.microsoft.healthvault.IHealthVaultConnection;
+import com.microsoft.healthvault.SessionCredential;
 import com.microsoft.healthvault.methods.HealthVaultMethods;
+import com.microsoft.healthvault.methods.getauthorizedpeople.request.GetAuthorizedPeopleParameters;
+import com.microsoft.healthvault.methods.getauthorizedpeople.request.GetAuthorizedPeopleRequest;
+import com.microsoft.healthvault.methods.getauthorizedpeople.response.GetAuthorizedPeopleResponse;
+import com.microsoft.healthvault.methods.getauthorizedpeople.response.GetAuthorizedPeopleResponseInfo;
+import com.microsoft.healthvault.methods.getauthorizedpeople.response.GetAuthorizedPeopleResponseResults;
+import com.microsoft.healthvault.methods.request.RequestTemplate;
+import com.microsoft.healthvault.types.Guid;
 import com.microsoft.healthvault.types.PersonInfo;
+import com.microsoft.healthvault.types.Record;
+import com.microsoft.hsg.Connection;
 
+import java.util.List;
 import java.util.concurrent.Future;
 
 public class PersonClient extends Client implements IPersonClient {
@@ -36,18 +49,35 @@ public class PersonClient extends Client implements IPersonClient {
         this.connection = connection;
     }
 
-    public Future<PersonInfo> getPersonInfoAsync()
-    {
-        HealthServiceResponseData responseData = connection.Execute(HealthVaultMethods.GetPersonInfo, 1, null, null, null);
-
-/*
-
-        XPathExpression personPath = GetPersonXPathExpression(responseData.InfoNavigator);
-        XPathNavigator infoNav = responseData.InfoNavigator.SelectSingleNode(personPath);
-
-        return PersonInfo.CreateFromXml(infoNav);
-*/
+    @Override
+    public ApplicationSettings getApplicationSettingsAsync() {
         return null;
     }
 
+    @Override
+    public List<PersonInfo> getAuthorizedPeopleAsync() {
+        RequestTemplate requestTemplate = new RequestTemplate(HealthVaultApp.getInstance().getConnection());
+        GetAuthorizedPeopleRequest request = new GetAuthorizedPeopleRequest(new GetAuthorizedPeopleParameters());
+        GetAuthorizedPeopleResponse response = requestTemplate.makeRequest(request, GetAuthorizedPeopleResponse.class);
+        GetAuthorizedPeopleResponseInfo info = response.getInfo();
+        GetAuthorizedPeopleResponseResults results = info.getResponseResults();
+        return results.getPersonInfoList();
+    }
+
+    @Override
+    public PersonInfo getPersonInfoAsync()
+    {
+        List<PersonInfo> personInfoList = getAuthorizedPeopleAsync();
+
+        if (personInfoList.size() > 0) {
+            return personInfoList.get(0);
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<Record> getAuthorizedRecordsAsync(List<Guid> recordIds) {
+        return null;
+    }
 }

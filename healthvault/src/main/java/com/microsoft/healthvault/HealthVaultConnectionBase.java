@@ -46,7 +46,7 @@ public abstract class HealthVaultConnectionBase implements IHealthVaultConnectio
 
     public IThingClient createThingClient()
     {
-        return new ThingClient();
+        return new ThingClient(this);
     }
 
     public IVocabularyClient createVocabularyClient()

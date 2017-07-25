@@ -75,7 +75,7 @@ public class ThingStoreProvider implements IThingProvider {
 		requestGroup.setMax(25);
 		requestGroup.getFilterList().add(getThingFilterSpec(thingType));
 		requestGroup.setFormat(getFormat());
-		
+
 		return requestGroup;
 	}
 	
