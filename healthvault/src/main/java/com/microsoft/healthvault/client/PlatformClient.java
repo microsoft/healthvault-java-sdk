@@ -22,6 +22,74 @@
 
 package com.microsoft.healthvault.client;
 
-public class PlatformClient extends Client implements IPlatformClient {
+import com.microsoft.healthvault.ApplicationCreationInfo;
+import com.microsoft.healthvault.GetAuthorizedPeopleSettings;
+import com.microsoft.healthvault.HealthServiceInstance;
+import com.microsoft.healthvault.ServiceInfo;
+import com.microsoft.healthvault.ServiceInfoSections;
+import com.microsoft.healthvault.ThingTypeDefinition;
+import com.microsoft.healthvault.ThingTypeSections;
+import com.microsoft.healthvault.types.Guid;
+import com.microsoft.healthvault.types.Location;
+import com.microsoft.healthvault.types.PersonInfo;
 
+import org.joda.time.Instant;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+public class PlatformClient extends Client implements IPlatformClient {
+    @Override
+    public HealthServiceInstance selectInstanceAsync(Location preferredLocation) {
+        return null;
+    }
+
+    @Override
+    public ServiceInfo getServiceDefinitionAsync() {
+        return null;
+    }
+
+    @Override
+    public ServiceInfo getServiceDefinitionAsync(Instant lastUpdatedTime) {
+        return null;
+    }
+
+    @Override
+    public ServiceInfo getServiceDefinitionAsync(ServiceInfoSections responseSections) {
+        return null;
+    }
+
+    @Override
+    public ServiceInfo getServiceDefinitionAsync(ServiceInfoSections responseSections, Instant lastUpdatedTime) {
+        return null;
+    }
+
+    @Override
+    public Map<Guid, ThingTypeDefinition> getHealthRecordItemTypeDefinitionAsync(
+            ArrayList<Guid> typeIds,
+            ThingTypeSections sections,
+            ArrayList<String> imageTypes,
+            Instant lastClientRefreshDate) {
+        return null;
+    }
+
+    @Override
+    public ApplicationCreationInfo newApplicationCreationInfoAsync() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<PersonInfo> getAuthorizedPeople() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<PersonInfo> getAuthorizedPeople(GetAuthorizedPeopleSettings settings) {
+        return null;
+    }
+
+    @Override
+    public void RemoveApplicationRecordAuthorizationAsync(Guid recordId) {
+
+    }
 }
