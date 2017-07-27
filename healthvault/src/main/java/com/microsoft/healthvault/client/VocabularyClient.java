@@ -22,11 +22,76 @@
 
 package com.microsoft.healthvault.client;
 
+import com.microsoft.healthvault.HealthVaultApp;
+import com.microsoft.healthvault.IHealthVaultConnection;
+import com.microsoft.healthvault.methods.getvocabulary2.request.GetVocabulary2Request;
+import com.microsoft.healthvault.methods.getvocabulary2.request.VocabGetParams;
+import com.microsoft.healthvault.methods.getvocabulary2.response.GetVocabulary2Response;
+import com.microsoft.healthvault.methods.getvocabulary2.response.VocabCodeSet;
+import com.microsoft.healthvault.methods.request.RequestTemplate;
+import com.microsoft.healthvault.methods.searchvocabulary.request.SearchVocabularyRequest;
+import com.microsoft.healthvault.methods.searchvocabulary.request.VocabMatchType;
+import com.microsoft.healthvault.methods.searchvocabulary.request.VocabSearch;
+import com.microsoft.healthvault.methods.searchvocabulary.response.SearchVocabularyResponse;
+import com.microsoft.healthvault.types.VocabFamily;
+import com.microsoft.healthvault.types.VocabIdentifier;
+import com.microsoft.healthvault.types.VocabItem;
+import com.microsoft.healthvault.types.VocabName;
+
+import java.util.ArrayList;
+
 public class VocabularyClient extends Client implements IVocabularyClient {
+    private IHealthVaultConnection connection;
 
+    public VocabularyClient(IHealthVaultConnection connection) {
+        this.connection = connection;
+    }
 
+    @Override
+    public ArrayList<VocabIdentifier> getVocabularyKeysAsync() {
+        return null;
+    }
 
+    @Override
+    public ArrayList<VocabCodeSet> getVocabularyAsync(VocabIdentifier key, boolean cultureIsFixed) {
+        ArrayList<VocabIdentifier> list = new ArrayList<VocabIdentifier>();
+        list.add(key);
+        return getVocabulariesAsync(list, cultureIsFixed);
+    }
 
+    @Override
+    public ArrayList<VocabCodeSet> getVocabulariesAsync(ArrayList<VocabIdentifier> vocabularyKeys, boolean cultureIsFixed) {
+        RequestTemplate requestTemplate = new RequestTemplate(HealthVaultApp.getInstance().getConnection());
 
+        VocabGetParams getParams = new VocabGetParams(vocabularyKeys);
+        getParams.setFixedCulture(cultureIsFixed);
 
+        GetVocabulary2Request request = new GetVocabulary2Request(getParams);
+
+        GetVocabulary2Response response = requestTemplate.makeRequest(
+                request,
+                GetVocabulary2Response.class);
+
+        return response.getInfo().getVocabs();
+    }
+
+    @Override
+    public ArrayList<VocabItem> searchVocabularyAsync(String searchValue, VocabMatchType searchType, int maxResults) {
+        RequestTemplate requestTemplate = new RequestTemplate(HealthVaultApp.getInstance().getConnection());
+
+        // what about search type or maxResults?
+
+        SearchVocabularyRequest request = new SearchVocabularyRequest();
+        request.setVocabSearch(new VocabSearch(searchValue));
+
+        // shouldn't have to limit it like this.
+        VocabIdentifier vocabKey = new VocabIdentifier(VocabFamily.USDA, VocabName.FoodDescription);
+        request.setVocabKey(vocabKey);
+
+        SearchVocabularyResponse response = requestTemplate.makeRequest(
+                request,
+                SearchVocabularyResponse.class);
+
+        return response.getInfo().matches.getItems();
+    }
 }

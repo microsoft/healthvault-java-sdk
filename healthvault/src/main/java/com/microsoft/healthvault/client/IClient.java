@@ -25,6 +25,6 @@ package com.microsoft.healthvault.client;
 import com.microsoft.healthvault.types.Guid;
 
 public interface IClient {
-    public Guid getCorrelationId();
-    public void setCorrelationId(Guid correlationId);
+    Guid getCorrelationId();
+    void setCorrelationId(Guid correlationId);
 }

@@ -51,7 +51,7 @@ public abstract class HealthVaultConnectionBase implements IHealthVaultConnectio
 
     public IVocabularyClient createVocabularyClient()
     {
-        return new VocabularyClient();
+        return new VocabularyClient(this);
     }
 
     public Guid getApplicationId()

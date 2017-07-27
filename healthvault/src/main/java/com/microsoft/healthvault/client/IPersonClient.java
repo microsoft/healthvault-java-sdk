@@ -44,19 +44,19 @@ public interface IPersonClient extends IClient {
      *
      * @return Information about the person's HealthVault account.
      */
-    public PersonInfo getPersonInfoAsync();
+    PersonInfo getPersonInfoAsync();
 
     /**
      * Gets information about people authorized for an application.
      * @return A list of PersonInfo objects representing people authorized for the application.
      */
-    public List<PersonInfo> getAuthorizedPeopleAsync();
+    List<PersonInfo> getAuthorizedPeopleAsync();
 
     /**
      * Gets the application settings for the current application and person.
      * @return The complete set application settings including the XML settings, selected record ID, etc.
      */
-    public ApplicationSettings getApplicationSettingsAsync();
+    ApplicationSettings getApplicationSettingsAsync();
 
 
     /**
@@ -64,5 +64,5 @@ public interface IPersonClient extends IClient {
      * @param recordIds The unique identifiers for the records to retrieve.
      * @return A list of the records matching the specified record identifiers and authorized for the authenticated person.
      */
-    public List<Record> getAuthorizedRecordsAsync(List<Guid> recordIds);
+    List<Record> getAuthorizedRecordsAsync(List<Guid> recordIds);
 }

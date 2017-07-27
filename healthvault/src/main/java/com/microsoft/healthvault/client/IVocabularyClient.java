@@ -22,6 +22,56 @@
 
 package com.microsoft.healthvault.client;
 
-public interface IVocabularyClient extends IClient {
+import com.microsoft.healthvault.methods.getvocabulary2.response.VocabCodeSet;
+import com.microsoft.healthvault.methods.searchvocabulary.request.VocabMatchType;
+import com.microsoft.healthvault.types.VocabIdentifier;
+import com.microsoft.healthvault.types.VocabItem;
 
+import java.util.ArrayList;
+
+public interface IVocabularyClient extends IClient {
+    /**
+     * Retrieves a collection of key information for identifying and describing the vocabularies in the system.
+     * @return A collection of keys identifying the vocabularies in the system.
+     */
+    ArrayList<VocabIdentifier> getVocabularyKeysAsync();
+
+    /**
+     * A collection of keys identifying the vocabularies in the system.
+     * @param key The key for the vocabulary to fetch.
+     * @param cultureIsFixed HealthVault looks for the vocabulary items for the culture info
+     *          specified by the system.
+     *          <p>If <b>cultureIsFixed</b> is set to <code>false</code> and if items are not found
+     *          for the specified culture, items for the default fallback culture are returned.</p>
+     *          <p>If <b>cultureIsFixed</b> is set to <code>true</code>, fallback will not occur,
+     *          and if items are not found for the specified culture, empty strings are returned.</p>
+     * @return The specified vocabulary and its items, or empty strings.
+     */
+    ArrayList<VocabCodeSet> getVocabularyAsync(VocabIdentifier key, boolean cultureIsFixed);
+
+    /**
+     * Retrieves lists of vocabulary items for the specified vocabularies in the user's current culture.
+     * @param vocabularyKeys A list of identifiers for the vocabularies to fetch.
+     * @param cultureIsFixed HealthVault looks for the vocabulary items for the culture info
+     *          specified by the system.
+     *          <p>If <b>cultureIsFixed</b> is set to <code>false</code> and if items are not found
+     *          for the specified culture, items for the default fallback culture are returned.</p>
+     *          <p>If <b>cultureIsFixed</b> is set to <code>true</code>, fallback will not occur,
+     *          and if items are not found for the specified culture, empty strings are returned.</p>
+     * @return One of the specified vocabularies and its items, or empty strings.
+     */
+    ArrayList<VocabCodeSet> getVocabulariesAsync(
+            ArrayList<VocabIdentifier> vocabularyKeys,
+            boolean cultureIsFixed);
+
+    /**
+     * Searches a specific vocabulary and retrieves the matching vocabulary items.
+     * @param searchValue The search string to use.
+     * @param searchType The type of search to perform.
+     * @param maxResults The maximum number of results to return. If zero, all matching results are
+     *                   returned, up to a maximum number defined by the service config value with
+     *                   key maxResultsPerVocabularyRetrieval.
+     * @return A list of {@link VocabIdentifier} populated with entries matching the search criteria.
+     */
+    ArrayList<VocabItem> searchVocabularyAsync(String searchValue, VocabMatchType searchType, int maxResults);
 }

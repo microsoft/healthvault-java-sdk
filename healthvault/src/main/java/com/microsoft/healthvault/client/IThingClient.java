@@ -36,9 +36,20 @@ public interface IThingClient extends IClient {
      * @param thingId The unique identifier of the thing
      * @return
      */
-    public Thing2 getThingAsync(Guid recordId, Guid thingId);
+    Thing2 getThingAsync(Guid recordId, Guid thingId);
 
-    public ArrayList<ThingKey> createThingsAsync(Guid recordId, ArrayList<Thing2> things);
+    /**
+     * Creates a new collection of things, and updates each item with a Key that has its thing id and version id.
+     * @param recordId The health record's ID.
+     * @param things The collection of things to create.
+     * @return a list of {@link ThingKey} containing information about the created Things.
+     */
+    ArrayList<ThingKey> createThingsAsync(Guid recordId, ArrayList<Thing2> things);
 
-    public void removeThingsAsync(Guid recordId, ArrayList<Thing2> things);
+    /**
+     * Removes a collection of things.
+     * @param recordId The health record's ID.
+     * @param things The collection of things to remove.
+     */
+    void removeThingsAsync(Guid recordId, ArrayList<Thing2> things);
 }
