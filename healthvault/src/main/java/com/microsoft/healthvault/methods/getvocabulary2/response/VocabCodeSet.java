@@ -22,7 +22,7 @@
 
 package com.microsoft.healthvault.methods.getvocabulary2.response;
 
-import com.microsoft.healthvault.types.VocabItem;
+import com.microsoft.healthvault.vocabulary.VocabularyCodeItem;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
@@ -51,7 +51,7 @@ public class VocabCodeSet {
 	protected String version;
 	
 	@ElementList(entry="code-item", inline=true, required=false)
-	protected ArrayList<VocabItem> items;
+	protected ArrayList<VocabularyCodeItem> items;
 	
 	@Element(name="is-vocab-truncated", required=false)
 	protected Boolean isTrunctated;
@@ -80,11 +80,11 @@ public class VocabCodeSet {
 		this.version = version;
 	}
 
-	public ArrayList<VocabItem> getItems() {
+	public ArrayList<VocabularyCodeItem> getItems() {
 		return items;
 	}
 
-	public void setItems(ArrayList<VocabItem> items) {
+	public void setItems(ArrayList<VocabularyCodeItem> items) {
 		this.items = items;
 	}
 

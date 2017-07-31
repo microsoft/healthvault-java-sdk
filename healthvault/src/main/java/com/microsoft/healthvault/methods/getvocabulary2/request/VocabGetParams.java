@@ -22,7 +22,7 @@
 
 package com.microsoft.healthvault.methods.getvocabulary2.request;
 
-import com.microsoft.healthvault.types.VocabIdentifier;
+import com.microsoft.healthvault.vocabulary.VocabularyKey;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
@@ -40,16 +40,16 @@ import java.util.ArrayList;
 public class VocabGetParams {
 	
 	@ElementList(entry = "vocabulary-key", inline = true)
-	protected ArrayList<VocabIdentifier> vocabIds;
+	protected ArrayList<VocabularyKey> vocabIds;
 	
 	@Element(name = "fixed-culture", required = true)
 	protected Boolean fixedCulture;
 	
-	public ArrayList<VocabIdentifier> getVocabIds() {
+	public ArrayList<VocabularyKey> getVocabIds() {
 		return vocabIds;
 	}
 
-	public void setVocabIds(ArrayList<VocabIdentifier> vocabIds) {
+	public void setVocabIds(ArrayList<VocabularyKey> vocabIds) {
 		this.vocabIds = vocabIds;
 	}
 	
@@ -61,13 +61,13 @@ public class VocabGetParams {
 		this.fixedCulture = value;
 	}
 
-	public VocabGetParams(ArrayList<VocabIdentifier> vocabIds,
+	public VocabGetParams(ArrayList<VocabularyKey> vocabIds,
 			Boolean fixedCulture) {
 		this.vocabIds = vocabIds;
 		this.fixedCulture = fixedCulture;
 	}
 
-	public VocabGetParams(ArrayList<VocabIdentifier> vocabIds) {
+	public VocabGetParams(ArrayList<VocabularyKey> vocabIds) {
 		this(vocabIds, false);
 	}
 	

@@ -10,9 +10,8 @@ import com.microsoft.healthvault.XmlSerializer;
 import com.microsoft.healthvault.methods.getthings3.request.ThingRequestGroup2;
 import com.microsoft.healthvault.methods.getthings3.response.ThingResponseGroup2;
 import com.microsoft.healthvault.store.HVContentContract;
-import com.microsoft.healthvault.thingtypes.AbstractThing;
-import com.microsoft.healthvault.thingtypes.Thing2;
-import com.microsoft.healthvault.thingtypes.UnprocessedThingKeyInfo;
+import com.microsoft.healthvault.thing.Thing2;
+import com.microsoft.healthvault.thing.UnprocessedThingKeyInfo;
 import com.microsoft.healthvault.types.Record;
 import com.microsoft.hsg.HVException;
 

@@ -22,7 +22,7 @@
 
 package com.microsoft.healthvault.methods.searchvocabulary.response;
 
-import com.microsoft.healthvault.types.VocabItem;
+import com.microsoft.healthvault.vocabulary.VocabularyCodeItem;
 
 import org.simpleframework.xml.ElementList;
 
@@ -31,13 +31,13 @@ import java.util.ArrayList;
 public class VocabQueryResult {
 	
 	@ElementList(entry="code-item", inline=true, required=false)
-	protected ArrayList<VocabItem> items;
+	protected ArrayList<VocabularyCodeItem> items;
 
-	public ArrayList<VocabItem> getItems() {
+	public ArrayList<VocabularyCodeItem> getItems() {
 		return items;
 	}
 
-	public void setItems(ArrayList<VocabItem> items) {
+	public void setItems(ArrayList<VocabularyCodeItem> items) {
 		this.items = items;
 	}
 	

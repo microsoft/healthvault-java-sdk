@@ -11,7 +11,7 @@ import com.microsoft.healthvault.methods.searchvocabulary.request.VocabSearch;
 import com.microsoft.healthvault.methods.searchvocabulary.response.SearchVocabularyResponse;
 import com.microsoft.healthvault.methods.searchvocabulary.response.VocabQueryResult;
 import com.microsoft.healthvault.methods.searchvocabulary.response.VocabQueryResults;
-import com.microsoft.healthvault.types.VocabIdentifier;
+import com.microsoft.healthvault.vocabulary.VocabularyKey;
 import com.microsoft.hsg.Connection;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import java.util.concurrent.Callable;
 
 public class Vocabs {
 	
-	public ArrayList<VocabCodeSet> get(ArrayList<VocabIdentifier> vocabIds) {
+	public ArrayList<VocabCodeSet> get(ArrayList<VocabularyKey> vocabIds) {
 		
 		Connection connection = HealthVaultApp.getInstance().getConnection();
 		
@@ -42,7 +42,7 @@ public class Vocabs {
 		return new ArrayList<VocabCodeSet>();
 	}
 	
-	public VocabQueryResult search(VocabIdentifier vocabKey, String searchText) {
+	public VocabQueryResult search(VocabularyKey vocabKey, String searchText) {
 		
 		Connection connection = HealthVaultApp.getInstance().getConnection();
 		RequestTemplate requestTemplate = new RequestTemplate(connection);
@@ -61,7 +61,7 @@ public class Vocabs {
 		return null;
 	}
 	
-	public Callable<VocabQueryResult> searchAsync(final VocabIdentifier vocabKey, final String searchText) {
+	public Callable<VocabQueryResult> searchAsync(final VocabularyKey vocabKey, final String searchText) {
 		return new Callable<VocabQueryResult>() {
 
 			@Override

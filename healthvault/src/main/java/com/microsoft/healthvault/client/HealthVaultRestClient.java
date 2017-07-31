@@ -26,6 +26,7 @@ import android.os.Build;
 
 import com.microsoft.healthvault.HealthVaultSettings;
 import com.microsoft.healthvault.restapi.implementation.MicrosoftHealthVaultRESTAPIImpl;
+import com.microsoft.healthvault.types.PersonInfo;
 import com.microsoft.healthvault.types.Record;
 import com.microsoft.hsg.Connection;
 import com.microsoft.hsg.HVException;
@@ -61,11 +62,11 @@ public class HealthVaultRestClient implements IHealthVaultRestClient {
 	private static final String fileVersion = "hv-sdk-1.6";
 	private static final String restApiVersion = "1.0-rc";
 
-	public HealthVaultRestClient (HealthVaultSettings settings, Connection connection, Record currentRecord){
-		Initialize(settings, connection, currentRecord);
+	public HealthVaultRestClient (HealthVaultSettings settings, Connection connection, PersonInfo personInfo, Record currentRecord){
+		Initialize(settings, connection, personInfo, currentRecord);
 	}
 
-	private void Initialize(HealthVaultSettings settings, Connection connection, Record currentRecord){
+	private void Initialize(HealthVaultSettings settings, Connection connection, PersonInfo personInfo, Record currentRecord){
 		if (connection == null){
 			throw new HVException("connection is null");
 		}
@@ -73,7 +74,7 @@ public class HealthVaultRestClient implements IHealthVaultRestClient {
 		mRestURL = settings.getRestUrl();
 		mCurrentRecord = currentRecord;
 		mConnection = connection;
-		mOkBuilder = getOkHttp(connection, currentRecord);
+		mOkBuilder = getOkHttp(connection, personInfo, currentRecord);
 		mRetrofit = getRetrofit(mRestURL);
 	}
 
@@ -90,13 +91,13 @@ public class HealthVaultRestClient implements IHealthVaultRestClient {
 		return retrofit;
 	}
 
-	public OkHttpClient.Builder getOkHttp(final Connection connection, final Record currentRecord){
+	public OkHttpClient.Builder getOkHttp(final Connection connection, final PersonInfo personInfo, final Record currentRecord){
 		OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
 		clientBuilder.connectionPool(new ConnectionPool(3, 5, TimeUnit.SECONDS));
 		clientBuilder.addInterceptor(new Interceptor() {
 			@Override
 			public okhttp3.Response intercept(Chain chain) throws IOException {
-				String token = getAuthToken(connection, currentRecord);
+				String token = getAuthToken(connection, personInfo, currentRecord);
 				Request request = chain.request();
 				Request.Builder newRequest = request.newBuilder().addHeader("Authorization", token);
 				newRequest.addHeader("x-ms-version", restApiVersion);
@@ -117,7 +118,7 @@ public class HealthVaultRestClient implements IHealthVaultRestClient {
 		return sb.toString();
 	}
 
-	private String getAuthToken (Connection connection, Record currentRecord){
+	private String getAuthToken (Connection connection, PersonInfo personInfo, Record currentRecord){
 		DateTime dateTime= mSettings.getSessionExpiration();
 		if(dateTime.isBeforeNow()) {
 			tokenRefresh(connection);
@@ -126,7 +127,7 @@ public class HealthVaultRestClient implements IHealthVaultRestClient {
 		stringBuilder.append("MSH-V1 app-token=");
 		stringBuilder.append(connection.getSessionToken().toString());
 		stringBuilder.append(",offline-person-id=");
-		stringBuilder.append(currentRecord.getPersonId());
+		stringBuilder.append(personInfo.getPersonId());
 		stringBuilder.append(",record-id=");
 		stringBuilder.append(currentRecord.getId());
 

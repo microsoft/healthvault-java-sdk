@@ -24,7 +24,7 @@ package com.microsoft.healthvault.methods.searchvocabulary.request;
 
 import com.microsoft.healthvault.methods.request.HVMethodRequest;
 import com.microsoft.healthvault.methods.request.HVRequestInfo;
-import com.microsoft.healthvault.types.VocabIdentifier;
+import com.microsoft.healthvault.vocabulary.VocabularyKey;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Order;
@@ -39,16 +39,16 @@ import org.simpleframework.xml.Root;
 public class SearchVocabularyRequest implements HVRequestInfo {
 
 	@Element(name="vocabulary-key", required=false)
-	protected VocabIdentifier vocabKey;
+	protected VocabularyKey vocabKey;
 	
 	@Element(name="text-search-parameters", required=true)
 	protected VocabSearch vocabSearch;
 
-	public VocabIdentifier getVocabKey() {
+	public VocabularyKey getVocabKey() {
 		return vocabKey;
 	}
 
-	public void setVocabKey(VocabIdentifier vocabKey) {
+	public void setVocabKey(VocabularyKey vocabKey) {
 		this.vocabKey = vocabKey;
 	}
 
@@ -60,7 +60,7 @@ public class SearchVocabularyRequest implements HVRequestInfo {
 		this.vocabSearch = vocabSearch;
 	}
 
-	public SearchVocabularyRequest(VocabIdentifier vocabKey,
+	public SearchVocabularyRequest(VocabularyKey vocabKey,
 		VocabSearch vocabSearch) {
 		this.vocabKey = vocabKey;
 		this.vocabSearch = vocabSearch;

@@ -13,7 +13,7 @@ import com.microsoft.healthvault.methods.getthings3.response.GetThings3Response;
 import com.microsoft.healthvault.methods.putthings2.request.PutThings2Request;
 import com.microsoft.healthvault.methods.putthings2.response.PutThings2Response;
 import com.microsoft.healthvault.methods.request.RequestTemplate;
-import com.microsoft.healthvault.thingtypes.Thing2;
+import com.microsoft.healthvault.thing.Thing2;
 import com.microsoft.hsg.Connection;
 
 import java.util.List;
