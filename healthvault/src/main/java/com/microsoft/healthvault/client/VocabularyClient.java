@@ -22,12 +22,16 @@
 
 package com.microsoft.healthvault.client;
 
+import com.microsoft.healthvault.HealthServiceResponseData;
 import com.microsoft.healthvault.HealthVaultApp;
 import com.microsoft.healthvault.IHealthVaultConnection;
+import com.microsoft.healthvault.methods.HealthVaultMethods;
 import com.microsoft.healthvault.methods.getvocabulary2.request.GetVocabulary2Request;
 import com.microsoft.healthvault.methods.getvocabulary2.request.VocabGetParams;
+import com.microsoft.healthvault.methods.getvocabulary2.response.GetVocabulary2KeyResponse;
 import com.microsoft.healthvault.methods.getvocabulary2.response.GetVocabulary2Response;
 import com.microsoft.healthvault.methods.getvocabulary2.response.VocabCodeSet;
+import com.microsoft.healthvault.methods.getvocabulary2.response.VocabKey;
 import com.microsoft.healthvault.methods.request.RequestTemplate;
 import com.microsoft.healthvault.methods.searchvocabulary.request.SearchVocabularyRequest;
 import com.microsoft.healthvault.methods.searchvocabulary.request.VocabMatchType;
@@ -48,8 +52,15 @@ public class VocabularyClient extends Client implements IVocabularyClient {
     }
 
     @Override
-    public ArrayList<VocabIdentifier> getVocabularyKeysAsync() {
-        return null;
+    public ArrayList<VocabKey> getVocabularyKeysAsync() {
+        RequestTemplate requestTemplate = new RequestTemplate(HealthVaultApp.getInstance().getConnection());
+
+        GetVocabulary2Request request = new GetVocabulary2Request();
+        GetVocabulary2KeyResponse response = requestTemplate.makeRequest(
+                request,
+                GetVocabulary2KeyResponse.class);
+
+        return response.getInfo().hasVocabs() ? response.getInfo().getVocabs() : null;
     }
 
     @Override

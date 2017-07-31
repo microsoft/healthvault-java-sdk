@@ -68,9 +68,21 @@ public abstract class HealthVaultConnectionBase implements IHealthVaultConnectio
         this.sessionCredential = credential;
     }
 
-    public HealthServiceResponseData Execute(HealthVaultMethods method, int methodVersion, String parameters, Guid recordId, Guid correlationId)
+    public HealthServiceResponseData execute(HealthVaultMethods method, int methodVersion, String parameters, Guid recordId, Guid correlationId)
     {
-        // TODO: (mikenev) actually make the response data.
+        boolean isMethodAnonymous = isMethodAnonymous(method);
+        String token = this.sessionCredential.getToken();
+
+        if (!isMethodAnonymous && (token == null || token.isEmpty())) {
+            authenticate();
+        }
+
+
+
+
+
+
+
         return new HealthServiceResponseData();
     }
 
@@ -86,5 +98,11 @@ public abstract class HealthVaultConnectionBase implements IHealthVaultConnectio
     protected void setConfiguration(HealthVaultConfiguration configuration)
     {
         this.configuration = configuration;
+    }
+
+    private boolean isMethodAnonymous(HealthVaultMethods method) {
+        return (method == HealthVaultMethods.CreateAuthenticatedSessionToken
+            || method == HealthVaultMethods.GetServiceDefinition
+            || method == HealthVaultMethods.NewApplicationCreationInfo);
     }
 }

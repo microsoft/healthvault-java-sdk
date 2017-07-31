@@ -23,6 +23,7 @@
 package com.microsoft.healthvault.client;
 
 import com.microsoft.healthvault.methods.getvocabulary2.response.VocabCodeSet;
+import com.microsoft.healthvault.methods.getvocabulary2.response.VocabKey;
 import com.microsoft.healthvault.methods.searchvocabulary.request.VocabMatchType;
 import com.microsoft.healthvault.types.VocabIdentifier;
 import com.microsoft.healthvault.types.VocabItem;
@@ -34,7 +35,7 @@ public interface IVocabularyClient extends IClient {
      * Retrieves a collection of key information for identifying and describing the vocabularies in the system.
      * @return A collection of keys identifying the vocabularies in the system.
      */
-    ArrayList<VocabIdentifier> getVocabularyKeysAsync();
+    ArrayList<VocabKey> getVocabularyKeysAsync();
 
     /**
      * A collection of keys identifying the vocabularies in the system.

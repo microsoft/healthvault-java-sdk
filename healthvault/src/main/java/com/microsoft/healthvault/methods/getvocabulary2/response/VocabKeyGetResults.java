@@ -22,25 +22,25 @@
 
 package com.microsoft.healthvault.methods.getvocabulary2.response;
 
-import com.microsoft.healthvault.methods.response.Response;
-
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
+import org.simpleframework.xml.ElementList;
 
 import java.util.ArrayList;
 
+public class VocabKeyGetResults {
 
-@Root(name = "response", strict=false)
-public class GetVocabulary2Response extends Response {
+    @ElementList(entry = "vocabulary-key", inline=true)
+    protected ArrayList<VocabKey> vocabs;
 
-	@Element
-	protected VocabGetResults info;
+    public ArrayList<VocabKey> getVocabs() {
+        return vocabs;
+    }
 
-	public VocabGetResults getInfo() {
-		return info;
-	}
+    public void setVocabs(ArrayList<VocabKey> vocabs) {
+        this.vocabs = vocabs;
+    }
 
-	public void setInfo(VocabGetResults info) {
-		this.info = info;
-	}
+    public Boolean hasVocabs()
+    {
+        return !(vocabs == null || vocabs.isEmpty());
+    }
 }

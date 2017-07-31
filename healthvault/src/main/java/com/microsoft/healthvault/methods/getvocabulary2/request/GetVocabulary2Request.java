@@ -32,7 +32,7 @@ import org.simpleframework.xml.Root;
 @HVMethodRequest(methodName="GetVocabulary", methodVersion="2")
 public class GetVocabulary2Request implements HVRequestInfo {
 	
-	@Element(name="vocabulary-parameters")
+	@Element(name="vocabulary-parameters", required=false)
 	protected VocabGetParams vocabularyParameters;
 
 	public VocabGetParams getVocabularyParameters() {
@@ -41,6 +41,10 @@ public class GetVocabulary2Request implements HVRequestInfo {
 
 	public void setVocabularyParameters(VocabGetParams vocabularyParameters) {
 		this.vocabularyParameters = vocabularyParameters;
+	}
+
+	public GetVocabulary2Request() {
+		this.vocabularyParameters = null;
 	}
 
 	public GetVocabulary2Request(VocabGetParams vocabularyParameters) {

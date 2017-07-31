@@ -61,7 +61,7 @@ public interface IHealthVaultConnection { // TODO: (mikenev) implements IHealthV
      * @param recordId The record Id.
      * @param correlationId The correlation Id.
      */
-    public HealthServiceResponseData Execute(HealthVaultMethods method, int methodVersion, String parameters, Guid recordId, Guid correlationId);
+    public HealthServiceResponseData execute(HealthVaultMethods method, int methodVersion, String parameters, Guid recordId, Guid correlationId);
 
     /**
      * Gets SessionCredential

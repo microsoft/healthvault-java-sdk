@@ -22,25 +22,61 @@
 
 package com.microsoft.healthvault.methods.getvocabulary2.response;
 
-import com.microsoft.healthvault.methods.response.Response;
-
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Order;
 
 import java.util.ArrayList;
 
+@Order(elements = {
+        "name",
+        "family",
+        "version",
+        "description"
+})
 
-@Root(name = "response", strict=false)
-public class GetVocabulary2Response extends Response {
+public class VocabKey {
+    @Element(name="name", required=true)
+    protected String name;
 
-	@Element
-	protected VocabGetResults info;
+    @Element(name="family", required=true)
+    protected String family;
 
-	public VocabGetResults getInfo() {
-		return info;
-	}
+    @Element(name="version", required=true)
+    protected String version;
 
-	public void setInfo(VocabGetResults info) {
-		this.info = info;
-	}
+    @Element(name="description", required=false)
+    protected String description;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFamily() {
+        return family;
+    }
+
+    public void setFamily(String family) {
+        this.family = family;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

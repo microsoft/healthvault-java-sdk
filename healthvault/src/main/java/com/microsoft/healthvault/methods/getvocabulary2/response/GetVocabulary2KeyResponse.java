@@ -31,16 +31,16 @@ import java.util.ArrayList;
 
 
 @Root(name = "response", strict=false)
-public class GetVocabulary2Response extends Response {
+public class GetVocabulary2KeyResponse extends Response {
 
-	@Element
-	protected VocabGetResults info;
+    @Element
+    protected VocabKeyGetResults info;
 
-	public VocabGetResults getInfo() {
-		return info;
-	}
+    public VocabKeyGetResults getInfo() {
+        return info;
+    }
 
-	public void setInfo(VocabGetResults info) {
-		this.info = info;
-	}
+    public void setInfo(VocabKeyGetResults info) {
+        this.info = info;
+    }
 }

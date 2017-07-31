@@ -4,6 +4,7 @@ import com.microsoft.healthvault.HealthVaultConfiguration;
 import com.microsoft.healthvault.HealthVaultConnectionFactory;
 import com.microsoft.healthvault.IHealthVaultSodaConnection;
 import com.microsoft.healthvault.methods.getvocabulary2.response.VocabCodeSet;
+import com.microsoft.healthvault.methods.getvocabulary2.response.VocabKey;
 import com.microsoft.healthvault.thingtypes.Thing2;
 import com.microsoft.healthvault.thingtypes.ThingKey;
 import com.microsoft.healthvault.thingtypes.Weight;
@@ -39,6 +40,13 @@ public class VocabClientTest extends TestCase {
         this.personInfo = connection.getPersonInfo(); // authenticate or refresh token.
     }
 
+    public void testGetVocabularyKeys() {
+        ArrayList<VocabKey> results = this.vocabClient.getVocabularyKeysAsync();
+
+        Assert.assertNotNull(results);
+        Assert.assertTrue(results.size() > 10);
+    }
+
     public void testGetVocabulary() {
         VocabIdentifier key = new VocabIdentifier(VocabFamily.HealthVault, VocabName.AllergenType);
         ArrayList<VocabCodeSet> results = this.vocabClient.getVocabularyAsync(key, false);
@@ -63,9 +71,8 @@ public class VocabClientTest extends TestCase {
 
 
     public void testSearchVocabularies() {
-        ArrayList<VocabItem> results = this.vocabClient.searchVocabularyAsync("butterfinger", null, 0);
+        ArrayList<VocabItem> results = this.vocabClient.searchVocabularyAsync("butternut", null, 0);
 
         Assert.assertNotNull(results);
-
     }
 }
