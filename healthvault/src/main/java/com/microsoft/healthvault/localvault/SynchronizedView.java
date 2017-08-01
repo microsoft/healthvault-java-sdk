@@ -7,12 +7,11 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import com.microsoft.healthvault.XmlSerializer;
-import com.microsoft.healthvault.methods.getthings3.request.ThingRequestGroup2;
-import com.microsoft.healthvault.methods.getthings3.response.ThingResponseGroup2;
+import com.microsoft.healthvault.methods.GetThings3.request.ThingRequestGroup2;
+import com.microsoft.healthvault.methods.GetThings3.response.ThingResponseGroup2;
 import com.microsoft.healthvault.store.HVContentContract;
-import com.microsoft.healthvault.thingtypes.AbstractThing;
-import com.microsoft.healthvault.thingtypes.Thing2;
-import com.microsoft.healthvault.thingtypes.UnprocessedThingKeyInfo;
+import com.microsoft.healthvault.thing.Thing2;
+import com.microsoft.healthvault.thing.UnprocessedThingKeyInfo;
 import com.microsoft.healthvault.types.Record;
 import com.microsoft.hsg.HVException;
 
@@ -102,6 +101,8 @@ public class SynchronizedView {
 		this.query = query;
 		this.lastSyncDate = lastSyncDate;
 	}
+
+	/* TODO: Figure out what to do with this legacy stuff
 	
 	public Date getLastSyncDate() {
 		return lastSyncDate;
@@ -157,17 +158,16 @@ public class SynchronizedView {
 				null);
 	}
 	
-	public AbstractThing getThingById(String thingId) {
+	public Thing2 getThingById(String thingId) {
 		Cursor cursor = ctx.getContentResolver().query(
 			Uri.withAppendedPath(HVContentContract.CONTENT_URI, "records/" + record.getId() + "/things/" + thingId),
 			new String[] { "thing_xml" },
 			null, null, null);
 	
-		AbstractThing data = null;
+		Thing2 data = null;
 		
 		if (cursor.moveToFirst()) {
-			Thing2 thing = XmlSerializer.safeRead(Thing2.class, cursor.getString(0));
-			data = thing.getData();
+			data = XmlSerializer.safeRead(Thing2.class, cursor.getString(0));
 		}
 		
 		cursor.close();
@@ -222,7 +222,7 @@ public class SynchronizedView {
 		lastSyncDate = new Date();
 		updateView();
 	}
-	
+
 	private ThingResponseGroup2 getThingsForKeys(List<UnprocessedThingKeyInfo> keys) {
 		return getRecord().getThings(getQueryWithKeys(keys));
 	}
@@ -287,4 +287,6 @@ public class SynchronizedView {
 		String appendedPath = "records/" + record.getId() + "/views/" + name + "/things";
 		return Uri.withAppendedPath(HVContentContract.CONTENT_URI, appendedPath);
 	}
+
+	*/
 }

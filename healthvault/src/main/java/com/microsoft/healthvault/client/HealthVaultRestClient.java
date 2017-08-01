@@ -126,7 +126,7 @@ public class HealthVaultRestClient implements IHealthVaultRestClient {
 		stringBuilder.append("MSH-V1 app-token=");
 		stringBuilder.append(connection.getSessionToken().toString());
 		stringBuilder.append(",offline-person-id=");
-		stringBuilder.append(currentRecord.getPersonId());
+		//stringBuilder.append(currentRecord.getPersonId());
 		stringBuilder.append(",record-id=");
 		stringBuilder.append(currentRecord.getId());
 

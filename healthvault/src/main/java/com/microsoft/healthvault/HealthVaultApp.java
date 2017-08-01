@@ -27,11 +27,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Base64;
 
-import com.microsoft.healthvault.methods.getauthorizedpeople.request.GetAuthorizedPeopleParameters;
-import com.microsoft.healthvault.methods.getauthorizedpeople.request.GetAuthorizedPeopleRequest;
-import com.microsoft.healthvault.methods.getauthorizedpeople.response.GetAuthorizedPeopleResponse;
-import com.microsoft.healthvault.methods.getauthorizedpeople.response.GetAuthorizedPeopleResponseInfo;
-import com.microsoft.healthvault.methods.request.RequestTemplate;
+import com.microsoft.healthvault.client.request.RequestTemplate;
+import com.microsoft.healthvault.methods.GetAuthorizedPeople.request.GetAuthorizedPeopleRequest;
+import com.microsoft.healthvault.methods.GetAuthorizedPeople.response.GetAuthorizedPeopleResponse;
+import com.microsoft.healthvault.methods.GetAuthorizedPeople.response.GetAuthorizedPeopleResponseInfo;
 import com.microsoft.healthvault.types.PersonInfo;
 import com.microsoft.healthvault.types.Record;
 import com.microsoft.hsg.Connection;
@@ -121,7 +120,7 @@ public class HealthVaultApp {
 				GetAuthorizedPeopleResponseInfo.class, serializedAuthorizedRecords);
 
 		if (response != null) {
-			populatePersonInfo(response);
+			populatePersonInfo(response.getResponseResults().getPersonInfo());
 		}
 	}
 
@@ -357,27 +356,26 @@ public class HealthVaultApp {
 	public void resolvePersonInfoList() {
 		RequestTemplate requestTemplate = new RequestTemplate(getConnection());
 		
-		GetAuthorizedPeopleRequest request = new GetAuthorizedPeopleRequest(
-				new GetAuthorizedPeopleParameters());
+		GetAuthorizedPeopleRequest request = new GetAuthorizedPeopleRequest();
 		
 		GetAuthorizedPeopleResponse response = requestTemplate.makeRequest(
 				request, 
 				GetAuthorizedPeopleResponse.class);
-		
-		GetAuthorizedPeopleResponseInfo info = response.getInfo();
+
+		List<PersonInfo> info = response.getPersonInfo();
 		settings.setAuthorizedRecordsResponse(XmlSerializer.safeWrite(info));
 		settings.save();
 
 		populatePersonInfo(info);
 	}
 			
-	private void populatePersonInfo(GetAuthorizedPeopleResponseInfo response) {
-		personInfoList = response.getResponseResults().getPersonInfoList();
+	private void populatePersonInfo(List<PersonInfo> personInfo) {
+		personInfoList = personInfo;
 		
 		recordList = new ArrayList<Record>();
 		
 		for (PersonInfo pi : personInfoList) {
-			for (Record r : pi.getRecords()) {
+			for (Record r : pi.getRecord()) {
 				recordList.add(r);
 			}
 		}
