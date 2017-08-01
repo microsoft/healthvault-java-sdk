@@ -20,12 +20,16 @@ public class SynchronizedViewLoader extends AsyncTaskLoader<List<String>> {
         this.context = context;
         this.syncView = syncView;
         observer = new ForceLoadContentObserver();
-    	syncView.registerObserver(observer);
+
+        // TODO: This should be updated to using observables
+    	// syncView.registerObserver(observer);
     	setUpdateThrottle(0);
     }
 
     @Override public List<String> loadInBackground() {
-    	return syncView.getThingKeys();
+        return null;
+        // TODO: This should be updates to using observables
+    	// return syncView.getThingKeys();
     }
     
     @Override
@@ -87,8 +91,9 @@ public class SynchronizedViewLoader extends AsyncTaskLoader<List<String>> {
       //  releaseResources(mData);
       data = null;
       //}
-      
-      syncView.unregisterObserver(observer);
+
+        // TODO: This should be updating to using observables
+        //syncView.unregisterObserver(observer);
     }
 }
 

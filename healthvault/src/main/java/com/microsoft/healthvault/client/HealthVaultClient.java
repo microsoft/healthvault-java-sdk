@@ -3,8 +3,8 @@ package com.microsoft.healthvault.client;
 import android.os.Handler;
 import android.util.Log;
 
-import com.microsoft.healthvault.methods.request.HVRequestInfo;
-import com.microsoft.healthvault.methods.request.RequestTemplate;
+import com.microsoft.healthvault.client.request.HVRequestInfo;
+import com.microsoft.healthvault.client.request.RequestTemplate;
 import com.microsoft.hsg.HVException;
 
 import java.util.concurrent.Callable;
