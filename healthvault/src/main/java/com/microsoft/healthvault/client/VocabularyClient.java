@@ -87,16 +87,19 @@ public class VocabularyClient extends Client implements IVocabularyClient {
     }
 
     @Override
-    public ArrayList<VocabItem> searchVocabularyAsync(String searchValue, VocabMatchType searchType, int maxResults) {
+    public ArrayList<VocabItem> searchVocabularyAsync(VocabIdentifier vocabKey, String searchValue, VocabMatchType searchType, int maxResults) {
         RequestTemplate requestTemplate = new RequestTemplate(HealthVaultApp.getInstance().getConnection());
 
-        // what about search type or maxResults?
+        VocabSearch search = new VocabSearch(searchValue);
+
+        if (maxResults > 0) {
+            search.setMaxResults(maxResults);
+        }
+
+        search.setVocabMatchType(searchType);
 
         SearchVocabularyRequest request = new SearchVocabularyRequest();
-        request.setVocabSearch(new VocabSearch(searchValue));
-
-        // shouldn't have to limit it like this.
-        VocabIdentifier vocabKey = new VocabIdentifier(VocabFamily.USDA, VocabName.FoodDescription);
+        request.setVocabSearch(search);
         request.setVocabKey(vocabKey);
 
         SearchVocabularyResponse response = requestTemplate.makeRequest(

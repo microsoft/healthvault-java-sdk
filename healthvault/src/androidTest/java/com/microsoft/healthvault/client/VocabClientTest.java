@@ -5,6 +5,7 @@ import com.microsoft.healthvault.HealthVaultConnectionFactory;
 import com.microsoft.healthvault.IHealthVaultSodaConnection;
 import com.microsoft.healthvault.methods.getvocabulary2.response.VocabCodeSet;
 import com.microsoft.healthvault.methods.getvocabulary2.response.VocabKey;
+import com.microsoft.healthvault.methods.searchvocabulary.request.VocabMatchType;
 import com.microsoft.healthvault.thingtypes.Thing2;
 import com.microsoft.healthvault.thingtypes.ThingKey;
 import com.microsoft.healthvault.thingtypes.Weight;
@@ -71,8 +72,10 @@ public class VocabClientTest extends TestCase {
 
 
     public void testSearchVocabularies() {
-        ArrayList<VocabItem> results = this.vocabClient.searchVocabularyAsync("butternut", null, 0);
+        VocabIdentifier key = new VocabIdentifier(VocabFamily.USDA, VocabName.FoodDescription);
+        ArrayList<VocabItem> results = this.vocabClient.searchVocabularyAsync(key, "buttermilk", VocabMatchType.Contains, 10);
 
         Assert.assertNotNull(results);
+        Assert.assertTrue(results.size() == 10);
     }
 }

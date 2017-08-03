@@ -62,4 +62,12 @@ public class VocabSearch {
 	public VocabSearch() {
 		maxResults = 25;
 	}
+
+	public void setVocabMatchType(VocabMatchType value) {
+		this.text.setMatchType(value);
+	}
+
+	public VocabMatchType getVocabMatchType() {
+		return this.text.getMatchType();
+	}
 }

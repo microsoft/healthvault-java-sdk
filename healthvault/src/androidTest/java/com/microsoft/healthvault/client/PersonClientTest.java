@@ -48,5 +48,4 @@ public class PersonClientTest extends TestCase {
         Assert.assertNotNull(people);
         Assert.assertTrue(people.size() > 0);
     }
-
 }

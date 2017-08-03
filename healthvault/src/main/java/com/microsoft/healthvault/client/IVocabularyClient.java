@@ -67,6 +67,7 @@ public interface IVocabularyClient extends IClient {
 
     /**
      * Searches a specific vocabulary and retrieves the matching vocabulary items.
+     * @param vocabKey The identifier for the vocab section to search.
      * @param searchValue The search string to use.
      * @param searchType The type of search to perform.
      * @param maxResults The maximum number of results to return. If zero, all matching results are
@@ -74,5 +75,5 @@ public interface IVocabularyClient extends IClient {
      *                   key maxResultsPerVocabularyRetrieval.
      * @return A list of {@link VocabIdentifier} populated with entries matching the search criteria.
      */
-    ArrayList<VocabItem> searchVocabularyAsync(String searchValue, VocabMatchType searchType, int maxResults);
+    ArrayList<VocabItem> searchVocabularyAsync(VocabIdentifier vocabKey, String searchValue, VocabMatchType searchType, int maxResults);
 }
