@@ -33,6 +33,8 @@ import com.microsoft.healthvault.methods.getauthorizedpeople.request.GetAuthoriz
 import com.microsoft.healthvault.methods.getauthorizedpeople.response.GetAuthorizedPeopleResponse;
 import com.microsoft.healthvault.methods.getauthorizedpeople.response.GetAuthorizedPeopleResponseInfo;
 import com.microsoft.healthvault.methods.getauthorizedpeople.response.GetAuthorizedPeopleResponseResults;
+import com.microsoft.healthvault.methods.getauthorizedrecords.request.GetAuthorizedRecordsRequest;
+import com.microsoft.healthvault.methods.getauthorizedrecords.response.GetAuthorizedRecordsResponse;
 import com.microsoft.healthvault.methods.request.RequestTemplate;
 import com.microsoft.healthvault.types.Guid;
 import com.microsoft.healthvault.types.PersonInfo;
@@ -58,7 +60,8 @@ public class PersonClient extends Client implements IPersonClient {
     public List<PersonInfo> getAuthorizedPeopleAsync() {
         RequestTemplate requestTemplate = new RequestTemplate(HealthVaultApp.getInstance().getConnection());
         GetAuthorizedPeopleRequest request = new GetAuthorizedPeopleRequest(new GetAuthorizedPeopleParameters());
-        GetAuthorizedPeopleResponse response = requestTemplate.makeRequest(request, GetAuthorizedPeopleResponse.class);
+        GetAuthorizedPeopleResponse response = requestTemplate.makeRequest(
+                request, GetAuthorizedPeopleResponse.class);
         GetAuthorizedPeopleResponseInfo info = response.getInfo();
         GetAuthorizedPeopleResponseResults results = info.getResponseResults();
         return results.getPersonInfoList();
@@ -78,6 +81,18 @@ public class PersonClient extends Client implements IPersonClient {
 
     @Override
     public List<Record> getAuthorizedRecordsAsync(List<Guid> recordIds) {
-        return null;
+        RequestTemplate requestTemplate = new RequestTemplate(HealthVaultApp.getInstance().getConnection());
+        requestTemplate.setPersonId(this.connection.getPersonInfo().getPersonId());
+        GetAuthorizedRecordsRequest request = new GetAuthorizedRecordsRequest();
+
+        for(Guid guid : recordIds)
+        {
+            request.getId().add(guid.get().toString());
+        }
+
+        GetAuthorizedRecordsResponse response = requestTemplate.makeRequest(
+                request, GetAuthorizedRecordsResponse.class);
+
+        return response.getInfo().record;
     }
 }

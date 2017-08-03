@@ -6,6 +6,7 @@ import com.microsoft.healthvault.IHealthVaultSodaConnection;
 import com.microsoft.healthvault.SessionCredential;
 import com.microsoft.healthvault.restapi.MicrosoftHealthVaultRESTAPI;
 import com.microsoft.healthvault.restapi.models.ActionPlansResponseActionPlanInstance;
+import com.microsoft.healthvault.types.Guid;
 import com.microsoft.healthvault.types.PersonInfo;
 import com.microsoft.healthvault.types.Record;
 
@@ -15,6 +16,7 @@ import junit.framework.TestCase;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersonClientTest extends TestCase {
@@ -47,5 +49,15 @@ public class PersonClientTest extends TestCase {
 
         Assert.assertNotNull(people);
         Assert.assertTrue(people.size() > 0);
+    }
+
+    public void testGetAuthorizedRecords() {
+        ArrayList<Guid> recordIds = new ArrayList<Guid>();
+        recordIds.add(new Guid(this.record.getId()));
+
+        List<Record> results = this.personClient.getAuthorizedRecordsAsync(recordIds);
+
+        Assert.assertNotNull(results);
+        Assert.assertTrue(results.size() > 0);
     }
 }
