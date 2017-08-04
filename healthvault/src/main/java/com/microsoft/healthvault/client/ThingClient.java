@@ -25,6 +25,7 @@ package com.microsoft.healthvault.client;
 import com.microsoft.healthvault.HealthVaultApp;
 import com.microsoft.healthvault.IHealthVaultConnection;
 import com.microsoft.healthvault.methods.getthings3.request.GetThings3Request;
+import com.microsoft.healthvault.methods.getthings3.request.ThingFilterSpec;
 import com.microsoft.healthvault.methods.getthings3.request.ThingRequestGroup2;
 import com.microsoft.healthvault.methods.getthings3.response.GetThings3Response;
 import com.microsoft.healthvault.methods.putthings2.request.PutThings2Request;
@@ -79,6 +80,36 @@ public class ThingClient extends Client implements IThingClient {
     }
 
     @Override
+    public List<AbstractThing> getThingsAsync(Guid recordId, ThingFilterSpec query){
+        List<ThingFilterSpec> queries = new ArrayList<ThingFilterSpec>();
+        queries.add(query);
+
+        return getThingsWithFilters(recordId, queries);
+    }
+
+    @Override
+    public List<AbstractThing> getThingsAsync(Guid recordId, List<ThingFilterSpec> queries)
+    {
+        return getThingsWithFilters(recordId, queries);
+    }
+
+    @Override
+    public <T extends AbstractThing> List<T> getThingsOfTypeAsync(Guid recordId, ThingFilterSpec query) {
+        List<AbstractThing> things = getThingsAsync(recordId, query);
+        List<T> result = new ArrayList<T>();
+
+        for (AbstractThing thing : things) {
+            T obj = (T) thing;
+
+            if (obj != null) {
+                result.add(obj);
+            }
+        }
+
+        return result;
+    }
+
+    @Override
     public <T extends AbstractThing> List<ThingKey> createThingsAsync(Guid recordId, List<T> things) {
         PutThings2Request request = new PutThings2Request();
 
@@ -111,7 +142,6 @@ public class ThingClient extends Client implements IThingClient {
         createThingsAsync(recordId, things);
     }
 
-
     @Override
     public <T extends AbstractThing> void removeThingsAsync(Guid recordId, List<T> things) {
         ArrayList<ThingKey> keys = new ArrayList<ThingKey>();
@@ -129,5 +159,36 @@ public class ThingClient extends Client implements IThingClient {
                 recordId.get().toString());
 
         template.makeRequest(request, RemoveThingsResponse.class);
+    }
+
+    private List<AbstractThing> getThingsWithFilters(Guid recordId, List<ThingFilterSpec> queries) {
+        RequestTemplate requestTemplate = new RequestTemplate(
+                HealthVaultApp.getInstance().getConnection(),
+                this.personInfo.getPersonId(),
+                recordId.get().toString());
+
+        ThingRequestGroup2 requestGroup = new ThingRequestGroup2();
+        requestGroup.setFormat(requestGroup.getFormat());
+
+        for (ThingFilterSpec query : queries) {
+            requestGroup.getFilterList().add(query);
+        }
+
+        GetThings3Request request = new GetThings3Request();
+        request.getGroup().add(requestGroup);
+
+        GetThings3Response response = requestTemplate.makeRequest(
+                request,
+                GetThings3Response.class);
+
+        List<Thing2> result = response.getInfo().getGroup().get(0).getThing();
+
+        List<AbstractThing> returnValue = new ArrayList<AbstractThing>();
+
+        for (int i = 0; i < result.size(); i++) {
+            returnValue.add(result.get(i).getData());
+        }
+
+        return returnValue;
     }
 }

@@ -22,6 +22,7 @@
 
 package com.microsoft.healthvault.client;
 
+import com.microsoft.healthvault.methods.getthings3.request.ThingFilterSpec;
 import com.microsoft.healthvault.thingtypes.AbstractThing;
 import com.microsoft.healthvault.thingtypes.HealthVaultThing;
 import com.microsoft.healthvault.thingtypes.Thing2;
@@ -39,6 +40,34 @@ public interface IThingClient extends IClient {
      * @return
      */
     <T extends AbstractThing> T getThingAsync(Guid recordId, Guid thingId);
+
+    /**
+     * Gets a collection of Things that match a given query.
+     * @param recordId The health record's ID.
+     * @param query An instance of <code>ThingFilterSpec</code>. Use this query to identify
+     *              parameters for the search.
+     * @return A list of things that match the filter.
+     */
+    List<AbstractThing> getThingsAsync(Guid recordId, ThingFilterSpec query);
+
+    /**
+     * Gets a collection of Things of the specific type.
+     * @param recordId The health record's ID.
+     * @param query An instance of ThingFilterSpec.  If you leave this null, it will return all
+     *              things of the specified type.
+     * @param <T> A type that extends AbstractThing
+     * @return a list of things.
+     */
+    <T extends AbstractThing> List<T> getThingsOfTypeAsync(Guid recordId, ThingFilterSpec query);
+
+    /**
+     * Gets a collection of Things of the specific type.
+     * @param recordId The health record's ID.
+     * @param queries A List of ThingFilterSpec objects. Use these queries to identify parameters
+     *                for the search.
+     * @return A list of things that match the filters.
+     */
+    List<AbstractThing> getThingsAsync(Guid recordId, List<ThingFilterSpec> queries);
 
     /**
      * Creates a new collection of things, and updates each item with a Key that has its thing id and version id.
