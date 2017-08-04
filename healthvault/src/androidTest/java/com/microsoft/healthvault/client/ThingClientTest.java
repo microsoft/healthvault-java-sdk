@@ -14,6 +14,7 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ThingClientTest extends TestCase {
     private HealthVaultConfiguration configuration;
@@ -35,50 +36,68 @@ public class ThingClientTest extends TestCase {
     }
 
     public void testGetThingById() {
-        Thing2 theThing = this.thingClient.getThingAsync(new Guid(this.record.getId()), new Guid("8f87a5c6-ff24-46b2-903a-380be3ac720c"));
+        Weight theThing = this.thingClient.getThingAsync(new Guid(this.record.getId()), new Guid("8f87a5c6-ff24-46b2-903a-380be3ac720c"));
 
         Assert.assertNotNull(theThing);
-        Assert.assertTrue(theThing.getTypeId().getValue().equalsIgnoreCase(Weight.ThingType));
+        Assert.assertTrue(theThing.getThingType().equalsIgnoreCase(Weight.ThingType));
     }
 
     public void testCreateThings() {
-        Thing2 thing1 = new Thing2();
-        Weight weight = new Weight(51);
-        thing1.setData(weight);
-
-        Thing2 thing2 = new Thing2();
+        Weight weight1 = new Weight(51);
         Weight weight2 = new Weight(52);
-        thing2.setData(weight2);
 
-        ArrayList<Thing2> things = new ArrayList<>();
-        things.add(thing1);
-        things.add(thing2);
+        ArrayList<Weight> things = new ArrayList<>();
+        things.add(weight1);
+        things.add(weight2);
 
-        ArrayList<ThingKey> result = this.thingClient.createThingsAsync(new Guid(this.record.getId()), things);
+        List<ThingKey> result = this.thingClient.createThingsAsync(new Guid(this.record.getId()), things);
         Assert.assertNotNull(result);
         Assert.assertEquals(2, result.size());
     }
 
-    public void testRemoveThings() {
-        Thing2 thing1 = new Thing2();
+    public void testUpdateThings() {
         Weight weight = new Weight(51);
-        thing1.setData(weight);
 
-        ArrayList<Thing2> things = new ArrayList<>();
-        things.add(thing1);
+        ArrayList<Weight> things = new ArrayList<>();
+        things.add(weight);
 
-        ArrayList<ThingKey> result = this.thingClient.createThingsAsync(new Guid(this.record.getId()), things);
+        List<ThingKey> result = this.thingClient.createThingsAsync(new Guid(this.record.getId()), things);
+        Assert.assertTrue(result.size() > 0);
+
+        Weight newWeight = new Weight(55);
+        newWeight.getThing().setThingId(result.get(0));
+
+        things.clear();
+        things.add(newWeight);
+
+        this.thingClient.updateThingsAsync(new Guid(this.record.getId()), things);
+
+        Weight theThing = this.thingClient.getThingAsync(new Guid(this.record.getId()), new Guid(result.get(0).getValue()));
+
+        Assert.assertNotNull(theThing);
+        Assert.assertEquals(55.0, (theThing.getValue().getKg()));
+    }
+
+    public void testRemoveThings() {
+        Weight weight = new Weight(51);
+
+        ArrayList<Weight> things = new ArrayList<>();
+        things.add(weight);
+
+        List<ThingKey> result = this.thingClient.createThingsAsync(new Guid(this.record.getId()), things);
         Assert.assertNotNull(result);
         Assert.assertEquals(1, result.size());
 
+        ThingKey thingId = result.get(0);
+
+        Weight weightToDelete = new Weight();
+        weightToDelete.getThing().setThingId(thingId);
         things.clear();
-        thing1 = new Thing2();
-        thing1.setThingId(result.get(0));
-        things.add(thing1);
+        things.add(weightToDelete);
 
         this.thingClient.removeThingsAsync(new Guid(this.record.getId()), things);
 
-        Thing2 theThing = this.thingClient.getThingAsync(new Guid(this.record.getId()), new Guid(thing1.getThingId().getValue()));
+        Weight theThing = this.thingClient.getThingAsync(new Guid(this.record.getId()), new Guid(thingId.getValue()));
 
         Assert.assertNull(theThing);
     }

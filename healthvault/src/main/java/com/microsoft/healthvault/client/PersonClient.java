@@ -28,6 +28,8 @@ import com.microsoft.healthvault.HealthVaultApp;
 import com.microsoft.healthvault.IHealthVaultConnection;
 import com.microsoft.healthvault.SessionCredential;
 import com.microsoft.healthvault.methods.HealthVaultMethods;
+import com.microsoft.healthvault.methods.getapplicationsettings.request.GetApplicationSettingsRequest;
+import com.microsoft.healthvault.methods.getapplicationsettings.response.GetApplicationSettingsResponse;
 import com.microsoft.healthvault.methods.getauthorizedpeople.request.GetAuthorizedPeopleParameters;
 import com.microsoft.healthvault.methods.getauthorizedpeople.request.GetAuthorizedPeopleRequest;
 import com.microsoft.healthvault.methods.getauthorizedpeople.response.GetAuthorizedPeopleResponse;
@@ -53,6 +55,13 @@ public class PersonClient extends Client implements IPersonClient {
 
     @Override
     public ApplicationSettings getApplicationSettingsAsync() {
+        RequestTemplate requestTemplate = new RequestTemplate(HealthVaultApp.getInstance().getConnection());
+        requestTemplate.setPersonId(this.connection.getPersonInfo().getPersonId());
+
+        GetApplicationSettingsRequest request = new GetApplicationSettingsRequest();
+        GetApplicationSettingsResponse response = requestTemplate.makeRequest(
+                request, GetApplicationSettingsResponse.class);
+
         return null;
     }
 

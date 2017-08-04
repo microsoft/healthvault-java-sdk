@@ -43,6 +43,11 @@ public class PersonClientTest extends TestCase {
         Assert.assertNotNull(personInfo);
     }
 
+    public void testGetApplicationSettings() {
+        this.personClient.getApplicationSettingsAsync();
+
+
+    }
 
     public void testGetAuthorizedPeople() {
         List<PersonInfo> people = this.personClient.getAuthorizedPeopleAsync();

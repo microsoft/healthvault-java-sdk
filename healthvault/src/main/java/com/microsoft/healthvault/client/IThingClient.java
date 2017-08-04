@@ -22,6 +22,8 @@
 
 package com.microsoft.healthvault.client;
 
+import com.microsoft.healthvault.thingtypes.AbstractThing;
+import com.microsoft.healthvault.thingtypes.HealthVaultThing;
 import com.microsoft.healthvault.thingtypes.Thing2;
 import com.microsoft.healthvault.thingtypes.ThingKey;
 import com.microsoft.healthvault.types.Guid;
@@ -36,7 +38,7 @@ public interface IThingClient extends IClient {
      * @param thingId The unique identifier of the thing
      * @return
      */
-    Thing2 getThingAsync(Guid recordId, Guid thingId);
+    <T extends AbstractThing> T getThingAsync(Guid recordId, Guid thingId);
 
     /**
      * Creates a new collection of things, and updates each item with a Key that has its thing id and version id.
@@ -44,12 +46,19 @@ public interface IThingClient extends IClient {
      * @param things The collection of things to create.
      * @return a list of {@link ThingKey} containing information about the created Things.
      */
-    ArrayList<ThingKey> createThingsAsync(Guid recordId, ArrayList<Thing2> things);
+    <T extends AbstractThing> List<ThingKey> createThingsAsync(Guid recordId, List<T> things);
+
+    /**
+     * Updates a collection of things that already exists.
+     * @param recordId The health record's ID.
+     * @param things The health record's ID.
+     */
+    <T extends AbstractThing> void updateThingsAsync(Guid recordId, List<T> things);
 
     /**
      * Removes a collection of things.
      * @param recordId The health record's ID.
      * @param things The collection of things to remove.
      */
-    void removeThingsAsync(Guid recordId, ArrayList<Thing2> things);
+    <T extends AbstractThing> void removeThingsAsync(Guid recordId, List<T> things);
 }
