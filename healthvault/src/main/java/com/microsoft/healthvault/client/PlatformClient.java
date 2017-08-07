@@ -25,10 +25,16 @@ package com.microsoft.healthvault.client;
 import com.microsoft.healthvault.ApplicationCreationInfo;
 import com.microsoft.healthvault.GetAuthorizedPeopleSettings;
 import com.microsoft.healthvault.HealthServiceInstance;
+import com.microsoft.healthvault.HealthVaultApp;
 import com.microsoft.healthvault.ServiceInfo;
 import com.microsoft.healthvault.ServiceInfoSections;
 import com.microsoft.healthvault.ThingTypeDefinition;
 import com.microsoft.healthvault.ThingTypeSections;
+import com.microsoft.healthvault.methods.getservicedefinition.request.GetServiceDefinitionRequest;
+import com.microsoft.healthvault.methods.getservicedefinition.request.ResponseSection;
+import com.microsoft.healthvault.methods.getservicedefinition.request.ResponseSections;
+import com.microsoft.healthvault.methods.getservicedefinition.response.GetServiceDefinitionResponse;
+import com.microsoft.healthvault.methods.request.RequestTemplate;
 import com.microsoft.healthvault.types.Guid;
 import com.microsoft.healthvault.types.Location;
 import com.microsoft.healthvault.types.PersonInfo;
@@ -46,6 +52,24 @@ public class PlatformClient extends Client implements IPlatformClient {
 
     @Override
     public ServiceInfo getServiceDefinitionAsync() {
+        RequestTemplate requestTemplate = new RequestTemplate(HealthVaultApp.getInstance().getConnection());
+
+        ArrayList<ResponseSection> responseSectionList = new ArrayList<>();
+        responseSectionList.add(ResponseSection.PLATFORM);
+        responseSectionList.add(ResponseSection.SHELL);
+        responseSectionList.add(ResponseSection.TOPOLOGY);
+        responseSectionList.add(ResponseSection.XML_OVER_HTTP_METHODS);
+        responseSectionList.add(ResponseSection.MEANINGFUL_USE);
+
+        ResponseSections responsSections = new ResponseSections();
+        responsSections.setSections(responseSectionList);
+
+        GetServiceDefinitionRequest request = new GetServiceDefinitionRequest();
+        request.setResponseSections(responsSections);
+
+        GetServiceDefinitionResponse response = requestTemplate.makeRequest(
+                request, GetServiceDefinitionResponse.class);
+
         return null;
     }
 
