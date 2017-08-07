@@ -22,13 +22,12 @@
 
 package com.microsoft.healthvault.client;
 
-import com.microsoft.healthvault.ApplicationSettings;
 import com.microsoft.healthvault.types.Guid;
 import com.microsoft.healthvault.types.PersonInfo;
 import com.microsoft.healthvault.types.Record;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.Future;
 
 /**
  * An interface for the HealthVault person client. Used to access information and records associated with the currently authenticated user.
@@ -56,8 +55,13 @@ public interface IPersonClient extends IClient {
      * Gets the application settings for the current application and person.
      * @return The complete set application settings including the XML settings, selected record ID, etc.
      */
-    ApplicationSettings getApplicationSettingsAsync();
+    HashMap<String, String> getApplicationSettingsAsync();
 
+    /**
+     * Sets the application settings for the current application and
+     * @param settings The application settings XML.
+     */
+    void setApplicationSettingsAsync(HashMap<String, String> settings);
 
     /**
      * Gets the info for the specified records.

@@ -22,12 +22,8 @@
 
 package com.microsoft.healthvault.client;
 
-import com.microsoft.healthvault.ApplicationSettings;
-import com.microsoft.healthvault.HealthServiceResponseData;
 import com.microsoft.healthvault.HealthVaultApp;
 import com.microsoft.healthvault.IHealthVaultConnection;
-import com.microsoft.healthvault.SessionCredential;
-import com.microsoft.healthvault.methods.HealthVaultMethods;
 import com.microsoft.healthvault.methods.getapplicationsettings.request.GetApplicationSettingsRequest;
 import com.microsoft.healthvault.methods.getapplicationsettings.response.GetApplicationSettingsResponse;
 import com.microsoft.healthvault.methods.getauthorizedpeople.request.GetAuthorizedPeopleParameters;
@@ -38,13 +34,15 @@ import com.microsoft.healthvault.methods.getauthorizedpeople.response.GetAuthori
 import com.microsoft.healthvault.methods.getauthorizedrecords.request.GetAuthorizedRecordsRequest;
 import com.microsoft.healthvault.methods.getauthorizedrecords.response.GetAuthorizedRecordsResponse;
 import com.microsoft.healthvault.methods.request.RequestTemplate;
+import com.microsoft.healthvault.methods.setapplicationsettings.request.AppSettings;
+import com.microsoft.healthvault.methods.setapplicationsettings.request.SetApplicationSettingsRequest;
+import com.microsoft.healthvault.methods.setapplicationsettings.response.SetApplicationSettingsResponse;
 import com.microsoft.healthvault.types.Guid;
 import com.microsoft.healthvault.types.PersonInfo;
 import com.microsoft.healthvault.types.Record;
-import com.microsoft.hsg.Connection;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.Future;
 
 public class PersonClient extends Client implements IPersonClient {
     private IHealthVaultConnection connection;
@@ -54,7 +52,7 @@ public class PersonClient extends Client implements IPersonClient {
     }
 
     @Override
-    public ApplicationSettings getApplicationSettingsAsync() {
+    public HashMap<String, String> getApplicationSettingsAsync() {
         RequestTemplate requestTemplate = new RequestTemplate(HealthVaultApp.getInstance().getConnection());
         requestTemplate.setPersonId(this.connection.getPersonInfo().getPersonId());
 
@@ -62,7 +60,21 @@ public class PersonClient extends Client implements IPersonClient {
         GetApplicationSettingsResponse response = requestTemplate.makeRequest(
                 request, GetApplicationSettingsResponse.class);
 
-        return null;
+        return response.getInfo().getAppSettings().getSettings();
+    }
+
+    @Override
+    public void setApplicationSettingsAsync(HashMap<String, String> settings) {
+        RequestTemplate requestTemplate = new RequestTemplate(HealthVaultApp.getInstance().getConnection());
+        requestTemplate.setPersonId(this.connection.getPersonInfo().getPersonId());
+
+        SetApplicationSettingsRequest request = new SetApplicationSettingsRequest();
+        AppSettings appSettings = new AppSettings();
+        appSettings.setSettings(settings);
+        request.setAppSettings(appSettings);
+
+        SetApplicationSettingsResponse response = requestTemplate.makeRequest(
+                request, SetApplicationSettingsResponse.class);
     }
 
     @Override
