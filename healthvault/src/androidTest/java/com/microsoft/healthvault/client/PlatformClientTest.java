@@ -1,5 +1,6 @@
 package com.microsoft.healthvault.client;
 
+import com.microsoft.healthvault.HealthServiceInstance;
 import com.microsoft.healthvault.HealthVaultConfiguration;
 import com.microsoft.healthvault.HealthVaultConnectionFactory;
 import com.microsoft.healthvault.IHealthVaultSodaConnection;
@@ -8,8 +9,11 @@ import com.microsoft.healthvault.ServiceInfoSections;
 import com.microsoft.healthvault.SessionCredential;
 import com.microsoft.healthvault.methods.getservicedefinition.request.ResponseSection;
 import com.microsoft.healthvault.methods.getservicedefinition.response.GetServiceDefinitionResponseInfo;
+import com.microsoft.healthvault.methods.selectinstance.response.SelectInstanceResponseInfo;
 import com.microsoft.healthvault.restapi.MicrosoftHealthVaultRESTAPI;
 import com.microsoft.healthvault.restapi.models.ActionPlansResponseActionPlanInstance;
+import com.microsoft.healthvault.types.Guid;
+import com.microsoft.healthvault.types.Location;
 import com.microsoft.healthvault.types.PersonInfo;
 import com.microsoft.healthvault.types.Record;
 
@@ -42,6 +46,32 @@ public class PlatformClientTest extends TestCase {
         this.personClient = connection.createPersonClient();
         this.platformClient = connection.createPlatformClient();
         connection.getPersonInfo(); // authenticate or refresh token.
+    }
+
+    public void testSelectInstance() {
+        Location loc = new Location();
+        loc.setCountry("US");
+        loc.setStateProvince("WA");
+
+        HealthServiceInstance info = this.platformClient.selectInstanceAsync(loc);
+
+        Assert.assertNotNull(info);
+        Assert.assertEquals("US instance", info.getDescription());
+
+        loc.setCountry("UK");
+        loc.setStateProvince("JS"); // Greater London
+
+        info = this.platformClient.selectInstanceAsync(loc);
+
+        Assert.assertNotNull(info);
+        Assert.assertEquals("EU Instance", info.getDescription());
+    }
+
+    public void testNewApplicationCreationInfo() {
+        HealthVaultConfiguration config = this.configuration;
+        this.connection = HealthVaultConnectionFactory.Current().GetOrCreateSodaConnection(this.configuration);
+
+        this.platformClient.newApplicationCreationInfoAsync();
     }
 
     public void testGetServiceDefinition() {

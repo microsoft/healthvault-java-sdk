@@ -35,7 +35,11 @@ import com.microsoft.healthvault.methods.getservicedefinition.request.ResponseSe
 import com.microsoft.healthvault.methods.getservicedefinition.request.ResponseSections;
 import com.microsoft.healthvault.methods.getservicedefinition.response.GetServiceDefinitionResponse;
 import com.microsoft.healthvault.methods.getservicedefinition.response.GetServiceDefinitionResponseInfo;
+import com.microsoft.healthvault.methods.newapplicationcreationinfo.request.NewApplicationCreationInfoRequest;
+import com.microsoft.healthvault.methods.newapplicationcreationinfo.response.NewApplicationCreationInfoResponse;
 import com.microsoft.healthvault.methods.request.RequestTemplate;
+import com.microsoft.healthvault.methods.selectinstance.request.SelectInstanceRequest;
+import com.microsoft.healthvault.methods.selectinstance.response.SelectInstanceResponse;
 import com.microsoft.healthvault.types.Guid;
 import com.microsoft.healthvault.types.Location;
 import com.microsoft.healthvault.types.PersonInfo;
@@ -49,7 +53,15 @@ import java.util.Map;
 public class PlatformClient extends Client implements IPlatformClient {
     @Override
     public HealthServiceInstance selectInstanceAsync(Location preferredLocation) {
-        return null;
+        RequestTemplate requestTemplate = new RequestTemplate(HealthVaultApp.getInstance().getConnection());
+
+        SelectInstanceRequest request = new SelectInstanceRequest();
+        request.setPreferredLocation(preferredLocation);
+
+        SelectInstanceResponse response = requestTemplate.makeRequest(
+                request, SelectInstanceResponse.class);
+
+        return response.getInfo().getSelectedInstance();
     }
 
     @Override
@@ -109,16 +121,26 @@ public class PlatformClient extends Client implements IPlatformClient {
 
     @Override
     public ApplicationCreationInfo newApplicationCreationInfoAsync() {
+        RequestTemplate requestTemplate = new RequestTemplate(HealthVaultApp.getInstance().getConnection());
+
+
+        NewApplicationCreationInfoRequest request = new NewApplicationCreationInfoRequest();
+
+        NewApplicationCreationInfoResponse response = requestTemplate.makeRequest(
+                request, NewApplicationCreationInfoResponse.class);
+
         return null;
     }
 
     @Override
     public ArrayList<PersonInfo> getAuthorizedPeople() {
+        // not implemented, use the PersonClient for this.
         return null;
     }
 
     @Override
     public ArrayList<PersonInfo> getAuthorizedPeople(GetAuthorizedPeopleSettings settings) {
+        // not implemented, use the PersonClient for this.
         return null;
     }
 
