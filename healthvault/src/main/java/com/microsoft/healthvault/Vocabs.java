@@ -1,15 +1,15 @@
 package com.microsoft.healthvault;
 
 import com.microsoft.healthvault.client.request.RequestTemplate;
-import com.microsoft.healthvault.methods.GetVocabulary.request.GetVocabularyRequest;
-import com.microsoft.healthvault.methods.GetVocabulary.request.VocabularyParameters;
-import com.microsoft.healthvault.methods.GetVocabulary.response.GetVocabularyResponse;
-import com.microsoft.healthvault.methods.SearchVocabulary.request.SearchVocabularyRequest;
-import com.microsoft.healthvault.methods.SearchVocabulary.request.VocabularySearchParams;
-import com.microsoft.healthvault.methods.SearchVocabulary.request.VocabularySearchString;
-import com.microsoft.healthvault.methods.SearchVocabulary.response.SearchVocabularyResponse;
-import com.microsoft.healthvault.vocabulary.VocabularyCodeSet;
-import com.microsoft.healthvault.vocabulary.VocabularyKey;
+import com.microsoft.healthvault.generated.methods.GetVocabulary.request.GetVocabularyRequest;
+import com.microsoft.healthvault.generated.methods.GetVocabulary.request.VocabularyParameters;
+import com.microsoft.healthvault.generated.methods.GetVocabulary.response.GetVocabularyResponse;
+import com.microsoft.healthvault.generated.methods.SearchVocabulary.request.SearchVocabularyRequest;
+import com.microsoft.healthvault.generated.methods.SearchVocabulary.request.VocabularySearchParams;
+import com.microsoft.healthvault.generated.methods.SearchVocabulary.request.VocabularySearchString;
+import com.microsoft.healthvault.generated.methods.SearchVocabulary.response.SearchVocabularyResponse;
+import com.microsoft.healthvault.generated.vocabulary.VocabularyCodeSet;
+import com.microsoft.healthvault.generated.vocabulary.VocabularyKey;
 import com.microsoft.hsg.Connection;
 
 import java.util.ArrayList;

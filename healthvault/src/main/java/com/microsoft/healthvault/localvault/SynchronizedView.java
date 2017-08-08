@@ -2,23 +2,16 @@ package com.microsoft.healthvault.localvault;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
 
 import com.microsoft.healthvault.XmlSerializer;
-import com.microsoft.healthvault.methods.GetThings3.request.ThingRequestGroup2;
-import com.microsoft.healthvault.methods.GetThings3.response.ThingResponseGroup2;
+import com.microsoft.healthvault.generated.methods.GetThings3.request.ThingRequestGroup2;
 import com.microsoft.healthvault.store.HVContentContract;
-import com.microsoft.healthvault.thing.Thing2;
-import com.microsoft.healthvault.thing.UnprocessedThingKeyInfo;
-import com.microsoft.healthvault.types.Record;
+import com.microsoft.healthvault.generated.types.Record;
 import com.microsoft.hsg.HVException;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.concurrent.Callable;
 
 public class SynchronizedView {
 	
@@ -103,7 +96,7 @@ public class SynchronizedView {
 	}
 
 	/* TODO: Figure out what to do with this legacy stuff
-	
+
 	public Date getLastSyncDate() {
 		return lastSyncDate;
 	}

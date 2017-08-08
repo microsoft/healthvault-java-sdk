@@ -6,9 +6,11 @@
 
 package com.microsoft.healthvault.restapi.models;
 
-import org.joda.time.DateTime;
-import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import org.joda.time.DateTime;
+
+import java.util.UUID;
 
 /**
  * A tracking object for an Action Plan Task.

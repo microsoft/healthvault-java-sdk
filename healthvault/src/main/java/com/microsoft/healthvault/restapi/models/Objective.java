@@ -6,8 +6,9 @@
 
 package com.microsoft.healthvault.restapi.models;
 
-import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.UUID;
 
 /**
  * An objective is a high-level concept of what a user wants to accomplish as

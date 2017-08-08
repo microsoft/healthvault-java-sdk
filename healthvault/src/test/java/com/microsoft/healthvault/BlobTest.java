@@ -1,16 +1,16 @@
 package com.microsoft.healthvault;
 
-import com.microsoft.healthvault.methods.GetThings3.request.BlobFormatSpec;
-import com.microsoft.healthvault.methods.GetThings3.request.ThingRequestGroup2;
-import com.microsoft.healthvault.thing.Allergy;
-import com.microsoft.healthvault.thing.BlobInfo;
-import com.microsoft.healthvault.thing.BlobPayload;
-import com.microsoft.healthvault.thing.BlobPayloadItem;
-import com.microsoft.healthvault.thing.Thing2;
-import com.microsoft.healthvault.thing.ThingKey;
-import com.microsoft.healthvault.types.CodableValue;
-import com.microsoft.healthvault.types.PersonInfo;
-import com.microsoft.healthvault.types.Record;
+import com.microsoft.healthvault.generated.methods.GetThings3.request.BlobFormatSpec;
+import com.microsoft.healthvault.generated.methods.GetThings3.request.ThingRequestGroup2;
+import com.microsoft.healthvault.generated.thing.Allergy;
+import com.microsoft.healthvault.generated.thing.BlobInfo;
+import com.microsoft.healthvault.generated.thing.BlobPayload;
+import com.microsoft.healthvault.generated.thing.BlobPayloadItem;
+import com.microsoft.healthvault.generated.thing.Thing2;
+import com.microsoft.healthvault.generated.thing.ThingKey;
+import com.microsoft.healthvault.generated.types.CodableValue;
+import com.microsoft.healthvault.generated.types.PersonInfo;
+import com.microsoft.healthvault.generated.types.Record;
 
 import junit.framework.TestCase;
 

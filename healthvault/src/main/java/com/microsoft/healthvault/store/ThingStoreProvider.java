@@ -2,17 +2,17 @@ package com.microsoft.healthvault.store;
 
 import com.microsoft.healthvault.HealthVaultApp;
 import com.microsoft.healthvault.client.request.RequestTemplate;
-import com.microsoft.healthvault.methods.GetThings.request.ThingFilterSpec;
-import com.microsoft.healthvault.methods.GetThings3.request.BlobFormatSpec;
-import com.microsoft.healthvault.methods.GetThings3.request.BlobPayloadRequest;
-import com.microsoft.healthvault.methods.GetThings3.request.GetThings3Request;
-import com.microsoft.healthvault.methods.GetThings3.request.ThingFormatSpec2;
-import com.microsoft.healthvault.methods.GetThings3.request.ThingRequestGroup2;
-import com.microsoft.healthvault.methods.GetThings3.request.ThingSectionSpec2;
-import com.microsoft.healthvault.methods.GetThings3.response.GetThings3Response;
-import com.microsoft.healthvault.methods.PutThings.response.PutThingsResponse;
-import com.microsoft.healthvault.methods.PutThings2.request.PutThings2Request;
-import com.microsoft.healthvault.thing.Thing2;
+import com.microsoft.healthvault.generated.methods.GetThings.request.ThingFilterSpec;
+import com.microsoft.healthvault.generated.methods.GetThings3.request.BlobFormatSpec;
+import com.microsoft.healthvault.generated.methods.GetThings3.request.BlobPayloadRequest;
+import com.microsoft.healthvault.generated.methods.GetThings3.request.GetThings3Request;
+import com.microsoft.healthvault.generated.methods.GetThings3.request.ThingFormatSpec2;
+import com.microsoft.healthvault.generated.methods.GetThings3.request.ThingRequestGroup2;
+import com.microsoft.healthvault.generated.methods.GetThings3.request.ThingSectionSpec2;
+import com.microsoft.healthvault.generated.methods.GetThings3.response.GetThings3Response;
+import com.microsoft.healthvault.generated.methods.PutThings.response.PutThingsResponse;
+import com.microsoft.healthvault.generated.methods.PutThings2.request.PutThings2Request;
+import com.microsoft.healthvault.generated.thing.Thing2;
 import com.microsoft.hsg.Connection;
 
 import java.math.BigInteger;
