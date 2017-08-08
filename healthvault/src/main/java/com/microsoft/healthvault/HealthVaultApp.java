@@ -28,11 +28,10 @@ import android.os.AsyncTask;
 import android.util.Base64;
 
 import com.microsoft.healthvault.client.request.RequestTemplate;
-import com.microsoft.healthvault.methods.GetAuthorizedPeople.request.GetAuthorizedPeopleRequest;
-import com.microsoft.healthvault.methods.GetAuthorizedPeople.response.GetAuthorizedPeopleResponse;
-import com.microsoft.healthvault.methods.GetAuthorizedPeople.response.GetAuthorizedPeopleResponseInfo;
-import com.microsoft.healthvault.types.PersonInfo;
-import com.microsoft.healthvault.types.Record;
+import com.microsoft.healthvault.generated.methods.GetAuthorizedPeople.request.GetAuthorizedPeopleRequest;
+import com.microsoft.healthvault.generated.methods.GetAuthorizedPeople.response.GetAuthorizedPeopleResponse;;
+import com.microsoft.healthvault.generated.types.PersonInfo;
+import com.microsoft.healthvault.generated.types.Record;
 import com.microsoft.hsg.Connection;
 import com.microsoft.hsg.HVAccessor;
 import com.microsoft.hsg.HVRequestException;
@@ -100,7 +99,7 @@ public class HealthVaultApp {
 	/**
 	 * Instantiates a new health vault service.
 	 *
-	 * @param ctx the ctx
+	 * @param settings the settings
 	 */
 	public HealthVaultApp(HealthVaultSettings settings) {
 		this.settings = settings;
@@ -116,11 +115,11 @@ public class HealthVaultApp {
 			return;
 		}
 
-		GetAuthorizedPeopleResponseInfo response = XmlSerializer.safeRead(
-				GetAuthorizedPeopleResponseInfo.class, serializedAuthorizedRecords);
+		GetAuthorizedPeopleResponse response = XmlSerializer.safeRead(
+				GetAuthorizedPeopleResponse.class, serializedAuthorizedRecords);
 
 		if (response != null) {
-			populatePersonInfo(response.getResponseResults().getPersonInfo());
+			populatePersonInfo(response.getPersonInfo());
 		}
 	}
 

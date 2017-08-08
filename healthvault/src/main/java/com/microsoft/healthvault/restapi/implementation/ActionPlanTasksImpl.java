@@ -6,34 +6,36 @@
 
 package com.microsoft.healthvault.restapi.implementation;
 
-import retrofit2.Retrofit;
-import com.microsoft.healthvault.restapi.ActionPlanTasks;
 import com.google.common.reflect.TypeToken;
+import com.microsoft.healthvault.restapi.ActionPlanTasks;
 import com.microsoft.healthvault.restapi.models.ActionPlanTask;
 import com.microsoft.healthvault.restapi.models.ActionPlanTaskInstance;
-import com.microsoft.healthvault.restapi.models.ActionPlanTasksResponseActionPlanTaskInstance;
 import com.microsoft.healthvault.restapi.models.ActionPlanTaskTrackingResponseActionPlanTaskTracking;
+import com.microsoft.healthvault.restapi.models.ActionPlanTasksResponseActionPlanTaskInstance;
 import com.microsoft.healthvault.restapi.models.ErrorResponseException;
 import com.microsoft.healthvault.restapi.models.TrackingValidation;
 import com.microsoft.rest.ServiceCallback;
 import com.microsoft.rest.ServiceFuture;
 import com.microsoft.rest.ServiceResponse;
 import com.microsoft.rest.Validator;
+
 import java.io.IOException;
 import java.util.UUID;
+
 import okhttp3.ResponseBody;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.HTTP;
+import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
-import retrofit2.http.Path;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.Response;
-import rx.functions.Func1;
 import rx.Observable;
+import rx.functions.Func1;
 
 /**
  * An instance of this class provides access to all the operations defined

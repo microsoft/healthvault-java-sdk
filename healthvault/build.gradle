@@ -35,6 +35,4 @@ dependencies {
 		exclude group: 'stax', module: 'stax-api'
 		exclude group: 'stax', module: 'stax'
 	}
-
-	compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.4'
 }

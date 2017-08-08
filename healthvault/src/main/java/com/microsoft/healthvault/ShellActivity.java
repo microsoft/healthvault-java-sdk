@@ -37,9 +37,8 @@ import android.webkit.WebViewClient;
 
 import com.microsoft.healthvault.HealthVaultApp.ConnectionStatus;
 import com.microsoft.healthvault.client.request.RequestTemplate;
-import com.microsoft.healthvault.methods.GetAuthorizedPeople.request.GetAuthorizedPeopleParameters;
-import com.microsoft.healthvault.methods.GetAuthorizedPeople.request.GetAuthorizedPeopleRequest;
-import com.microsoft.healthvault.methods.GetAuthorizedPeople.response.GetAuthorizedPeopleResponse;
+import com.microsoft.healthvault.generated.methods.GetAuthorizedPeople.request.GetAuthorizedPeopleRequest;
+import com.microsoft.healthvault.generated.methods.GetAuthorizedPeople.response.GetAuthorizedPeopleResponse;
 import com.microsoft.hsg.Connection;
 import com.microsoft.hsg.HVInstance;
 import com.microsoft.hsg.HVInstanceResolver;

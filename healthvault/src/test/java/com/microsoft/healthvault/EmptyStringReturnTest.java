@@ -1,8 +1,8 @@
 package com.microsoft.healthvault;
 
-import com.microsoft.healthvault.types.CodableValue;
-import com.microsoft.healthvault.types.PersonInfo;
-import com.microsoft.healthvault.types.Record;
+import com.microsoft.healthvault.generated.types.CodableValue;
+import com.microsoft.healthvault.generated.types.PersonInfo;
+import com.microsoft.healthvault.generated.types.Record;
 
 import junit.framework.TestCase;
 

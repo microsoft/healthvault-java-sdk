@@ -6,9 +6,11 @@
 
 package com.microsoft.healthvault.restapi.models;
 
-import org.joda.time.DateTime;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import org.joda.time.DateTime;
+
+import java.util.List;
 
 /**
  * The content passed from a client during the onboarding process.

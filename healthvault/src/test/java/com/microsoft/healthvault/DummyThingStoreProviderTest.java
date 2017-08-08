@@ -3,9 +3,9 @@ package com.microsoft.healthvault;
 import android.util.Base64;
 
 import com.microsoft.healthvault.store.ThingStoreProvider;
-import com.microsoft.healthvault.types.CodableValue;
-import com.microsoft.healthvault.types.ConcentrationValue;
-import com.microsoft.healthvault.types.DisplayValue;
+import com.microsoft.healthvault.generated.types.CodableValue;
+import com.microsoft.healthvault.generated.types.ConcentrationValue;
+import com.microsoft.healthvault.generated.types.DisplayValue;
 
 import junit.framework.TestCase;
 

@@ -6,9 +6,10 @@
 
 package com.microsoft.healthvault.restapi.models;
 
-import java.util.UUID;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
+import java.util.UUID;
 
 /**
  * An instance of an action plan associated to a user.

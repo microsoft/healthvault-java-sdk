@@ -8,15 +8,16 @@ package com.microsoft.healthvault.restapi;
 
 import com.microsoft.healthvault.restapi.models.ActionPlanTask;
 import com.microsoft.healthvault.restapi.models.ActionPlanTaskInstance;
-import com.microsoft.healthvault.restapi.models.ActionPlanTasksResponseActionPlanTaskInstance;
 import com.microsoft.healthvault.restapi.models.ActionPlanTaskTrackingResponseActionPlanTaskTracking;
+import com.microsoft.healthvault.restapi.models.ActionPlanTasksResponseActionPlanTaskInstance;
 import com.microsoft.healthvault.restapi.models.ErrorResponseException;
 import com.microsoft.healthvault.restapi.models.TrackingValidation;
 import com.microsoft.rest.ServiceCallback;
 import com.microsoft.rest.ServiceFuture;
 import com.microsoft.rest.ServiceResponse;
-import java.io.IOException;
+
 import java.util.UUID;
+
 import rx.Observable;
 
 /**
