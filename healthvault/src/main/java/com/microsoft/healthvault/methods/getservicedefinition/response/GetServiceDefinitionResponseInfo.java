@@ -10,14 +10,16 @@ import java.util.Date;
 
 @Default
 public class GetServiceDefinitionResponseInfo {
+    @Element(required = false)
     protected Platform platform;
 
+    @Element(required = false)
     protected Shell shell;
 
-    @ElementList(name = "xml-method", inline = true)
+    @ElementList(name = "xml-method", inline = true, required = false)
     protected ArrayList<XmlMethod> xmlMethod;
 
-    @Element(name = "meaningful-use")
+    @Element(name = "meaningful-use", required = false)
     protected MeaningfulUse meaningfulUse;
 
     @Element(name = "updated-date")

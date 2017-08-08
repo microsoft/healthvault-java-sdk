@@ -6,6 +6,8 @@ import com.microsoft.healthvault.IHealthVaultSodaConnection;
 import com.microsoft.healthvault.ServiceInfo;
 import com.microsoft.healthvault.ServiceInfoSections;
 import com.microsoft.healthvault.SessionCredential;
+import com.microsoft.healthvault.methods.getservicedefinition.request.ResponseSection;
+import com.microsoft.healthvault.methods.getservicedefinition.response.GetServiceDefinitionResponseInfo;
 import com.microsoft.healthvault.restapi.MicrosoftHealthVaultRESTAPI;
 import com.microsoft.healthvault.restapi.models.ActionPlansResponseActionPlanInstance;
 import com.microsoft.healthvault.types.PersonInfo;
@@ -15,8 +17,10 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import org.joda.time.DateTime;
+import org.joda.time.Instant;
 import org.joda.time.Period;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlatformClientTest extends TestCase {
@@ -40,10 +44,40 @@ public class PlatformClientTest extends TestCase {
         connection.getPersonInfo(); // authenticate or refresh token.
     }
 
-
     public void testGetServiceDefinition() {
-        ServiceInfo info = this.platformClient.getServiceDefinitionAsync();
+        GetServiceDefinitionResponseInfo info = this.platformClient.getServiceDefinitionAsync();
 
         Assert.assertNotNull(info);
+        Assert.assertNotNull(info.getMeaningfulUse());
+        Assert.assertNotNull(info.getShell());
+        Assert.assertNotNull(info.getXmlMethod());
+        Assert.assertTrue(info.getXmlMethod().size() > 0);
+    }
+
+    public void testGetServiceDefinitionWithSections() {
+        ArrayList<ResponseSection> sections = new ArrayList<>();
+        sections.add(ResponseSection.SHELL);
+        sections.add(ResponseSection.PLATFORM);
+
+        GetServiceDefinitionResponseInfo info = this.platformClient.getServiceDefinitionAsync(sections);
+
+        Assert.assertNotNull(info);
+        Assert.assertNotNull(info.getShell());
+        Assert.assertNotNull(info.getPlatform());
+        Assert.assertNull(info.getXmlMethod());
+        Assert.assertNull(info.getMeaningfulUse());
+    }
+
+    public void testGetServiceDefinitionsWithInstant() {
+        DateTime dt = new DateTime(2013, 03, 27, 12, 0);
+        Instant instant = new Instant(dt);
+
+        ArrayList<ResponseSection> sections = new ArrayList<>();
+        sections.add(ResponseSection.PLATFORM);
+
+        GetServiceDefinitionResponseInfo info = this.platformClient.getServiceDefinitionAsync(sections, instant);
+
+        Assert.assertNotNull(info);
+        Assert.assertNotNull(info.getPlatform());
     }
 }

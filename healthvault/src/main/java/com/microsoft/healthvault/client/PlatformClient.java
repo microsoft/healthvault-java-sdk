@@ -34,6 +34,7 @@ import com.microsoft.healthvault.methods.getservicedefinition.request.GetService
 import com.microsoft.healthvault.methods.getservicedefinition.request.ResponseSection;
 import com.microsoft.healthvault.methods.getservicedefinition.request.ResponseSections;
 import com.microsoft.healthvault.methods.getservicedefinition.response.GetServiceDefinitionResponse;
+import com.microsoft.healthvault.methods.getservicedefinition.response.GetServiceDefinitionResponseInfo;
 import com.microsoft.healthvault.methods.request.RequestTemplate;
 import com.microsoft.healthvault.types.Guid;
 import com.microsoft.healthvault.types.Location;
@@ -42,6 +43,7 @@ import com.microsoft.healthvault.types.PersonInfo;
 import org.joda.time.Instant;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class PlatformClient extends Client implements IPlatformClient {
@@ -51,9 +53,41 @@ public class PlatformClient extends Client implements IPlatformClient {
     }
 
     @Override
-    public ServiceInfo getServiceDefinitionAsync() {
+    public GetServiceDefinitionResponseInfo getServiceDefinitionAsync() {
+        return getServiceDefinitionAsync(getDefaultResponseSections(), null);
+    }
+
+    @Override
+    public GetServiceDefinitionResponseInfo getServiceDefinitionAsync(Instant lastUpdatedTime) {
+        return getServiceDefinitionAsync(getDefaultResponseSections(), lastUpdatedTime);
+    }
+
+    @Override
+    public GetServiceDefinitionResponseInfo getServiceDefinitionAsync(List<ResponseSection> responseSections) {
+        return getServiceDefinitionAsync(responseSections, null);
+    }
+
+    @Override
+    public GetServiceDefinitionResponseInfo getServiceDefinitionAsync(List<ResponseSection> responseSections, Instant lastUpdatedTime) {
         RequestTemplate requestTemplate = new RequestTemplate(HealthVaultApp.getInstance().getConnection());
 
+        ResponseSections sections = new ResponseSections();
+        sections.setSections(responseSections);
+
+        GetServiceDefinitionRequest request = new GetServiceDefinitionRequest();
+        request.setResponseSections(sections);
+
+        if (lastUpdatedTime != null) {
+            request.setUpdatedDate(lastUpdatedTime.toDate());
+        }
+
+        GetServiceDefinitionResponse response = requestTemplate.makeRequest(
+                request, GetServiceDefinitionResponse.class);
+
+        return response.getInfo();
+    }
+
+    private List<ResponseSection> getDefaultResponseSections() {
         ArrayList<ResponseSection> responseSectionList = new ArrayList<>();
         responseSectionList.add(ResponseSection.PLATFORM);
         responseSectionList.add(ResponseSection.SHELL);
@@ -61,31 +95,7 @@ public class PlatformClient extends Client implements IPlatformClient {
         responseSectionList.add(ResponseSection.XML_OVER_HTTP_METHODS);
         responseSectionList.add(ResponseSection.MEANINGFUL_USE);
 
-        ResponseSections responsSections = new ResponseSections();
-        responsSections.setSections(responseSectionList);
-
-        GetServiceDefinitionRequest request = new GetServiceDefinitionRequest();
-        request.setResponseSections(responsSections);
-
-        GetServiceDefinitionResponse response = requestTemplate.makeRequest(
-                request, GetServiceDefinitionResponse.class);
-
-        return null;
-    }
-
-    @Override
-    public ServiceInfo getServiceDefinitionAsync(Instant lastUpdatedTime) {
-        return null;
-    }
-
-    @Override
-    public ServiceInfo getServiceDefinitionAsync(ServiceInfoSections responseSections) {
-        return null;
-    }
-
-    @Override
-    public ServiceInfo getServiceDefinitionAsync(ServiceInfoSections responseSections, Instant lastUpdatedTime) {
-        return null;
+        return responseSectionList;
     }
 
     @Override

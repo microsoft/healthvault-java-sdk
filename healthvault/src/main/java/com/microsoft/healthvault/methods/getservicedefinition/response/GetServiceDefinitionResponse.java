@@ -10,6 +10,14 @@ import org.simpleframework.xml.Root;
 public class GetServiceDefinitionResponse extends Response {
     @Element(required=true)
     private GetServiceDefinitionResponseInfo info;
+
+    public GetServiceDefinitionResponseInfo getInfo() {
+        return info;
+    }
+
+    public void setInfo(GetServiceDefinitionResponseInfo info) {
+        this.info = info;
+    }
 }
 
 

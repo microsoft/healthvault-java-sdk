@@ -29,6 +29,8 @@ import com.microsoft.healthvault.ServiceInfo;
 import com.microsoft.healthvault.ServiceInfoSections;
 import com.microsoft.healthvault.ThingTypeDefinition;
 import com.microsoft.healthvault.ThingTypeSections;
+import com.microsoft.healthvault.methods.getservicedefinition.request.ResponseSection;
+import com.microsoft.healthvault.methods.getservicedefinition.response.GetServiceDefinitionResponseInfo;
 import com.microsoft.healthvault.types.Guid;
 import com.microsoft.healthvault.types.Location;
 import com.microsoft.healthvault.types.PersonInfo;
@@ -36,6 +38,7 @@ import com.microsoft.healthvault.types.PersonInfo;
 import org.joda.time.Instant;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public interface IPlatformClient extends IClient {
@@ -58,7 +61,7 @@ public interface IPlatformClient extends IClient {
      * @return A {@link ServiceInfo} instance that contains the service version, SDK assemblies
      * versions and URLs, method information, and so on.
      */
-    ServiceInfo getServiceDefinitionAsync();
+    GetServiceDefinitionResponseInfo getServiceDefinitionAsync();
 
     /**
      * Gets information about the HealthVault service only if it has been updated since the
@@ -70,23 +73,23 @@ public interface IPlatformClient extends IClient {
      * a {@link ServiceInfo} instance that contains the service version, SDK assembly versions and URLs,
      * method information, and so on. Otherwise, if there were no updates, returns <code>null</code>.
      */
-    ServiceInfo getServiceDefinitionAsync(Instant lastUpdatedTime);
+    GetServiceDefinitionResponseInfo getServiceDefinitionAsync(Instant lastUpdatedTime);
 
     /**
      * Gets information about the HealthVault service corresponding to the specified categories.
-     * @param responseSections A bitmask of one or more {@link ServiceInfoSections} which specify
+     * @param responseSections A list of one or more {@link ResponseSection} which specify
      *        the categories of information to be populated in the {@link ServiceInfo}.
      * @return A {@link ServiceInfo} instance that contains some or all of the service version,
      * SDK assemblies versions and URLs, method information, and so on, depending on which
      * information categories were specified.
      */
-    ServiceInfo getServiceDefinitionAsync(ServiceInfoSections responseSections);
+    GetServiceDefinitionResponseInfo getServiceDefinitionAsync(List<ResponseSection> responseSections);
 
     /**
      * Gets information about the HealthVault service corresponding to the specified
      * categories if the requested information has been updated since the specified
      * update time.
-     * @param responseSections A bitmask of one or more {@link ServiceInfoSections} which specify the
+     * @param responseSections A list of one or more {@link ResponseSection} which specify the
      * categories of information to be populated in the {@link ServiceInfo}.
      * @param lastUpdatedTime The time of the last update to an existing cached copy of {@link ServiceInfo}.
      * @return If there were updates to the service information since the specified <b>lastUpdatedTime</b>,
@@ -95,7 +98,7 @@ public interface IPlatformClient extends IClient {
      * information categories were specified.  Otherwise, if there were no updates, returns
      * <code>null</code>.
      */
-    ServiceInfo getServiceDefinitionAsync(ServiceInfoSections responseSections, Instant lastUpdatedTime);
+    GetServiceDefinitionResponseInfo getServiceDefinitionAsync(List<ResponseSection> responseSections, Instant lastUpdatedTime);
 
     /**
      * Gets the definitions for one or more thing type definitions supported by HealthVault.

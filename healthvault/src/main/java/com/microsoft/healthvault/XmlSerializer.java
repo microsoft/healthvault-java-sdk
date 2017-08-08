@@ -93,7 +93,7 @@ public class XmlSerializer {
 	}
 
     public static class DateFormatTransformer implements Transform<Date> {
-		private static DateFormat format = new SimpleDateFormat("yyyy-MM-d'T'HH:mm:ss");
+		private static DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
 		@Override
 		public Date read(String value) throws Exception
