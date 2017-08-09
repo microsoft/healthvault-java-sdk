@@ -27,13 +27,11 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Base64;
 
-import com.microsoft.healthvault.methods.getauthorizedpeople.request.GetAuthorizedPeopleParameters;
-import com.microsoft.healthvault.methods.getauthorizedpeople.request.GetAuthorizedPeopleRequest;
-import com.microsoft.healthvault.methods.getauthorizedpeople.response.GetAuthorizedPeopleResponse;
-import com.microsoft.healthvault.methods.getauthorizedpeople.response.GetAuthorizedPeopleResponseInfo;
-import com.microsoft.healthvault.methods.request.RequestTemplate;
-import com.microsoft.healthvault.types.PersonInfo;
-import com.microsoft.healthvault.types.Record;
+import com.microsoft.healthvault.client.request.RequestTemplate;
+import com.microsoft.healthvault.generated.methods.GetAuthorizedPeople.request.GetAuthorizedPeopleRequest;
+import com.microsoft.healthvault.generated.methods.GetAuthorizedPeople.response.GetAuthorizedPeopleResponse;;
+import com.microsoft.healthvault.generated.types.PersonInfo;
+import com.microsoft.healthvault.generated.types.Record;
 import com.microsoft.hsg.Connection;
 import com.microsoft.hsg.HVAccessor;
 import com.microsoft.hsg.HVRequestException;
@@ -101,7 +99,7 @@ public class HealthVaultApp {
 	/**
 	 * Instantiates a new health vault service.
 	 *
-	 * @param ctx the ctx
+	 * @param settings the settings
 	 */
 	public HealthVaultApp(HealthVaultSettings settings) {
 		this.settings = settings;
@@ -117,11 +115,11 @@ public class HealthVaultApp {
 			return;
 		}
 
-		GetAuthorizedPeopleResponseInfo response = XmlSerializer.safeRead(
-				GetAuthorizedPeopleResponseInfo.class, serializedAuthorizedRecords);
+		GetAuthorizedPeopleResponse response = XmlSerializer.safeRead(
+				GetAuthorizedPeopleResponse.class, serializedAuthorizedRecords);
 
 		if (response != null) {
-			populatePersonInfo(response);
+			populatePersonInfo(response.getPersonInfo());
 		}
 	}
 
@@ -357,27 +355,26 @@ public class HealthVaultApp {
 	public void resolvePersonInfoList() {
 		RequestTemplate requestTemplate = new RequestTemplate(getConnection());
 		
-		GetAuthorizedPeopleRequest request = new GetAuthorizedPeopleRequest(
-				new GetAuthorizedPeopleParameters());
+		GetAuthorizedPeopleRequest request = new GetAuthorizedPeopleRequest();
 		
 		GetAuthorizedPeopleResponse response = requestTemplate.makeRequest(
 				request, 
 				GetAuthorizedPeopleResponse.class);
-		
-		GetAuthorizedPeopleResponseInfo info = response.getInfo();
+
+		List<PersonInfo> info = response.getPersonInfo();
 		settings.setAuthorizedRecordsResponse(XmlSerializer.safeWrite(info));
 		settings.save();
 
 		populatePersonInfo(info);
 	}
 			
-	private void populatePersonInfo(GetAuthorizedPeopleResponseInfo response) {
-		personInfoList = response.getResponseResults().getPersonInfoList();
+	private void populatePersonInfo(List<PersonInfo> personInfo) {
+		personInfoList = personInfo;
 		
 		recordList = new ArrayList<Record>();
 		
 		for (PersonInfo pi : personInfoList) {
-			for (Record r : pi.getRecords()) {
+			for (Record r : pi.getRecord()) {
 				recordList.add(r);
 			}
 		}

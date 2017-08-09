@@ -36,10 +36,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.microsoft.healthvault.HealthVaultApp.ConnectionStatus;
-import com.microsoft.healthvault.methods.getauthorizedpeople.request.GetAuthorizedPeopleParameters;
-import com.microsoft.healthvault.methods.getauthorizedpeople.request.GetAuthorizedPeopleRequest;
-import com.microsoft.healthvault.methods.getauthorizedpeople.response.GetAuthorizedPeopleResponse;
-import com.microsoft.healthvault.methods.request.RequestTemplate;
+import com.microsoft.healthvault.client.request.RequestTemplate;
+import com.microsoft.healthvault.generated.methods.GetAuthorizedPeople.request.GetAuthorizedPeopleRequest;
+import com.microsoft.healthvault.generated.methods.GetAuthorizedPeople.response.GetAuthorizedPeopleResponse;
 import com.microsoft.hsg.Connection;
 import com.microsoft.hsg.HVInstance;
 import com.microsoft.hsg.HVInstanceResolver;
@@ -205,8 +204,7 @@ public class ShellActivity extends Activity {
 			RequestTemplate requestTemplate = new RequestTemplate(
 					hvApp.getConnection());
 
-			GetAuthorizedPeopleRequest request = new GetAuthorizedPeopleRequest(
-					new GetAuthorizedPeopleParameters());
+			GetAuthorizedPeopleRequest request = new GetAuthorizedPeopleRequest();
 
 			GetAuthorizedPeopleResponse response = requestTemplate.makeRequest(
 					request,

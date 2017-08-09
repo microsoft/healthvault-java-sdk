@@ -1,21 +1,21 @@
 package com.microsoft.healthvault.store;
 
 import com.microsoft.healthvault.HealthVaultApp;
-import com.microsoft.healthvault.methods.getthings3.request.BlobFormatSpec;
-import com.microsoft.healthvault.methods.getthings3.request.BlobPayloadRequest;
-import com.microsoft.healthvault.methods.getthings3.request.BlobPayloadRequest.BlobFormat;
-import com.microsoft.healthvault.methods.getthings3.request.GetThings3Request;
-import com.microsoft.healthvault.methods.getthings3.request.ThingFilterSpec;
-import com.microsoft.healthvault.methods.getthings3.request.ThingFormatSpec2;
-import com.microsoft.healthvault.methods.getthings3.request.ThingRequestGroup2;
-import com.microsoft.healthvault.methods.getthings3.request.ThingSectionSpec2;
-import com.microsoft.healthvault.methods.getthings3.response.GetThings3Response;
-import com.microsoft.healthvault.methods.putthings2.request.PutThings2Request;
-import com.microsoft.healthvault.methods.putthings2.response.PutThings2Response;
-import com.microsoft.healthvault.methods.request.RequestTemplate;
-import com.microsoft.healthvault.thingtypes.Thing2;
+import com.microsoft.healthvault.client.request.RequestTemplate;
+import com.microsoft.healthvault.generated.methods.GetThings.request.ThingFilterSpec;
+import com.microsoft.healthvault.generated.methods.GetThings3.request.BlobFormatSpec;
+import com.microsoft.healthvault.generated.methods.GetThings3.request.BlobPayloadRequest;
+import com.microsoft.healthvault.generated.methods.GetThings3.request.GetThings3Request;
+import com.microsoft.healthvault.generated.methods.GetThings3.request.ThingFormatSpec2;
+import com.microsoft.healthvault.generated.methods.GetThings3.request.ThingRequestGroup2;
+import com.microsoft.healthvault.generated.methods.GetThings3.request.ThingSectionSpec2;
+import com.microsoft.healthvault.generated.methods.GetThings3.response.GetThings3Response;
+import com.microsoft.healthvault.generated.methods.PutThings.response.PutThingsResponse;
+import com.microsoft.healthvault.generated.methods.PutThings2.request.PutThings2Request;
+import com.microsoft.healthvault.generated.thing.Thing2;
 import com.microsoft.hsg.Connection;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public class ThingStoreProvider implements IThingProvider {
@@ -46,7 +46,7 @@ public class ThingStoreProvider implements IThingProvider {
 				getRequestObject(thingType), 
 				GetThings3Response.class);
 		
-		return response.getInfo().getGroup().get(0).getThing();
+		return response.getGroup().get(0).getThing();
 	}
 	
 	public void putThings(List<Thing2> things) {
@@ -58,9 +58,9 @@ public class ThingStoreProvider implements IThingProvider {
 		PutThings2Request request = new PutThings2Request();
 		request.getThing().addAll(things);
 		
-		PutThings2Response response = requestTemplate.makeRequest(
+		PutThingsResponse response = requestTemplate.makeRequest(
 				request, 
-				PutThings2Response.class); 
+				PutThingsResponse.class);
 	}
 	
 	private static GetThings3Request getRequestObject(String thingType) {
@@ -72,8 +72,8 @@ public class ThingStoreProvider implements IThingProvider {
 	
 	private static ThingRequestGroup2 getRequestGroup(String thingType) {
 		ThingRequestGroup2 requestGroup = new ThingRequestGroup2();
-		requestGroup.setMax(25);
-		requestGroup.getFilterList().add(getThingFilterSpec(thingType));
+		requestGroup.setMax(BigInteger.valueOf(25));
+		requestGroup.getFilter().add(getThingFilterSpec(thingType));
 		requestGroup.setFormat(getFormat());
 
 		return requestGroup;
@@ -88,8 +88,8 @@ public class ThingStoreProvider implements IThingProvider {
 	
 	private static ThingFormatSpec2 getFormat() {
 		ThingFormatSpec2 format = new ThingFormatSpec2();
-		format.getSection().add(ThingSectionSpec2.core);
-		format.getSection().add(ThingSectionSpec2.blobpayload);
+		format.getSection().add(ThingSectionSpec2.CORE);
+		format.getSection().add(ThingSectionSpec2.BLOBPAYLOAD);
 		format.getXml().add("");
 		format.setBlobPayloadRequest(getBlobPayloadRequest());
 		
@@ -97,8 +97,8 @@ public class ThingStoreProvider implements IThingProvider {
 	}
 	
 	private static BlobPayloadRequest getBlobPayloadRequest() {
-		BlobFormat format = new BlobFormat();
-		format.setBlobFormatSpec(BlobFormatSpec.streamed);
+		BlobPayloadRequest.BlobFormat format = new BlobPayloadRequest.BlobFormat();
+		format.setBlobFormatSpec(BlobFormatSpec.STREAMED);
 		
 		BlobPayloadRequest blobPayload = new BlobPayloadRequest();
 		blobPayload.setBlobFormat(format);

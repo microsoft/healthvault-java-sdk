@@ -6,22 +6,24 @@
 
 package com.microsoft.healthvault.restapi.implementation;
 
-import retrofit2.Retrofit;
-import com.microsoft.healthvault.restapi.ActionPlanObjectives;
 import com.google.common.reflect.TypeToken;
+import com.microsoft.healthvault.restapi.ActionPlanObjectives;
 import com.microsoft.healthvault.restapi.models.ErrorResponseException;
 import com.microsoft.rest.ServiceCallback;
 import com.microsoft.rest.ServiceFuture;
 import com.microsoft.rest.ServiceResponse;
+
 import java.io.IOException;
 import java.util.UUID;
+
 import okhttp3.ResponseBody;
-import retrofit2.http.Headers;
-import retrofit2.http.HTTP;
-import retrofit2.http.Path;
 import retrofit2.Response;
-import rx.functions.Func1;
+import retrofit2.Retrofit;
+import retrofit2.http.HTTP;
+import retrofit2.http.Headers;
+import retrofit2.http.Path;
 import rx.Observable;
+import rx.functions.Func1;
 
 /**
  * An instance of this class provides access to all the operations defined

@@ -24,11 +24,11 @@ package com.microsoft.healthvault.client;
 
 import android.os.Build;
 
-import com.microsoft.healthvault.HealthVaultConfiguration;
-import com.microsoft.healthvault.IHealthVaultConnection;
-import com.microsoft.healthvault.SessionCredential;
+import com.microsoft.healthvault.HealthVaultSettings;
+import com.microsoft.healthvault.generated.types.Record;
 import com.microsoft.healthvault.restapi.implementation.MicrosoftHealthVaultRESTAPIImpl;
-import com.microsoft.healthvault.types.Record;
+import com.microsoft.hsg.Connection;
+import com.microsoft.hsg.HVException;
 
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
@@ -120,7 +120,7 @@ public class HealthVaultRestClient implements IHealthVaultRestClient {
 		stringBuilder.append("MSH-V1 app-token=");
 		stringBuilder.append(credential.getToken().toString());
 		stringBuilder.append(",offline-person-id=");
-		stringBuilder.append(currentRecord.getPersonId());
+		//stringBuilder.append(currentRecord.getPersonId());
 		stringBuilder.append(",record-id=");
 		stringBuilder.append(currentRecord.getId());
 

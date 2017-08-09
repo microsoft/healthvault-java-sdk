@@ -7,6 +7,7 @@
 package com.microsoft.healthvault.restapi.models;
 
 import com.microsoft.rest.RestException;
+
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 

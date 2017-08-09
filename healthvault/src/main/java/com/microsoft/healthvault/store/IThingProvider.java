@@ -3,7 +3,7 @@
  */
 package com.microsoft.healthvault.store;
 
- import com.microsoft.healthvault.thingtypes.Thing2;
+ import com.microsoft.healthvault.generated.thing.Thing2;
 
  import java.util.List;
 

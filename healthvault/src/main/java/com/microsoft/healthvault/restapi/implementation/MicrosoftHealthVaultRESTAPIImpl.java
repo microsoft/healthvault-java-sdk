@@ -6,16 +6,17 @@
 
 package com.microsoft.healthvault.restapi.implementation;
 
-import com.microsoft.healthvault.restapi.MicrosoftHealthVaultRESTAPI;
-import com.microsoft.healthvault.restapi.ActionPlans;
 import com.microsoft.healthvault.restapi.ActionPlanObjectives;
 import com.microsoft.healthvault.restapi.ActionPlanTasks;
-import com.microsoft.healthvault.restapi.Goals;
+import com.microsoft.healthvault.restapi.ActionPlans;
 import com.microsoft.healthvault.restapi.GoalRecommendations;
+import com.microsoft.healthvault.restapi.Goals;
+import com.microsoft.healthvault.restapi.MicrosoftHealthVaultRESTAPI;
 import com.microsoft.healthvault.restapi.Onboardings;
 import com.microsoft.healthvault.restapi.Sleeps;
-import com.microsoft.rest.ServiceClient;
 import com.microsoft.rest.RestClient;
+import com.microsoft.rest.ServiceClient;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 

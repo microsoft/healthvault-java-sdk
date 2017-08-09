@@ -6,10 +6,12 @@
 
 package com.microsoft.healthvault.restapi.models;
 
-import java.util.UUID;
-import org.joda.time.DateTime;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import org.joda.time.DateTime;
+
+import java.util.List;
+import java.util.UUID;
 
 /**
  * A goal defines a target for a measurement or action to be performed by a
