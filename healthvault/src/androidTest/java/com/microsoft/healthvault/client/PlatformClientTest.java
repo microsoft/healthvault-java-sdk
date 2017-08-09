@@ -68,10 +68,7 @@ public class PlatformClientTest extends TestCase {
     }
 
     public void testNewApplicationCreationInfo() {
-        HealthVaultConfiguration config = this.configuration;
-        this.connection = HealthVaultConnectionFactory.Current().GetOrCreateSodaConnection(this.configuration);
-
-        this.platformClient.newApplicationCreationInfoAsync();
+        Assert.fail("implementation is not completed yet.");
     }
 
     public void testGetServiceDefinition() {

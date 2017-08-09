@@ -16,7 +16,7 @@ public class TestSettings {
         config.setDefaultHealthVaultShellUri(new URL("https://account.healthvault-ppe.com"));
         config.setDefaultHealthVaultUri(new URL("https://platform.healthvault-ppe.com/platform/wildcat.ashx"));
         config.setRestHealthVaultRootUri(new URL("https://data.ppe.microsofthealth.net"));
-        config.setRestHealthVaultVersion("1.0-preview2");
+        config.setRestHealthVaultVersion("1.0-rc");
 
         return config;
     }

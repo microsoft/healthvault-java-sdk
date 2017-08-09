@@ -24,11 +24,12 @@ package com.microsoft.healthvault.client;
 
 import android.os.Build;
 
+import com.microsoft.healthvault.HealthVaultConfiguration;
 import com.microsoft.healthvault.HealthVaultSettings;
-import com.microsoft.healthvault.generated.types.Record;
+import com.microsoft.healthvault.IHealthVaultConnection;
+import com.microsoft.healthvault.SessionCredential;
 import com.microsoft.healthvault.restapi.implementation.MicrosoftHealthVaultRESTAPIImpl;
-import com.microsoft.hsg.Connection;
-import com.microsoft.hsg.HVException;
+import com.microsoft.healthvault.types.Record;
 
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
