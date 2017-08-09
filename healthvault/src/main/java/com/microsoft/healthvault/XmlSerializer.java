@@ -3,6 +3,7 @@ package com.microsoft.healthvault;
 import android.util.Log;
 
 import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.convert.AnnotationStrategy;
 import org.simpleframework.xml.convert.Registry;
 import org.simpleframework.xml.convert.RegistryStrategy;
 import org.simpleframework.xml.core.Persister;
@@ -78,7 +79,7 @@ public class XmlSerializer {
 			RegistryMatcher matcher = new RegistryMatcher();
 			matcher.bind(Date.class, new DateFormatTransformer());
 
-			writeSerializer = new Persister(matcher);
+			writeSerializer = new Persister(new AnnotationStrategy(), matcher);
 		}
 		s = writeSerializer;
 		
@@ -92,7 +93,7 @@ public class XmlSerializer {
 	}
 
     public static class DateFormatTransformer implements Transform<Date> {
-		private static DateFormat format = new SimpleDateFormat("yyyy-MM-d'T'HH:mm:ss");
+		private static DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
 		@Override
 		public Date read(String value) throws Exception
