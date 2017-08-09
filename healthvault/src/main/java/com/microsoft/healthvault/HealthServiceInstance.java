@@ -22,43 +22,49 @@
 
 package com.microsoft.healthvault;
 
+import org.simpleframework.xml.Element;
+
 import java.net.URL;
 
 public class HealthServiceInstance {
-    private String id;
-    private String description;
-    private URL healthServiceUrl;
-    private URL ShellUrl;
+    @Element(name = "id")
+    private String mId;
+    @Element(name = "description")
+    private String mDescription;
+    @Element(name = "platform-url")
+    private URL mHealthServiceUrl;
+    @Element(name = "shell-url")
+    private URL mShellUrl;
 
     public String getId() {
-        return id;
+        return mId;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.mId = id;
     }
 
     public String getDescription() {
-        return description;
+        return mDescription;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.mDescription = description;
     }
 
     public URL getHealthServiceUrl() {
-        return healthServiceUrl;
+        return mHealthServiceUrl;
     }
 
     public void setHealthServiceUrl(URL healthServiceUrl) {
-        this.healthServiceUrl = healthServiceUrl;
+        this.mHealthServiceUrl = healthServiceUrl;
     }
 
     public URL getShellUrl() {
-        return ShellUrl;
+        return mShellUrl;
     }
 
     public void setShellUrl(URL shellUrl) {
-        ShellUrl = shellUrl;
+        mShellUrl = shellUrl;
     }
 }

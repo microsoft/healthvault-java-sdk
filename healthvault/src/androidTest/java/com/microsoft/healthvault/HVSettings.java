@@ -46,7 +46,7 @@ public class HVSettings implements HealthVaultSettings {
 	@Override
 	public String getRestUrl() {
 		// TODO Auto-generated method stub
-		return "https://data.ppe.microsofthealth.net";
+		return null;
 	}
 
 	@Override
