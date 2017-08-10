@@ -22,10 +22,8 @@
 
 package com.microsoft.healthvault.client;
 
-import com.microsoft.healthvault.HealthServiceResponseData;
 import com.microsoft.healthvault.HealthVaultApp;
 import com.microsoft.healthvault.IHealthVaultConnection;
-import com.microsoft.healthvault.methods.HealthVaultMethods;
 import com.microsoft.healthvault.methods.getvocabulary2.request.GetVocabulary2Request;
 import com.microsoft.healthvault.methods.getvocabulary2.request.VocabGetParams;
 import com.microsoft.healthvault.methods.getvocabulary2.response.GetVocabulary2KeyResponse;
@@ -37,10 +35,8 @@ import com.microsoft.healthvault.methods.searchvocabulary.request.SearchVocabula
 import com.microsoft.healthvault.methods.searchvocabulary.request.VocabMatchType;
 import com.microsoft.healthvault.methods.searchvocabulary.request.VocabSearch;
 import com.microsoft.healthvault.methods.searchvocabulary.response.SearchVocabularyResponse;
-import com.microsoft.healthvault.types.VocabFamily;
 import com.microsoft.healthvault.types.VocabIdentifier;
 import com.microsoft.healthvault.types.VocabItem;
-import com.microsoft.healthvault.types.VocabName;
 
 import java.util.ArrayList;
 
