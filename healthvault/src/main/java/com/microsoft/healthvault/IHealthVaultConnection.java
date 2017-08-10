@@ -33,7 +33,7 @@ import com.microsoft.healthvault.types.Record;
 /**
  * Represents a connection for an application to the HealthVault service
  */
-public interface IHealthVaultConnection { // TODO: (mikenev) implements IHealthVaultRestAuthorizer {
+public interface IHealthVaultConnection {
 
     /**
      * Gets the application identifier.
@@ -52,16 +52,6 @@ public interface IHealthVaultConnection { // TODO: (mikenev) implements IHealthV
      * Implementation should depend on the application platform - SODA vs WEB.
      */
     public void authenticate();
-
-    /**
-     * Makes Web request call to HealthVault service for specified method name and method version
-     * @param method The method to execute.
-     * @param methodVersion The method version.
-     * @param parameters Method parameters.
-     * @param recordId The record Id.
-     * @param correlationId The correlation Id.
-     */
-    public HealthServiceResponseData execute(HealthVaultMethods method, int methodVersion, String parameters, Guid recordId, Guid correlationId);
 
     /**
      * Gets SessionCredential

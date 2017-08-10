@@ -41,8 +41,6 @@ import java.net.URL;
 import java.util.List;
 
 public class HealthVaultSodaConnection extends HealthVaultConnectionBase implements IHealthVaultSodaConnection {
-    /// TODO: (mikenev) fix the implements
-
     private PersonInfo personInfo;
     private HealthVaultApp mHealthVaultApp;
     private static final String authenticationLock = "";

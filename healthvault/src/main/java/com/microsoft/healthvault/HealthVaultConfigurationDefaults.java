@@ -55,7 +55,7 @@ public class HealthVaultConfigurationDefaults {
     /**
      * The Default Rest API Version
      */
-    public static final String RestVersion = "1.0-preview2";
+    public static final String RestVersion = "1.0-rc";
 
     /**
     * Default sleep duration in seconds.

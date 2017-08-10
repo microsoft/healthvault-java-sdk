@@ -29,7 +29,7 @@ import com.microsoft.healthvault.types.PersonInfo;
 
 import java.util.concurrent.Future;
 
-public abstract class HealthVaultConnectionBase implements IHealthVaultConnection { // TODO: (mikenev) fix implement chain.
+public abstract class HealthVaultConnectionBase implements IHealthVaultConnection {
     private Guid applicationId;
     private SessionCredential sessionCredential;
     protected HealthVaultConfiguration configuration;
@@ -66,24 +66,6 @@ public abstract class HealthVaultConnectionBase implements IHealthVaultConnectio
 
     public void setSessionCredential(SessionCredential credential) {
         this.sessionCredential = credential;
-    }
-
-    public HealthServiceResponseData execute(HealthVaultMethods method, int methodVersion, String parameters, Guid recordId, Guid correlationId)
-    {
-        boolean isMethodAnonymous = isMethodAnonymous(method);
-        String token = this.sessionCredential.getToken();
-
-        if (!isMethodAnonymous && (token == null || token.isEmpty())) {
-            authenticate();
-        }
-
-
-
-
-
-
-
-        return new HealthServiceResponseData();
     }
 
     public abstract PersonInfo getPersonInfo();
